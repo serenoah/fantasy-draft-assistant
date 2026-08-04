@@ -141,7 +141,7 @@
             </table></div>
           </div>
           <div id="tab-sleepers" class="hidden">
-            <p class="status-line">Players whose model value significantly exceeds current ADP.</p>
+            <p class="status-line" id="sleepersIntro">Players whose model value significantly exceeds current ADP.</p>
             <div class="board-scroll"><table>
               <thead><tr><th>Player</th><th>Pos</th><th>ADP</th><th>Model Rank</th><th>Why</th><th></th></tr></thead>
               <tbody id="sleepersBody"></tbody>
@@ -257,6 +257,30 @@ async function fetchWithTimeout(url, ms){
   }
 }
 
+// DST/K entries only carry a flat projSeasonPts, not the nested projection
+// object skill players have. Synthesize the same shape so the scoring engine
+// (which reads player.projection.projPPG everywhere) treats every position
+// uniformly instead of silently scoring DST/K at a flat VORP of 0.
+function normalizePlayers(list){
+  return list.map(p => {
+    if(!p.projection && typeof p.projSeasonPts === 'number'){
+      const games = p.projGamesPlayed || 17;
+      p.projection = {
+        projPPG: +(p.projSeasonPts/games).toFixed(2),
+        projSeasonPts: p.projSeasonPts,
+        projFloor: +(p.projSeasonPts*0.7/games).toFixed(2),
+        projCeiling: +(p.projSeasonPts*1.3/games).toFixed(2),
+        projGamesPlayed: games,
+        methodologyNote: 'Derived from season point projection.',
+      };
+    }
+    if(!p.risk) p.risk = { injuryRisk:'low', durabilityHistory:'', ageFlag:false, contractYear:false, otherFlags:[] };
+    if(!p.blurb) p.blurb = { summary: p.notes || '', sleeperReason:null, riskReason:null };
+    if(!p.situation) p.situation = { depthChartRole:'', targetShareTrend:'n/a', oLineGrade:'', coachingSchemeChange:null, competitionNotes: p.notes || '' };
+    return p;
+  });
+}
+
 async function loadData(){
   const statusEl = document.getElementById('dataStatusLine');
   // 1) Try live GitHub data (freshest, updated daily by cron).
@@ -265,7 +289,7 @@ async function loadData(){
       fetchWithTimeout(GITHUB_RAW_BASE + 'players.json', FETCH_TIMEOUT_MS),
       fetchWithTimeout(GITHUB_RAW_BASE + 'dstk.json', FETCH_TIMEOUT_MS),
     ]);
-    ALL_PLAYERS = players.concat(dstk.DST || [], dstk.K || []);
+    ALL_PLAYERS = normalizePlayers(players.concat(dstk.DST || [], dstk.K || []));
     DATA_SOURCE = 'live';
   } catch(e){
     // 2) Try local relative file (works offline if this HTML was built with embedded/local data alongside it).
@@ -274,11 +298,11 @@ async function loadData(){
         fetchWithTimeout('data/players.json', 1500),
         fetchWithTimeout('data/dstk.json', 1500),
       ]);
-      ALL_PLAYERS = players.concat(dstk.DST || [], dstk.K || []);
+      ALL_PLAYERS = normalizePlayers(players.concat(dstk.DST || [], dstk.K || []));
       DATA_SOURCE = 'local';
     } catch(e2){
       // 3) Last resort — tiny embedded fallback so the app never fully breaks.
-      ALL_PLAYERS = FALLBACK_PLAYERS.concat(FALLBACK_DSTK.DST, FALLBACK_DSTK.K);
+      ALL_PLAYERS = normalizePlayers(FALLBACK_PLAYERS.concat(FALLBACK_DSTK.DST, FALLBACK_DSTK.K));
       DATA_SOURCE = 'fallback';
     }
   }
@@ -331,7 +355,10 @@ function computeValueMetrics(){
     const modelRank = modelRankById.get(p.id);
     const valueVsADP = (p.adp && modelRank) ? (p.adp.overall - modelRank) : 0;
     const explicitSleeper = !!(p.blurb && p.blurb.sleeperReason);
-    const statSleeper = valueVsADP >= Math.max(15, thresholdByPos[p.position]||Infinity);
+    // Gate the statistical signal on tier so deep, barely-differentiated
+    // replacement-level players don't flood the list — a "sleeper" should
+    // still be a plausibly rosterable player, not just ADP noise.
+    const statSleeper = (p.tier && p.tier<=5) && valueVsADP >= Math.max(20, thresholdByPos[p.position]||Infinity);
     p.valueMetrics = {
       vorp: vorp(p),
       valueVsADP,
@@ -630,10 +657,25 @@ function renderBoard(){
   `).join('') || `<tr><td colspan="8" class="empty-state">No players match.</td></tr>`;
 }
 
+const SLEEPERS_MAX_SHOWN = 25;
+const SLEEPERS_ADP_CEILING = 200; // keep the tab to plausibly-draftable players, not deep waiver noise
+
 function renderSleepers(){
-  const pool = availablePlayers().filter(p => p.valueMetrics && (p.valueMetrics.sleeperFlag || p.valueMetrics.valueVsADP>15));
+  // Many players carry a hand-written "could be a sleeper" note (real fantasy
+  // analysis does this for most bench pieces) — that alone would flood this
+  // tab. Bound to a realistic draftable ADP range and show only the top N by
+  // value gap so it stays a curated highlight, not a full data dump. K/DST
+  // excluded — "sleeper kicker" isn't a meaningful draft concept, and their
+  // much narrower scoring range doesn't compare well against skill positions
+  // on a cross-position VORP rank anyway.
+  const pool = availablePlayers().filter(p => p.valueMetrics && p.valueMetrics.sleeperFlag && p.adp && p.adp.overall <= SLEEPERS_ADP_CEILING && p.position!=='DST' && p.position!=='K');
   pool.sort((a,b)=> (b.valueMetrics.valueVsADP||0) - (a.valueMetrics.valueVsADP||0));
-  document.getElementById('sleepersBody').innerHTML = pool.map(p => `
+  const shown = pool.slice(0, SLEEPERS_MAX_SHOWN);
+  const introEl = document.getElementById('sleepersIntro');
+  if(introEl) introEl.textContent = pool.length > shown.length
+    ? `Top ${shown.length} of ${pool.length} available players flagged as value picks (ranked by value vs. ADP).`
+    : `Players whose model value significantly exceeds current ADP (${pool.length} available).`;
+  document.getElementById('sleepersBody').innerHTML = shown.map(p => `
     <tr>
       <td>${escapeHtml(p.name)}</td>
       <td><span class="pill pos-${p.position}">${p.position}</span></td>
