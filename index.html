@@ -243,6 +243,50 @@
   .roster-slot.empty > span:last-child { color:var(--muted); font-family: var(--font-mono); font-size:11px; }
   .roster-slot .warn-bye { color:var(--bad); font-size:11px; margin-left:6px; font-weight:700; }
 
+  /* ---------- Draft board: round x team grid ---------- */
+  .draft-board-table { table-layout: fixed; }
+  .draft-board-table th, .draft-board-table td { padding:6px 7px; font-size:11.5px; border-right:1px solid var(--border); }
+  .draft-board-table th:last-child, .draft-board-table td:last-child { border-right:none; }
+  .draft-board-table .round-col { width:32px; text-align:center; color:var(--muted); font-weight:700; font-family: var(--font-mono); background:var(--panel); }
+  .draft-board-table th { text-align:center; width:84px; }
+  .draft-board-table th.my-team-col { color:var(--amber); }
+  .board-cell { max-width:84px; overflow:hidden; white-space:nowrap; }
+  .board-cell.my-team { background: var(--amber-soft); }
+  .board-cell.on-clock-cell { background: var(--amber-soft); box-shadow: inset 0 0 0 1px var(--amber); }
+  @media (prefers-reduced-motion: no-preference) { .board-cell.on-clock-cell { animation: cellPulse 1.6s ease-in-out infinite; } }
+  @keyframes cellPulse { 0%,100%{ box-shadow: inset 0 0 0 1px var(--amber); } 50%{ box-shadow: inset 0 0 0 2px var(--amber); } }
+  .cell-pos-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--pos-color,var(--muted)); margin-right:5px; flex-shrink:0; }
+  .cell-name { display:inline-block; max-width:64px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; vertical-align:middle; font-size:11px; }
+  .cell-empty { color:var(--border-strong); }
+  .cell-onclock { color:var(--amber); font-size:15px; font-weight:700; }
+
+  /* ---------- Compare tray + explain/compare modal ---------- */
+  input[type="checkbox"] { width:15px; height:15px; padding:0; accent-color: var(--amber); cursor:pointer; }
+  .cmp-col { width:28px; text-align:center; }
+  .compare-tray { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:8px 10px; margin-bottom:10px; background:var(--amber-soft); border:1px solid var(--amber); border-radius:var(--radius-sm); }
+  .compare-tray-label { font-family:var(--font-mono); font-size:10px; color:var(--amber); font-weight:700; letter-spacing:0.05em; }
+  .compare-chip { display:inline-flex; align-items:center; gap:5px; background:var(--panel); border:1px solid var(--border-strong); border-radius:99px; padding:3px 6px 3px 10px; font-size:11.5px; }
+  .chip-x { background:transparent; border:none; box-shadow:none; color:var(--muted); padding:0 3px; font-size:11px; cursor:pointer; }
+  .chip-x:hover { color:var(--bad); filter:none; transform:none; }
+
+  .modal-overlay { position:fixed; inset:0; background:rgba(5,6,9,0.7); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); display:flex; align-items:center; justify-content:center; z-index:200; padding:20px; }
+  .modal-panel { background:var(--panel); border:1px solid var(--border-strong); border-radius:var(--radius); max-width:960px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+  .modal-header { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--panel); z-index:1; }
+  .modal-header h2 { margin:0; text-transform:none; font-size:16px; letter-spacing:0; color:var(--text); font-weight:700; }
+  .compare-verdict { background:var(--amber-soft); border:1px solid var(--amber); border-radius:var(--radius-sm); padding:12px 14px; margin:18px 20px 0; font-size:13.5px; font-weight:600; color:var(--text); }
+  .compare-grid { display:grid; gap:14px; padding:18px 20px; }
+  .compare-grid.cols-1 { grid-template-columns: 1fr; max-width:420px; margin:0 auto; }
+  .compare-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .compare-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .compare-col { border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; }
+  .compare-col-head h3 { display:flex; align-items:center; gap:8px; font-size:14.5px; margin-bottom:4px; }
+  .compare-breakdown { margin:12px 0; }
+  .breakdown-row { display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px dashed var(--border); font-size:12px; color:var(--text-2); }
+  .breakdown-row span:last-child { color:var(--text); font-weight:600; font-family: var(--font-mono); }
+  .compare-col .reasoning { font-size:12.5px; color:var(--text-2); line-height:1.5; margin:0; }
+  .explain-btn { font-family: var(--font-mono); font-weight:700; }
+  @media (max-width: 760px) { .compare-grid.cols-2, .compare-grid.cols-3 { grid-template-columns: 1fr; } }
+
   /* ---------- Draft log: ticker tape ---------- */
   .log-item { font-family: var(--font-mono); font-size:12px; padding:7px 4px; border-bottom:1px dashed var(--border); display:flex; justify-content:space-between; align-items:center; }
   .log-item .mine-tag { color: var(--amber); font-weight:700; font-size:10px; margin-left:6px; }
@@ -361,6 +405,7 @@
         <div class="panel">
           <div class="tabs">
             <button class="tab-btn active" data-tab="board">Available Players</button>
+            <button class="tab-btn" data-tab="draftboard">Draft Board</button>
             <button class="tab-btn" data-tab="sleepers">Sleepers &amp; Value</button>
             <button class="tab-btn" data-tab="log">Draft Log</button>
           </div>
@@ -380,10 +425,20 @@
                 <option value="value">Sort: Value vs ADP</option>
               </select>
             </div>
+            <div class="compare-tray hidden" id="compareTray">
+              <span class="compare-tray-label">COMPARING</span>
+              <span id="compareTrayChips"></span>
+              <button class="secondary" id="compareTrayBtn" disabled style="margin-left:auto;">Compare</button>
+              <button class="ghost" id="compareTrayClearBtn">Clear</button>
+            </div>
             <div class="board-scroll"><table>
-              <thead><tr><th class="col-adp">ADP</th><th>Player</th><th>Pos</th><th>Bye</th><th>Tier</th><th>Proj PPG</th><th>Score</th><th></th></tr></thead>
+              <thead><tr><th class="cmp-col">Cmp</th><th class="col-adp">ADP</th><th>Player</th><th>Pos</th><th>Bye</th><th>Tier</th><th>Proj PPG</th><th>Score</th><th></th></tr></thead>
               <tbody id="boardBody"></tbody>
             </table></div>
+          </div>
+          <div id="tab-draftboard" class="hidden">
+            <p class="status-line">Every pick, laid out by round and team. Your column is highlighted; the current on-the-clock cell pulses.</p>
+            <div id="draftBoardContainer"></div>
           </div>
           <div id="tab-sleepers" class="hidden">
             <p class="status-line" id="sleepersIntro">Players whose model value significantly exceeds current ADP.</p>
@@ -405,6 +460,16 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="compareModal">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <h2 id="compareModalTitle">Player Comparison</h2>
+      <button class="ghost" id="compareModalClose">✕ Close</button>
+    </div>
+    <div id="compareModalBody"></div>
   </div>
 </div>
 
@@ -486,6 +551,7 @@ let activeTab = 'board';
 let sortMode = 'score';
 let posFilterVal = 'ALL';
 let searchVal = '';
+let compareSelection = []; // player ids queued for the Explain/Compare modal, max 3
 
 /* ================= DATA LOADING ================= */
 async function fetchWithTimeout(url, ms){
@@ -722,6 +788,93 @@ function buildReasoning(player, comps){
   return clauses.join(' ');
 }
 
+/* ================= EXPLAIN / COMPARE ================= */
+// Translates a scorePlayer() result into plain-language rows — this is the
+// "why is X ranked over Y" answer, built entirely from numbers already
+// computed for the live score, never invented at explain-time.
+function scoreBreakdownRows(player, comps){
+  const riskLabel = player.risk ? player.risk.injuryRisk : 'low';
+  return [
+    { label: 'Value over replacement', value: `${Math.round(comps.valueScore)}/100` },
+    { label: 'Positional scarcity', value: `${Math.round(comps.scarcityScore)}/100` },
+    { label: 'ADP value', value: `${comps.deltaPicks>0?'+':''}${Math.round(comps.deltaPicks)} picks (${comps.adpBonus>=0?'+':''}${comps.adpBonus.toFixed(1)} pts)` },
+    { label: 'Roster fit multiplier', value: `×${comps.needMult.toFixed(2)}` },
+    { label: 'Bye-week conflict', value: comps.byePenalty>0 ? `−${comps.byePenalty} pts` : 'none' },
+    { label: `Injury risk (${riskLabel})`, value: comps.riskPenalty>0 ? `−${comps.riskPenalty} pts (${comps.stage} rounds)` : 'no penalty' },
+  ];
+}
+
+function buildCompareVerdict(entries){
+  const ranked = entries.slice().sort((a,b)=>b.comps.score-a.comps.score);
+  const winner = ranked[0], runnerUp = ranked[1];
+  if(!runnerUp) return `${winner.player.name} scores ${winner.comps.score}/100 right now.`;
+  const diffs = [
+    { label:'value over replacement', delta: winner.comps.valueScore - runnerUp.comps.valueScore },
+    { label:'positional scarcity', delta: winner.comps.scarcityScore - runnerUp.comps.scarcityScore },
+    { label:'fit with your current roster needs', delta: (winner.comps.needMult - runnerUp.comps.needMult)*40 },
+    { label:'value versus market ADP', delta: winner.comps.adpBonus - runnerUp.comps.adpBonus },
+    { label:'injury risk', delta: runnerUp.comps.riskPenalty - winner.comps.riskPenalty },
+  ];
+  const biggest = diffs.reduce((a,b)=> Math.abs(b.delta)>Math.abs(a.delta) ? b : a);
+  const scoreDiff = winner.comps.score - runnerUp.comps.score;
+  const margin = scoreDiff>=15 ? 'clearly' : scoreDiff>=6 ? 'moderately' : 'narrowly';
+  return `${winner.player.name} (${winner.comps.score}) ${margin} outranks ${runnerUp.player.name} (${runnerUp.comps.score}) right now — mainly on ${biggest.label}.`;
+}
+
+function toggleCompare(id, checked){
+  if(checked){
+    if(compareSelection.length < 3 && !compareSelection.includes(id)) compareSelection.push(id);
+  } else {
+    compareSelection = compareSelection.filter(x=>x!==id);
+  }
+  renderCompareTray();
+  renderBoard(); // re-render so checkbox states (and the 3-max cap) stay accurate
+}
+
+function renderCompareTray(){
+  const tray = document.getElementById('compareTray');
+  if(!tray) return;
+  if(compareSelection.length===0){ tray.classList.add('hidden'); return; }
+  tray.classList.remove('hidden');
+  document.getElementById('compareTrayChips').innerHTML = compareSelection.map(id => {
+    const player = ALL_PLAYERS.find(p=>p.id===id);
+    return `<span class="compare-chip">${escapeHtml(player?player.name:id)} <button class="chip-x" data-remove-compare="${id}">✕</button></span>`;
+  }).join('');
+  const btn = document.getElementById('compareTrayBtn');
+  btn.disabled = compareSelection.length<2;
+  btn.textContent = compareSelection.length>=2 ? `Compare (${compareSelection.length})` : 'Compare';
+}
+
+function openCompareModal(ids){
+  const entries = ids.map(id => {
+    const player = ALL_PLAYERS.find(p=>p.id===id);
+    if(!player) return null;
+    return { player, comps: scorePlayer(player) };
+  }).filter(Boolean);
+  if(!entries.length) return;
+
+  document.getElementById('compareModalTitle').textContent = entries.length===1 ? `Why ${entries[0].player.name}?` : 'Player Comparison';
+  const verdict = entries.length>=2 ? `<div class="compare-verdict">${escapeHtml(buildCompareVerdict(entries))}</div>` : '';
+  const cols = entries.map(({player,comps}) => `
+    <div class="compare-col">
+      <div class="compare-col-head">
+        <h3>${escapeHtml(player.name)} ${posTagHtml(player.position)}</h3>
+        <div class="status-line">${player.team} · ADP ${player.adp?player.adp.overall:'-'} · Tier ${player.tier||'-'}${draftState.drafted.has(player.id)?' · DRAFTED':''}</div>
+        ${scoreGaugeHtml(comps.score)}
+      </div>
+      <div class="compare-breakdown">
+        ${scoreBreakdownRows(player,comps).map(r=>`<div class="breakdown-row"><span>${r.label}</span><span>${r.value}</span></div>`).join('')}
+      </div>
+      <p class="reasoning">${escapeHtml(buildReasoning(player, comps))}</p>
+    </div>
+  `).join('');
+  document.getElementById('compareModalBody').innerHTML = `${verdict}<div class="compare-grid cols-${entries.length}">${cols}</div>`;
+  document.getElementById('compareModal').classList.remove('hidden');
+}
+function closeCompareModal(){
+  document.getElementById('compareModal').classList.add('hidden');
+}
+
 /* ================= DRAFT LOGIC ================= */
 function teamAtPick(pickNumber, leagueSize){
   const round = Math.ceil(pickNumber/leagueSize);
@@ -752,6 +905,7 @@ function makePick(playerId, mine){
   const team = teamAtPick(pickNumber, draftState.leagueSize);
   draftState.picks.push({pickNumber, round, team, playerId, mine});
   draftState.drafted.add(playerId);
+  compareSelection = compareSelection.filter(x=>x!==playerId);
   if(mine){
     const player = ALL_PLAYERS.find(p=>p.id===playerId);
     const slot = bestSlotFor(player.position);
@@ -859,9 +1013,53 @@ function renderAll(){
 
   if(myTurn) renderOnClock();
   renderBoard();
+  renderDraftBoard();
   renderSleepers();
   renderRoster();
   renderLog();
+  renderCompareTray();
+}
+
+function renderDraftBoard(){
+  const container = document.getElementById('draftBoardContainer');
+  if(!container) return;
+  const totalRounds = ROSTER_SLOTS.reduce((sum,s)=>sum+s.count, 0);
+  const lookup = {};
+  draftState.picks.forEach(pk => { lookup[pk.round+'-'+pk.team] = pk; });
+  const pickNumber = draftState.picks.length + 1;
+  const curRound = currentRound();
+  const curTeam = teamAtPick(pickNumber, draftState.leagueSize);
+
+  let html = '<div class="board-scroll"><table class="draft-board-table"><thead><tr><th class="round-col">RD</th>';
+  for(let t=1; t<=draftState.leagueSize; t++){
+    html += `<th class="${t===draftState.myDraftSlot?'my-team-col':''}">${t===draftState.myDraftSlot?'YOU':'T'+t}</th>`;
+  }
+  html += '</tr></thead><tbody>';
+  for(let r=1; r<=totalRounds; r++){
+    html += `<tr><td class="round-col">${r}</td>`;
+    for(let t=1; t<=draftState.leagueSize; t++){
+      const pk = lookup[r+'-'+t];
+      const isMyTeamCol = t===draftState.myDraftSlot;
+      const isOnClock = (r===curRound && t===curTeam && !pk);
+      let cellContent = '<span class="cell-empty">–</span>';
+      let title = '';
+      if(pk){
+        const player = ALL_PLAYERS.find(p=>p.id===pk.playerId);
+        if(player){
+          title = ` title="${escapeHtml(player.name)}"`;
+          cellContent = `<span class="cell-pos-dot pos-${player.position}"></span><span class="cell-name">${escapeHtml(player.name)}</span>`;
+        } else {
+          cellContent = `<span class="cell-name">${escapeHtml(pk.playerId)}</span>`;
+        }
+      } else if(isOnClock){
+        cellContent = '<span class="cell-onclock">●</span>';
+      }
+      html += `<td class="board-cell ${isMyTeamCol?'my-team':''} ${isOnClock?'on-clock-cell':''}"${title}>${cellContent}</td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
 }
 
 const ON_CLOCK_COUNT = 5;
@@ -885,7 +1083,10 @@ function renderOnClock(){
         <div class="spec"><div class="spec-label">Tier</div><div class="spec-value">${p.tier||'-'}</div></div>
       </div>
       <div class="reasoning">${escapeHtml(buildReasoning(p, comps))}</div>
-      <button data-draft-mine="${p.id}">Draft to me</button>
+      <div class="row" style="gap:6px; flex-wrap:nowrap;">
+        <button data-draft-mine="${p.id}" style="flex:1;">Draft to me</button>
+        <button class="ghost explain-btn" data-explain="${p.id}" title="Why this score?">?</button>
+      </div>
     </div>
   `).join('') || '<div class="empty-state">No players available.</div>';
 }
@@ -908,6 +1109,7 @@ function renderBoard(){
   const rows = filteredSortedBoard();
   document.getElementById('boardBody').innerHTML = rows.map(({p,comps}) => `
     <tr>
+      <td class="cmp-col"><input type="checkbox" data-compare="${p.id}" ${compareSelection.includes(p.id)?'checked':''} ${!compareSelection.includes(p.id)&&compareSelection.length>=3?'disabled':''}></td>
       <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
       <td>${escapeHtml(p.name)}</td>
       <td>${posTagHtml(p.position)}</td>
@@ -918,9 +1120,10 @@ function renderBoard(){
       <td>
         <button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button>
         <button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:11px;">Other</button>
+        <button class="ghost explain-btn" data-explain="${p.id}" style="padding:4px 7px;font-size:11px;" title="Why this score?">?</button>
       </td>
     </tr>
-  `).join('') || `<tr><td colspan="8" class="empty-state">No players match.</td></tr>`;
+  `).join('') || `<tr><td colspan="9" class="empty-state">No players match.</td></tr>`;
 }
 
 const SLEEPERS_MAX_SHOWN = 25;
@@ -953,7 +1156,9 @@ function renderSleepers(){
       <td>${posTagHtml(p.position)}</td>
       <td class="mono-cell">${p.adp&&p.valueMetrics.valueVsADP? Math.round(p.adp.overall - p.valueMetrics.valueVsADP) : '-'}</td>
       <td>${escapeHtml((p.blurb&&p.blurb.sleeperReason)||'')}</td>
-      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button>`}</td>
+      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button>`}
+        <button class="ghost explain-btn" data-explain="${p.id}" style="padding:4px 7px;font-size:11px;" title="Why this pick?">?</button>
+      </td>
     </tr>
   `;
   }).join('') || `<tr><td colspan="6" class="empty-state">No standout sleepers flagged yet in the current data.</td></tr>`;
@@ -997,6 +1202,7 @@ document.getElementById('startDraftBtn').addEventListener('click', () => {
   draftState.picks = [];
   draftState.drafted = new Set();
   draftState.myRoster = {};
+  compareSelection = [];
   showDraftApp();
   autosave();
   renderAll();
@@ -1007,6 +1213,7 @@ document.getElementById('exportBtn').addEventListener('click', exportState);
 document.getElementById('resetBtn').addEventListener('click', () => {
   if(!confirm('Reset the entire draft? This cannot be undone.')) return;
   draftState = { started:false, leagueSize:draftState.leagueSize, myDraftSlot:draftState.myDraftSlot, picks:[], drafted:new Set(), myRoster:{} };
+  compareSelection = [];
   autosave();
   document.getElementById('draftApp').classList.add('hidden');
   document.getElementById('headerDraftBar').classList.add('hidden');
@@ -1027,15 +1234,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     activeTab = btn.dataset.tab;
-    ['board','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
+    ['board','draftboard','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
   });
 });
 
 document.getElementById('app').addEventListener('click', (e) => {
   const mineId = e.target.getAttribute('data-draft-mine');
   const otherId = e.target.getAttribute('data-draft-other');
+  const explainId = e.target.getAttribute('data-explain');
+  const removeCmpId = e.target.getAttribute('data-remove-compare');
   if(mineId) makePick(mineId, true);
   if(otherId) makePick(otherId, false);
+  if(explainId) openCompareModal([explainId]);
+  if(removeCmpId){ compareSelection = compareSelection.filter(x=>x!==removeCmpId); renderCompareTray(); renderBoard(); }
+});
+document.getElementById('app').addEventListener('change', (e) => {
+  const cmpId = e.target.getAttribute('data-compare');
+  if(cmpId) toggleCompare(cmpId, e.target.checked);
+});
+document.getElementById('compareTrayBtn').addEventListener('click', () => openCompareModal(compareSelection));
+document.getElementById('compareTrayClearBtn').addEventListener('click', () => {
+  compareSelection = [];
+  renderCompareTray();
+  renderBoard();
+});
+document.getElementById('compareModalClose').addEventListener('click', closeCompareModal);
+document.getElementById('compareModal').addEventListener('click', (e) => {
+  if(e.target.id==='compareModal') closeCompareModal();
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key==='Escape') closeCompareModal();
 });
 
 /* ================= INIT ================= */
