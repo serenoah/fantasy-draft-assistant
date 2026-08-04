@@ -498,7 +498,7 @@ const REPLACEMENT_RANK = { QB:14, RB:30, WR:36, TE:14, DST:12, K:12 };
 const SCORE_WEIGHTS = { value:0.65, scarcity:0.20 };
 const ADP_BONUS_FACTOR = 0.3;
 const ADP_BONUS_CLAMP = [-15, 20];
-const NEED_MULTIPLIER = { required:1.3, flex:1.15, bench:1.0, full:0.7 };
+const NEED_MULTIPLIER = { required:1.4, flex:1.15, bench:0.85, full:0.5 };
 const BYE_CONFLICT_PENALTY = { two:5, three:10 };
 const RISK_PENALTY = {
   early: { low:0, medium:8, high:18 },
@@ -697,14 +697,40 @@ function availablePlayers(){
 
 function needMultiplierFor(position){
   const filled = draftState.myRoster;
+
+  // K/DST are late-round positions by convention. Their starter slot is
+  // technically "required" once empty, but real draft strategy never
+  // prioritizes them until the last couple of rounds — without this cap
+  // they'd rank as "required" as early as round 1 (empty K/DST slot) and
+  // crowd out real skill-position needs on the recommendation list.
+  if((position==='DST' || position==='K') && roundStage(currentRound())!=='late'){
+    const used = (filled[position]||[]).length;
+    return used<1 ? NEED_MULTIPLIER.bench : NEED_MULTIPLIER.full;
+  }
+
+  // 1) A genuinely empty dedicated starter slot (QB/RB/WR/TE/DST/K) always wins —
+  //    this is the real, immediate roster need.
   for(const slot of ROSTER_SLOTS){
-    if(slot.key==='BENCH') continue;
+    if(slot.key==='BENCH' || slot.key==='FLEX') continue;
     if(!slot.eligible.includes(position)) continue;
     const used = (filled[slot.key]||[]).length;
-    if(used < slot.count){
-      return slot.key==='FLEX' ? NEED_MULTIPLIER.flex : NEED_MULTIPLIER.required;
-    }
+    if(used < slot.count) return NEED_MULTIPLIER.required;
   }
+
+  // 2) FLEX only counts as a real need once RB/WR/TE starters are ALL filled.
+  //    Without this gate, a 3rd/4th RB would keep qualifying for "flex need"
+  //    forever (FLEX accepts RB/WR/TE), masking a still-empty WR/TE starter
+  //    slot and pushing roster-building out of balance — this is the bug
+  //    that caused extra RBs/TEs to keep outscoring a genuinely-needed WR.
+  const flexSlot = ROSTER_SLOTS.find(s=>s.key==='FLEX');
+  if(flexSlot.eligible.includes(position)){
+    const starterFeedersFull = ROSTER_SLOTS
+      .filter(s=>['RB','WR','TE'].includes(s.key))
+      .every(s => (filled[s.key]||[]).length >= s.count);
+    const flexUsed = (filled.FLEX||[]).length;
+    if(starterFeedersFull && flexUsed < flexSlot.count) return NEED_MULTIPLIER.flex;
+  }
+
   const benchUsed = (filled.BENCH||[]).length;
   if(benchUsed < ROSTER_SLOTS.find(s=>s.key==='BENCH').count) return NEED_MULTIPLIER.bench;
   return NEED_MULTIPLIER.full;
