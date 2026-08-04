@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fantasy Draft Assistant</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --border: #e2e5ea; --text: #1a1d24; --muted: #6b7280;
+    --accent: #2563eb; --accent-fg: #ffffff; --good: #16a34a; --warn: #d97706; --bad: #dc2626;
+    --tier1: #7c3aed; --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f1115; --panel:#171a21; --border:#2a2e37; --text:#e8eaed; --muted:#9aa2af;
+      --accent:#3b82f6; --accent-fg:#0b0d12; --good:#4ade80; --warn:#fbbf24; --bad:#f87171; --tier1:#a78bfa;
+      --shadow: 0 1px 3px rgba(0,0,0,0.4); }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); }
+  #app { max-width: 1400px; margin: 0 auto; padding: 16px; }
+  h1,h2,h3 { margin: 0 0 8px; }
+  .panel { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:14px; box-shadow:var(--shadow); }
+  .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+  label { font-size:13px; color:var(--muted); display:block; margin-bottom:4px; }
+  input, select, button { font:inherit; padding:8px 10px; border-radius:7px; border:1px solid var(--border); background:var(--bg); color:var(--text); }
+  button { cursor:pointer; background:var(--accent); color:var(--accent-fg); border:none; font-weight:600; }
+  button.secondary { background:var(--bg); color:var(--text); border:1px solid var(--border); font-weight:500; }
+  button.ghost { background:transparent; color:var(--muted); border:1px solid var(--border); font-weight:500; padding:5px 8px; font-size:12px; }
+  button:disabled { opacity:0.5; cursor:not-allowed; }
+  table { width:100%; border-collapse: collapse; font-size:14px; }
+  th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.03em; position:sticky; top:0; background:var(--panel); cursor:pointer; }
+  tbody tr:hover { background: rgba(127,127,127,0.06); }
+  .board-scroll { max-height: 520px; overflow:auto; border:1px solid var(--border); border-radius:8px; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; }
+  .pos-QB{background:#fee2e2;color:#991b1b;} .pos-RB{background:#dcfce7;color:#166534;} .pos-WR{background:#dbeafe;color:#1e40af;}
+  .pos-TE{background:#fef3c7;color:#92400e;} .pos-DST{background:#e5e7eb;color:#374151;} .pos-K{background:#f3e8ff;color:#6b21a8;}
+  @media (prefers-color-scheme: dark) {
+    .pos-QB{background:#3f1d1d;color:#fca5a5;} .pos-RB{background:#153524;color:#86efac;} .pos-WR{background:#1c2f4d;color:#93c5fd;}
+    .pos-TE{background:#3f3115;color:#fcd34d;} .pos-DST{background:#2a2e37;color:#cbd5e1;} .pos-K{background:#2e1f3f;color:#d8b4fe;}
+  }
+  .score-badge { display:inline-flex; align-items:center; justify-content:center; min-width:34px; padding:2px 6px; border-radius:7px; font-weight:800; font-size:13px; }
+  .score-90{background:var(--tier1);color:#fff;} .score-75{background:var(--good);color:#06240f;} .score-60{background:var(--warn);color:#2b1a02;} .score-0{background:var(--border);color:var(--muted);}
+  .grid-3 { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:12px; }
+  .pick-card { border:1px solid var(--border); border-radius:10px; padding:12px; background:var(--bg); }
+  .pick-card .top { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .pick-card h3 { font-size:16px; }
+  .pick-card .meta { color:var(--muted); font-size:12px; margin:2px 0 8px; }
+  .pick-card .reasoning { font-size:13px; line-height:1.4; margin-bottom:10px; }
+  .badge-sleeper { background:var(--good); color:#06240f; font-size:10px; font-weight:800; padding:2px 6px; border-radius:6px; margin-left:6px; }
+  .clock-banner { background: linear-gradient(90deg, var(--accent), var(--tier1)); color:#fff; padding:10px 14px; border-radius:9px; font-weight:700; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
+  .tabs { display:flex; gap:6px; margin-bottom:10px; }
+  .tab-btn { background:var(--bg); color:var(--muted); border:1px solid var(--border); font-weight:600; padding:7px 12px; }
+  .tab-btn.active { background:var(--accent); color:var(--accent-fg); border-color:var(--accent); }
+  .hidden { display:none !important; }
+  .status-line { font-size:12px; color:var(--muted); margin-top:6px; }
+  .roster-slot { display:flex; justify-content:space-between; padding:6px 8px; border-bottom:1px solid var(--border); font-size:13px; }
+  .roster-slot.empty { color:var(--muted); font-style:italic; }
+  .roster-slot .warn-bye { color:var(--warn); font-size:11px; margin-left:6px; }
+  .log-item { font-size:12px; padding:4px 0; border-bottom:1px dashed var(--border); display:flex; justify-content:space-between; }
+  .toolbar-right { margin-left:auto; display:flex; gap:8px; }
+  input[type="search"] { min-width:180px; }
+  .empty-state { color:var(--muted); padding:20px; text-align:center; font-size:14px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="panel" id="setupPanel">
+    <h1>🏈 Fantasy Draft Assistant</h1>
+    <p class="status-line" id="dataStatusLine">Loading player data…</p>
+    <div class="row" style="margin-top:10px;">
+      <div>
+        <label for="leagueSizeInput">League size</label>
+        <input type="number" id="leagueSizeInput" value="12" min="4" max="16" style="width:80px;">
+      </div>
+      <div>
+        <label for="draftSlotInput">Your draft slot (1 = first overall)</label>
+        <input type="number" id="draftSlotInput" value="1" min="1" max="16" style="width:80px;">
+      </div>
+      <div style="align-self:flex-end;">
+        <button id="startDraftBtn">Start Draft</button>
+      </div>
+      <div style="align-self:flex-end;">
+        <label style="margin-bottom:0;">&nbsp;</label>
+        <input type="file" id="importFile" accept="application/json" style="display:none;">
+        <button class="secondary" id="importBtn">Resume from file…</button>
+      </div>
+    </div>
+    <details style="margin-top:12px;">
+      <summary style="cursor:pointer; color:var(--muted); font-size:13px;">Roster settings (fixed for this build)</summary>
+      <p class="status-line" id="rosterSlotsDisplay"></p>
+    </details>
+  </div>
+
+  <div id="draftApp" class="hidden">
+    <div class="clock-banner hidden" id="clockBanner">
+      <span id="clockBannerText">You're on the clock!</span>
+      <span id="clockPickInfo"></span>
+    </div>
+    <div class="panel row" style="align-items:center;">
+      <div><strong id="pickStatusText">Pick 1, Round 1</strong> <span class="status-line" id="onClockTeamText"></span></div>
+      <div class="toolbar-right">
+        <button class="ghost" id="undoBtn">Undo last pick</button>
+        <button class="ghost" id="exportBtn">Export draft state</button>
+        <button class="ghost" id="resetBtn">Reset draft</button>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="onClockPanel">
+      <h2>Top picks for you right now</h2>
+      <div class="grid-3" id="onClockCards"></div>
+    </div>
+
+    <div class="row" style="align-items:flex-start; gap:14px;">
+      <div style="flex: 2; min-width:320px;">
+        <div class="panel">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="board">Available Players</button>
+            <button class="tab-btn" data-tab="sleepers">Sleepers &amp; Value</button>
+            <button class="tab-btn" data-tab="log">Draft Log</button>
+          </div>
+
+          <div id="tab-board">
+            <div class="row" style="margin-bottom:10px;">
+              <input type="search" id="searchInput" placeholder="Search player…">
+              <select id="posFilter">
+                <option value="ALL">All positions</option>
+                <option value="QB">QB</option><option value="RB">RB</option><option value="WR">WR</option>
+                <option value="TE">TE</option><option value="DST">DST</option><option value="K">K</option>
+              </select>
+              <select id="sortSelect">
+                <option value="score">Sort: My Score</option>
+                <option value="adp">Sort: ADP</option>
+                <option value="tier">Sort: Tier</option>
+                <option value="value">Sort: Value vs ADP</option>
+              </select>
+            </div>
+            <div class="board-scroll"><table>
+              <thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>ADP</th><th>Tier</th><th>Proj PPG</th><th>Score</th><th></th></tr></thead>
+              <tbody id="boardBody"></tbody>
+            </table></div>
+          </div>
+          <div id="tab-sleepers" class="hidden">
+            <p class="status-line">Players whose model value significantly exceeds current ADP.</p>
+            <div class="board-scroll"><table>
+              <thead><tr><th>Player</th><th>Pos</th><th>ADP</th><th>Model Rank</th><th>Why</th><th></th></tr></thead>
+              <tbody id="sleepersBody"></tbody>
+            </table></div>
+          </div>
+          <div id="tab-log" class="hidden">
+            <div id="logList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; min-width:280px;">
+        <div class="panel">
+          <h2>My Roster</h2>
+          <div id="rosterList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ================= CONFIG ================= */
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/serenoah/fantasy-draft-assistant/main/data/';
+const FETCH_TIMEOUT_MS = 4000;
+
+const ROSTER_SLOTS = [
+  { key:'QB', label:'QB', eligible:['QB'], count:1 },
+  { key:'RB', label:'RB', eligible:['RB'], count:2 },
+  { key:'WR', label:'WR', eligible:['WR'], count:2 },
+  { key:'TE', label:'TE', eligible:['TE'], count:1 },
+  { key:'FLEX', label:'FLEX', eligible:['RB','WR','TE'], count:1 },
+  { key:'DST', label:'DST', eligible:['DST'], count:1 },
+  { key:'K', label:'K', eligible:['K'], count:1 },
+  { key:'BENCH', label:'BENCH', eligible:['QB','RB','WR','TE','DST','K'], count:6 },
+];
+
+// Replacement-level rank (12-team PPR, 1-QB) used for VORP baselines.
+const REPLACEMENT_RANK = { QB:14, RB:30, WR:36, TE:14, DST:12, K:12 };
+
+// Scoring tuning constants — safe to tweak later.
+const SCORE_WEIGHTS = { value:0.65, scarcity:0.20 };
+const ADP_BONUS_FACTOR = 0.3;
+const ADP_BONUS_CLAMP = [-15, 20];
+const NEED_MULTIPLIER = { required:1.3, flex:1.15, bench:1.0, full:0.7 };
+const BYE_CONFLICT_PENALTY = { two:5, three:10 };
+const RISK_PENALTY = {
+  early: { low:0, medium:8, high:18 },
+  mid:   { low:0, medium:5, high:10 },
+  late:  { low:0, medium:2, high:4 },
+};
+
+/* ================= FALLBACK DATA (used only if both live + no data files are reachable) ============ */
+const FALLBACK_PLAYERS = [
+  mkFallback('ja-marr-chase-cin-wr','Ja\'Marr Chase','CIN','WR',10,1,1),
+  mkFallback('bijan-robinson-atl-rb','Bijan Robinson','ATL','RB',5,2,1),
+  mkFallback('ceedee-lamb-dal-wr','CeeDee Lamb','DAL','WR',10,3,2),
+  mkFallback('justin-jefferson-min-wr','Justin Jefferson','MIN','WR',6,4,3),
+  mkFallback('breece-hall-nyj-rb','Breece Hall','NYJ','RB',9,5,2),
+  mkFallback('jahmyr-gibbs-det-rb','Jahmyr Gibbs','DET','RB',8,6,3),
+  mkFallback('amon-ra-st-brown-det-wr','Amon-Ra St. Brown','DET','WR',8,7,4),
+  mkFallback('christian-mccaffrey-sf-rb','Christian McCaffrey','SF','RB',14,8,4),
+  mkFallback('tyreek-hill-mia-wr','Tyreek Hill','MIA','WR',6,9,5),
+  mkFallback('patrick-mahomes-kc-qb','Patrick Mahomes','KC','QB',6,25,1),
+];
+function mkFallback(id,name,team,pos,bye,adpOverall,tier){
+  return {
+    id,name,team,position:pos,byeWeek:bye,
+    adp:{overall:adpOverall,positionRank:tier,source:'fallback',asOf:'2026-08-01'},
+    prevSeason:{gamesPlayed:16,snapPct:0.85,targets:0,receptions:0,recYards:0,recTD:0,rushAtt:0,rushYards:0,rushTD:0,pprPts:0,pprPtsPerGame:0},
+    anomalyAdjusted:{adjustedPPG:15,adjustments:[],confidence:'low'},
+    projection:{projPPG: Math.max(6, 24 - adpOverall*0.35), projSeasonPts: 0, projFloor:0, projCeiling:0, projGamesPlayed:16, methodologyNote:'Fallback placeholder — live/local data unavailable.'},
+    schedule:{seasonSosGrade:'C',playoffSosGrade:'C',notes:''},
+    situation:{depthChartRole:'Starter',targetShareTrend:'stable-high',oLineGrade:'B',coachingSchemeChange:null,competitionNotes:''},
+    risk:{injuryRisk:'low',durabilityHistory:'',ageFlag:false,contractYear:false,otherFlags:[]},
+    tier,
+    blurb:{summary:'Placeholder data — refresh with internet access for full rankings.',sleeperReason:null,riskReason:null},
+    newsLog:[], meta:{lastUpdated:'2026-08-01',dataConfidence:'low'},
+  };
+}
+const FALLBACK_DSTK = { DST: [], K: [] };
+
+/* ================= STATE ================= */
+let ALL_PLAYERS = [];      // merged QB/RB/WR/TE/DST/K
+let DATA_SOURCE = 'none';  // 'live' | 'local' | 'fallback'
+let DATA_AS_OF = '';
+
+let draftState = {
+  started:false, leagueSize:12, myDraftSlot:1,
+  picks:[],            // {pickNumber, round, team, playerId, mine}
+  drafted:new Set(),
+  myRoster:{},          // slotKey -> [{playerId}]
+};
+let activeTab = 'board';
+let sortMode = 'score';
+let posFilterVal = 'ALL';
+let searchVal = '';
+
+/* ================= DATA LOADING ================= */
+async function fetchWithTimeout(url, ms){
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), ms);
+  try {
+    const res = await fetch(url, {signal: ctrl.signal, cache:'no-store'});
+    clearTimeout(t);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    return await res.json();
+  } catch(e){
+    clearTimeout(t);
+    throw e;
+  }
+}
+
+async function loadData(){
+  const statusEl = document.getElementById('dataStatusLine');
+  // 1) Try live GitHub data (freshest, updated daily by cron).
+  try {
+    const [players, dstk] = await Promise.all([
+      fetchWithTimeout(GITHUB_RAW_BASE + 'players.json', FETCH_TIMEOUT_MS),
+      fetchWithTimeout(GITHUB_RAW_BASE + 'dstk.json', FETCH_TIMEOUT_MS),
+    ]);
+    ALL_PLAYERS = players.concat(dstk.DST || [], dstk.K || []);
+    DATA_SOURCE = 'live';
+  } catch(e){
+    // 2) Try local relative file (works offline if this HTML was built with embedded/local data alongside it).
+    try {
+      const [players, dstk] = await Promise.all([
+        fetchWithTimeout('data/players.json', 1500),
+        fetchWithTimeout('data/dstk.json', 1500),
+      ]);
+      ALL_PLAYERS = players.concat(dstk.DST || [], dstk.K || []);
+      DATA_SOURCE = 'local';
+    } catch(e2){
+      // 3) Last resort — tiny embedded fallback so the app never fully breaks.
+      ALL_PLAYERS = FALLBACK_PLAYERS.concat(FALLBACK_DSTK.DST, FALLBACK_DSTK.K);
+      DATA_SOURCE = 'fallback';
+    }
+  }
+  DATA_AS_OF = ALL_PLAYERS.reduce((max,p)=> {
+    const d = p.meta && p.meta.lastUpdated;
+    return d && d > max ? d : max;
+  }, '');
+  computeBaselines();
+  computeValueMetrics();
+  const srcLabel = DATA_SOURCE==='live' ? 'Live data from GitHub' : DATA_SOURCE==='local' ? 'Local data file' : 'Fallback placeholder data (limited) — connect to internet and reload for full rankings';
+  statusEl.textContent = `${srcLabel} · ${ALL_PLAYERS.length} players loaded${DATA_AS_OF ? ' · as of '+DATA_AS_OF : ''}`;
+  document.getElementById('rosterSlotsDisplay').textContent = ROSTER_SLOTS.map(s=>`${s.count}x ${s.label}`).join(', ');
+}
+
+/* ================= SCORING ENGINE ================= */
+let POSITION_BASELINES = {};
+function computeBaselines(){
+  POSITION_BASELINES = {};
+  for(const pos of Object.keys(REPLACEMENT_RANK)){
+    const list = ALL_PLAYERS.filter(p=>p.position===pos && p.projection && typeof p.projection.projPPG==='number')
+      .sort((a,b)=>b.projection.projPPG - a.projection.projPPG);
+    const idx = Math.min(REPLACEMENT_RANK[pos]-1, Math.max(list.length-1,0));
+    POSITION_BASELINES[pos] = list.length ? list[idx].projection.projPPG : 0;
+  }
+}
+
+function vorp(player){
+  if(!player.projection) return 0;
+  return player.projection.projPPG - (POSITION_BASELINES[player.position] || 0);
+}
+
+// Precomputes each player's model rank vs. market ADP so the board/sleepers
+// tab can highlight value without recomputing a full-pool rank on every render.
+function computeValueMetrics(){
+  const ranked = ALL_PLAYERS.filter(p=>p.projection).slice().sort((a,b)=>vorp(b)-vorp(a));
+  const modelRankById = new Map(ranked.map((p,i)=>[p.id,i+1]));
+  // position-relative thresholds so sleeper flags aren't dominated by one position
+  const deltaByPos = {};
+  for(const p of ALL_PLAYERS){
+    if(!p.adp || !modelRankById.has(p.id)) continue;
+    const delta = p.adp.overall - modelRankById.get(p.id);
+    (deltaByPos[p.position] = deltaByPos[p.position]||[]).push(delta);
+  }
+  const thresholdByPos = {};
+  for(const pos of Object.keys(deltaByPos)){
+    const sorted = deltaByPos[pos].slice().sort((a,b)=>b-a);
+    thresholdByPos[pos] = sorted[Math.floor(sorted.length*0.15)] ?? Infinity; // top ~15% by value
+  }
+  for(const p of ALL_PLAYERS){
+    const modelRank = modelRankById.get(p.id);
+    const valueVsADP = (p.adp && modelRank) ? (p.adp.overall - modelRank) : 0;
+    const explicitSleeper = !!(p.blurb && p.blurb.sleeperReason);
+    const statSleeper = valueVsADP >= Math.max(15, thresholdByPos[p.position]||Infinity);
+    p.valueMetrics = {
+      vorp: vorp(p),
+      valueVsADP,
+      sleeperFlag: explicitSleeper || statSleeper,
+      bustRiskFlag: !!(p.risk && p.risk.injuryRisk==='high' && p.tier && p.tier<=3),
+    };
+  }
+}
+
+function roundStage(round){
+  if(round<=4) return 'early';
+  if(round<=9) return 'mid';
+  return 'late';
+}
+
+function hashStr(s){
+  let h = 0;
+  for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) | 0; }
+  return Math.abs(h);
+}
+
+function availablePlayers(){
+  return ALL_PLAYERS.filter(p => !draftState.drafted.has(p.id));
+}
+
+function needMultiplierFor(position){
+  const filled = draftState.myRoster;
+  for(const slot of ROSTER_SLOTS){
+    if(slot.key==='BENCH') continue;
+    if(!slot.eligible.includes(position)) continue;
+    const used = (filled[slot.key]||[]).length;
+    if(used < slot.count){
+      return slot.key==='FLEX' ? NEED_MULTIPLIER.flex : NEED_MULTIPLIER.required;
+    }
+  }
+  const benchUsed = (filled.BENCH||[]).length;
+  if(benchUsed < ROSTER_SLOTS.find(s=>s.key==='BENCH').count) return NEED_MULTIPLIER.bench;
+  return NEED_MULTIPLIER.full;
+}
+
+function byeConflictPenalty(player){
+  const mine = Object.values(draftState.myRoster).flat().map(r => ALL_PLAYERS.find(p=>p.id===r.playerId)).filter(Boolean);
+  const sameBye = mine.filter(p => p.byeWeek === player.byeWeek).length;
+  if(sameBye>=3) return BYE_CONFLICT_PENALTY.three;
+  if(sameBye>=2) return BYE_CONFLICT_PENALTY.two;
+  return 0;
+}
+
+function currentRound(){
+  return Math.ceil((draftState.picks.length+1) / draftState.leagueSize);
+}
+
+function scorePlayer(player){
+  const pool = availablePlayers();
+  const samePos = pool.filter(p=>p.position===player.position);
+  const vorps = pool.map(vorp);
+  const minV = Math.min(...vorps), maxV = Math.max(...vorps);
+  const v = vorp(player);
+  const valueScore = maxV>minV ? ((v-minV)/(maxV-minV))*100 : 50;
+
+  // scarcity: fewer remaining tier<=3 players at this position -> higher
+  const topTierRemaining = samePos.filter(p=>p.tier && p.tier<=3).length;
+  const scarcityScore = Math.max(0, Math.min(100, 100 - topTierRemaining*8));
+
+  // adp bonus: model rank (by vorp desc within pool) vs market adp
+  const modelRank = pool.slice().sort((a,b)=>vorp(b)-vorp(a)).findIndex(p=>p.id===player.id) + 1;
+  const marketRank = player.adp ? player.adp.overall : modelRank;
+  const deltaPicks = marketRank - modelRank; // positive = model likes more than market
+  const adpBonus = Math.max(ADP_BONUS_CLAMP[0], Math.min(ADP_BONUS_CLAMP[1], deltaPicks*ADP_BONUS_FACTOR));
+
+  const round = currentRound();
+  const stage = roundStage(round);
+  const risk = player.risk ? player.risk.injuryRisk : 'low';
+  const riskPenalty = RISK_PENALTY[stage][risk] ?? 0;
+
+  const byePenalty = byeConflictPenalty(player);
+  const needMult = needMultiplierFor(player.position);
+
+  let base = valueScore*SCORE_WEIGHTS.value + scarcityScore*SCORE_WEIGHTS.scarcity;
+  base += adpBonus;
+  base *= needMult;
+  base -= byePenalty;
+  base -= riskPenalty;
+
+  const score = Math.max(1, Math.min(100, Math.round(base)));
+  return { score, valueScore, scarcityScore, adpBonus, needMult, byePenalty, riskPenalty, deltaPicks, stage };
+}
+
+const PHRASES = {
+  need: {
+    required: ["You're thin at {POS} — this fills an immediate starting need.", "A real starting-lineup need at {POS} right now."],
+    flex: ["Flex-eligible depth that upgrades your bench floor.", "Adds a strong flex option for your lineup."],
+    bench: ["Solid depth add — your {POS} starters are already set.", "Good bench value; {POS} room is already covered."],
+    full: ["Pure best-player-available — your {POS} room is already deep.", "Value pick; roster need at {POS} is low at this point."],
+  },
+  value: {
+    big: ["Real value — going well past ADP here.", "Model has this as a clear value versus market ADP."],
+    small: ["A modest value relative to consensus ADP.", "Slightly better than where the market has them."],
+    fair: ["Right around consensus ADP.", "Fair value at market rate."],
+    reach: ["A bit of a reach vs. ADP, justified by need.", "Priced ahead of ADP, but the fit matters here."],
+  },
+};
+function pick(arr, seed){ return arr[seed % arr.length]; }
+
+function buildReasoning(player, comps){
+  const seed = hashStr(player.id + '-' + (draftState.picks.length+1));
+  const needKey = comps.needMult>=NEED_MULTIPLIER.required ? 'required' : comps.needMult>=NEED_MULTIPLIER.flex ? 'flex' : comps.needMult>=NEED_MULTIPLIER.bench ? 'bench' : 'full';
+  const valueKey = comps.deltaPicks>10 ? 'big' : comps.deltaPicks>3 ? 'small' : comps.deltaPicks>-3 ? 'fair' : 'reach';
+  const needClause = pick(PHRASES.need[needKey], seed).replace(/{POS}/g, player.position);
+  const valueClause = pick(PHRASES.value[valueKey], seed>>2);
+  const situationClause = (player.blurb && (player.blurb.riskReason || player.situation && player.situation.competitionNotes)) || (player.blurb && player.blurb.summary) || '';
+  let clauses = [needClause, valueClause, situationClause].filter(Boolean);
+  if(player.valueMetrics && player.valueMetrics.sleeperFlag && player.blurb && player.blurb.sleeperReason){
+    clauses.push('💎 ' + player.blurb.sleeperReason);
+  }
+  return clauses.join(' ');
+}
+
+/* ================= DRAFT LOGIC ================= */
+function teamAtPick(pickNumber, leagueSize){
+  const round = Math.ceil(pickNumber/leagueSize);
+  const posInRound = ((pickNumber-1) % leagueSize) + 1;
+  return (round % 2 === 1) ? posInRound : (leagueSize - posInRound + 1);
+}
+function isMyTurn(){
+  const pickNumber = draftState.picks.length + 1;
+  return teamAtPick(pickNumber, draftState.leagueSize) === draftState.myDraftSlot;
+}
+
+function bestSlotFor(position){
+  for(const slot of ROSTER_SLOTS){
+    if(slot.key==='BENCH') continue;
+    if(!slot.eligible.includes(position)) continue;
+    const used = (draftState.myRoster[slot.key]||[]).length;
+    if(used < slot.count) return slot.key;
+  }
+  const benchSlot = ROSTER_SLOTS.find(s=>s.key==='BENCH');
+  const benchUsed = (draftState.myRoster.BENCH||[]).length;
+  if(benchUsed < benchSlot.count) return 'BENCH';
+  return 'BENCH'; // overflow, still track it
+}
+
+function makePick(playerId, mine){
+  const pickNumber = draftState.picks.length + 1;
+  const round = Math.ceil(pickNumber/draftState.leagueSize);
+  const team = teamAtPick(pickNumber, draftState.leagueSize);
+  draftState.picks.push({pickNumber, round, team, playerId, mine});
+  draftState.drafted.add(playerId);
+  if(mine){
+    const player = ALL_PLAYERS.find(p=>p.id===playerId);
+    const slot = bestSlotFor(player.position);
+    if(!draftState.myRoster[slot]) draftState.myRoster[slot] = [];
+    draftState.myRoster[slot].push({playerId});
+  }
+  autosave();
+  renderAll();
+}
+
+function undoLastPick(){
+  const last = draftState.picks.pop();
+  if(!last) return;
+  draftState.drafted.delete(last.playerId);
+  if(last.mine){
+    for(const key of Object.keys(draftState.myRoster)){
+      const idx = draftState.myRoster[key].findIndex(r=>r.playerId===last.playerId);
+      if(idx>=0){ draftState.myRoster[key].splice(idx,1); break; }
+    }
+  }
+  autosave();
+  renderAll();
+}
+
+/* ================= PERSISTENCE ================= */
+function autosave(){
+  try {
+    const payload = {
+      ...draftState,
+      drafted: Array.from(draftState.drafted),
+    };
+    localStorage.setItem('ffDraft.v1', JSON.stringify(payload));
+  } catch(e){ /* best-effort only */ }
+}
+function tryHydrate(){
+  try {
+    const raw = localStorage.getItem('ffDraft.v1');
+    if(!raw) return false;
+    const payload = JSON.parse(raw);
+    draftState = { ...payload, drafted: new Set(payload.drafted||[]) };
+    return draftState.started;
+  } catch(e){ return false; }
+}
+function exportState(){
+  const payload = { ...draftState, drafted: Array.from(draftState.drafted), exportedAt: DATA_AS_OF };
+  const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `draft-state-${(payload.exportedAt||'export')}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function importStateFromFile(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const payload = JSON.parse(reader.result);
+      draftState = { ...payload, drafted: new Set(payload.drafted||[]) };
+      showDraftApp();
+      renderAll();
+    } catch(e){ alert('Could not read that file — is it a valid exported draft state?'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ================= RENDERING ================= */
+function showDraftApp(){
+  document.getElementById('setupPanel').classList.add('hidden');
+  document.getElementById('draftApp').classList.remove('hidden');
+}
+
+function scoreBadgeClass(score){
+  if(score>=90) return 'score-90';
+  if(score>=75) return 'score-75';
+  if(score>=60) return 'score-60';
+  return 'score-0';
+}
+
+function renderAll(){
+  const pickNumber = draftState.picks.length+1;
+  const round = currentRound();
+  const team = teamAtPick(pickNumber, draftState.leagueSize);
+  document.getElementById('pickStatusText').textContent = `Pick ${pickNumber}, Round ${round}`;
+  document.getElementById('onClockTeamText').textContent = `Team ${team} on the clock`;
+
+  const myTurn = isMyTurn();
+  document.getElementById('clockBanner').classList.toggle('hidden', !myTurn);
+  document.getElementById('onClockPanel').classList.toggle('hidden', !myTurn);
+  document.getElementById('clockPickInfo').textContent = `Pick #${pickNumber} (Round ${round})`;
+
+  if(myTurn) renderOnClock();
+  renderBoard();
+  renderSleepers();
+  renderRoster();
+  renderLog();
+}
+
+function renderOnClock(){
+  const pool = availablePlayers();
+  const scored = pool.map(p => ({p, comps: scorePlayer(p)}))
+    .sort((a,b)=>b.comps.score - a.comps.score)
+    .slice(0,3);
+  const container = document.getElementById('onClockCards');
+  container.innerHTML = scored.map(({p,comps}) => `
+    <div class="pick-card">
+      <div class="top">
+        <div>
+          <h3>${escapeHtml(p.name)} <span class="pill pos-${p.position}">${p.position}</span></h3>
+          <div class="meta">${p.team} · Bye ${p.byeWeek||'-'} · ADP ${p.adp? p.adp.overall : '-'} · Tier ${p.tier||'-'}${p.valueMetrics&&p.valueMetrics.sleeperFlag?'<span class="badge-sleeper">SLEEPER</span>':''}</div>
+        </div>
+        <span class="score-badge ${scoreBadgeClass(comps.score)}">${comps.score}</span>
+      </div>
+      <div class="reasoning">${escapeHtml(buildReasoning(p, comps))}</div>
+      <button data-draft-mine="${p.id}">Draft to me</button>
+    </div>
+  `).join('') || '<div class="empty-state">No players available.</div>';
+}
+
+function filteredSortedBoard(){
+  let pool = availablePlayers();
+  if(posFilterVal!=='ALL') pool = pool.filter(p=>p.position===posFilterVal);
+  if(searchVal) pool = pool.filter(p=>p.name.toLowerCase().includes(searchVal.toLowerCase()));
+  const scored = pool.map(p=>({p, comps: scorePlayer(p)}));
+  scored.sort((a,b)=>{
+    if(sortMode==='adp') return (a.p.adp?a.p.adp.overall:999) - (b.p.adp?b.p.adp.overall:999);
+    if(sortMode==='tier') return (a.p.tier||99) - (b.p.tier||99);
+    if(sortMode==='value') return b.comps.deltaPicks - a.comps.deltaPicks;
+    return b.comps.score - a.comps.score;
+  });
+  return scored;
+}
+
+function renderBoard(){
+  const rows = filteredSortedBoard();
+  document.getElementById('boardBody').innerHTML = rows.map(({p,comps}) => `
+    <tr>
+      <td>${escapeHtml(p.name)}</td>
+      <td><span class="pill pos-${p.position}">${p.position}</span></td>
+      <td>${p.byeWeek||'-'}</td>
+      <td>${p.adp?p.adp.overall:'-'}</td>
+      <td>${p.tier||'-'}</td>
+      <td>${p.projection?p.projection.projPPG.toFixed(1):'-'}</td>
+      <td><span class="score-badge ${scoreBadgeClass(comps.score)}">${comps.score}</span></td>
+      <td>
+        <button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:12px;">Me</button>
+        <button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:12px;">Other</button>
+      </td>
+    </tr>
+  `).join('') || `<tr><td colspan="8" class="empty-state">No players match.</td></tr>`;
+}
+
+function renderSleepers(){
+  const pool = availablePlayers().filter(p => p.valueMetrics && (p.valueMetrics.sleeperFlag || p.valueMetrics.valueVsADP>15));
+  pool.sort((a,b)=> (b.valueMetrics.valueVsADP||0) - (a.valueMetrics.valueVsADP||0));
+  document.getElementById('sleepersBody').innerHTML = pool.map(p => `
+    <tr>
+      <td>${escapeHtml(p.name)}</td>
+      <td><span class="pill pos-${p.position}">${p.position}</span></td>
+      <td>${p.adp?p.adp.overall:'-'}</td>
+      <td>${p.adp&&p.valueMetrics.valueVsADP? Math.round(p.adp.overall - p.valueMetrics.valueVsADP) : '-'}</td>
+      <td>${escapeHtml((p.blurb&&p.blurb.sleeperReason)||'')}</td>
+      <td><button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:12px;">Me</button></td>
+    </tr>
+  `).join('') || `<tr><td colspan="6" class="empty-state">No standout sleepers flagged yet in the current data.</td></tr>`;
+}
+
+function renderRoster(){
+  const html = ROSTER_SLOTS.map(slot => {
+    const filled = draftState.myRoster[slot.key] || [];
+    const rows = [];
+    for(let i=0;i<slot.count;i++){
+      const entry = filled[i];
+      if(entry){
+        const player = ALL_PLAYERS.find(p=>p.id===entry.playerId);
+        rows.push(`<div class="roster-slot"><span>${slot.label}</span><span>${player?escapeHtml(player.name)+' ('+player.team+')':entry.playerId}</span></div>`);
+      } else {
+        rows.push(`<div class="roster-slot empty"><span>${slot.label}</span><span>empty</span></div>`);
+      }
+    }
+    return rows.join('');
+  }).join('');
+  document.getElementById('rosterList').innerHTML = html;
+}
+
+function renderLog(){
+  const items = draftState.picks.slice().reverse().map(pk => {
+    const player = ALL_PLAYERS.find(p=>p.id===pk.playerId);
+    return `<div class="log-item"><span>#${pk.pickNumber} (R${pk.round}) — ${player?escapeHtml(player.name):pk.playerId} ${pk.mine?'⭐':''}</span><span>Team ${pk.team}</span></div>`;
+  }).join('');
+  document.getElementById('logList').innerHTML = items || '<div class="empty-state">No picks yet.</div>';
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ================= EVENTS ================= */
+document.getElementById('startDraftBtn').addEventListener('click', () => {
+  draftState.leagueSize = parseInt(document.getElementById('leagueSizeInput').value,10) || 12;
+  draftState.myDraftSlot = parseInt(document.getElementById('draftSlotInput').value,10) || 1;
+  draftState.started = true;
+  draftState.picks = [];
+  draftState.drafted = new Set();
+  draftState.myRoster = {};
+  showDraftApp();
+  autosave();
+  renderAll();
+});
+
+document.getElementById('undoBtn').addEventListener('click', undoLastPick);
+document.getElementById('exportBtn').addEventListener('click', exportState);
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(!confirm('Reset the entire draft? This cannot be undone.')) return;
+  draftState = { started:false, leagueSize:draftState.leagueSize, myDraftSlot:draftState.myDraftSlot, picks:[], drafted:new Set(), myRoster:{} };
+  autosave();
+  document.getElementById('draftApp').classList.add('hidden');
+  document.getElementById('setupPanel').classList.remove('hidden');
+});
+
+document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change', (e) => {
+  if(e.target.files[0]) importStateFromFile(e.target.files[0]);
+});
+
+document.getElementById('searchInput').addEventListener('input', (e) => { searchVal = e.target.value; renderBoard(); });
+document.getElementById('posFilter').addEventListener('change', (e) => { posFilterVal = e.target.value; renderBoard(); });
+document.getElementById('sortSelect').addEventListener('change', (e) => { sortMode = e.target.value; renderBoard(); });
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = btn.dataset.tab;
+    ['board','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
+  });
+});
+
+document.getElementById('app').addEventListener('click', (e) => {
+  const mineId = e.target.getAttribute('data-draft-mine');
+  const otherId = e.target.getAttribute('data-draft-other');
+  if(mineId) makePick(mineId, true);
+  if(otherId) makePick(otherId, false);
+});
+
+/* ================= INIT ================= */
+(async function init(){
+  await loadData();
+  const hydrated = tryHydrate();
+  if(hydrated){
+    showDraftApp();
+    renderAll();
+  }
+})();
+</script>
+</body>
+</html>

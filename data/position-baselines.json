@@ -1,0 +1,39 @@
+﻿{
+    "note":  "Snapshot for reference/transparency. The live app (index.html) recomputes these dynamically at runtime from whatever player data is currently loaded, so this file is documentation, not load-bearing.",
+    "baselines":  {
+                      "WR":  {
+                                 "replacementRank":  36,
+                                 "ppg":  10.5,
+                                 "replacementPlayer":  "Jordyn Tyson"
+                             },
+                      "TE":  {
+                                 "replacementRank":  14,
+                                 "ppg":  10.5,
+                                 "replacementPlayer":  "Isaiah Likely"
+                             },
+                      "RB":  {
+                                 "replacementRank":  30,
+                                 "ppg":  10.5,
+                                 "replacementPlayer":  "Jacory Croskey-Merritt"
+                             },
+                      "K":  {
+                                "replacementRank":  12,
+                                "ppg":  7.06,
+                                "replacementPlayer":  "Tyler Loop"
+                            },
+                      "QB":  {
+                                 "replacementRank":  14,
+                                 "ppg":  18.5,
+                                 "replacementPlayer":  "Patrick Mahomes"
+                             },
+                      "DST":  {
+                                  "replacementRank":  12,
+                                  "ppg":  5.88,
+                                  "replacementPlayer":  "Green Bay Packers DST"
+                              }
+                  },
+    "leagueSize":  12,
+    "generatedAt":  "2026-08-04",
+    "scoring":  "Full PPR",
+    "rosterFormat":  "1QB, 2RB, 2WR, 1TE, 1FLEX, 1DST, 1K"
+}
