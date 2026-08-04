@@ -4,96 +4,125 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fantasy Draft Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /*
+    DESIGN: "Draft Desk" — a precision instrument panel, not a SaaS dashboard.
+    This tool is used under real time pressure (a live snake draft) to scan
+    dense ranked data and act fast. The visual language borrows from
+    scouting big boards and trading-terminal readouts: warm near-black base,
+    amber as the single "live/urgent" signal, a green→amber→gray scoring
+    scale used functionally (not decoratively), and monospace numerals
+    everywhere a number appears so the whole surface reads like an
+    instrument, not a form.
+  */
   :root {
-    --bg: #f4f5f9;
+    --bg: #eef1f5;
     --panel: #ffffff;
-    --panel-2: #fbfbfd;
-    --border: #e3e6ee;
-    --border-strong: #d3d7e2;
+    --panel-2: #f7f8fb;
+    --border: #dde1ea;
+    --border-strong: #c7ccd9;
     --text: #12141a;
-    --text-2: #4b5163;
-    --muted: #8a90a0;
-    --accent: #4f46e5;
-    --accent-2: #06b6d4;
-    --accent-fg: #ffffff;
-    --good: #059669;
-    --warn: #d97706;
-    --bad: #dc2626;
-    --tier1: #7c3aed;
+    --text-2: #4a5063;
+    --muted: #838a9a;
+    --amber: #c2790a;
+    --amber-2: #e08a1f;
+    --good: #0d9467;
+    --teal: #0f8f89;
+    --bad: #c73434;
     --shadow-sm: 0 1px 2px rgba(16,24,40,0.06);
     --shadow-md: 0 4px 16px rgba(16,24,40,0.08);
-    --shadow-lg: 0 12px 32px rgba(16,24,40,0.14);
-    --radius: 12px;
-    --radius-sm: 8px;
-    --header-bg: rgba(255,255,255,0.85);
-    --row-hover: rgba(79,70,229,0.06);
-    --accent-soft: rgba(79,70,229,0.07);
+    --shadow-lg: 0 14px 34px rgba(16,24,40,0.14);
+    --radius: 10px;
+    --radius-sm: 7px;
+    --header-bg: rgba(255,255,255,0.86);
+    --row-hover: rgba(194,121,10,0.06);
+    --amber-soft: rgba(194,121,10,0.09);
+    --track-bg: rgba(18,20,26,0.09);
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0a0b10;
-      --panel: #13151d;
-      --panel-2: #171a24;
+      --bg: #0c0d11;
+      --panel: #15171d;
+      --panel-2: #1a1c23;
       --border: rgba(255,255,255,0.08);
       --border-strong: rgba(255,255,255,0.16);
-      --text: #f2f3f7;
-      --text-2: #b4b9c8;
-      --muted: #767c8c;
-      --accent: #6366f1;
-      --accent-2: #22d3ee;
-      --accent-fg: #06070b;
-      --good: #34d399;
-      --warn: #fbbf24;
-      --bad: #f87171;
-      --tier1: #a78bfa;
+      --text: #eef0f4;
+      --text-2: #a3a8b8;
+      --muted: #676c7c;
+      --amber: #f5a623;
+      --amber-2: #ff8f3d;
+      --good: #3ecf8e;
+      --teal: #2dd4c8;
+      --bad: #ef5757;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.35);
-      --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
-      --shadow-lg: 0 16px 40px rgba(0,0,0,0.5);
-      --header-bg: rgba(19,21,29,0.8);
-      --row-hover: rgba(99,102,241,0.10);
-      --accent-soft: rgba(99,102,241,0.12);
+      --shadow-md: 0 4px 18px rgba(0,0,0,0.4);
+      --shadow-lg: 0 18px 44px rgba(0,0,0,0.5);
+      --header-bg: rgba(21,23,29,0.82);
+      --row-hover: rgba(245,166,35,0.07);
+      --amber-soft: rgba(245,166,35,0.12);
+      --track-bg: rgba(255,255,255,0.07);
     }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin:0; min-height:100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
-    background:
-      radial-gradient(1100px 560px at 8% -8%, rgba(79,70,229,0.09), transparent),
-      radial-gradient(900px 460px at 100% 0%, rgba(6,182,212,0.07), transparent),
-      var(--bg);
-    background-attachment: fixed;
+    font-family: var(--font-body);
+    background: var(--bg);
     color:var(--text);
     font-feature-settings: "tnum" 1;
     -webkit-font-smoothing: antialiased;
   }
-  ::selection { background: var(--accent); color:#fff; }
+  ::selection { background: var(--amber); color:#1a1200; }
   ::-webkit-scrollbar { width:10px; height:10px; }
   ::-webkit-scrollbar-track { background:transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius:99px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+  :focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
 
+  .mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
+
+  /* ---------- Header: instrument strip ---------- */
   .app-header {
-    display:flex; align-items:center; gap:12px; justify-content:space-between;
-    padding:13px 24px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    padding:11px 22px; border-bottom:1px solid var(--border);
     background: var(--panel); background: var(--header-bg);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     position:sticky; top:0; z-index:50;
   }
   .brand { display:flex; align-items:center; gap:11px; }
   .brand-mark {
-    width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2)); font-size:19px; flex-shrink:0;
-    box-shadow: var(--shadow-md);
+    font-family: var(--font-display); font-weight:700; font-size:13px; letter-spacing:0.02em;
+    width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    background: var(--panel-2); border:1px solid var(--border-strong); border-bottom:2px solid var(--amber);
+    color:var(--text); flex-shrink:0;
   }
-  .brand-title { font-weight:800; font-size:16px; letter-spacing:-0.01em; line-height:1.15; }
-  .brand-sub { font-size:11px; color:var(--muted); margin-top:1px; font-weight:600; }
+  .brand-title { font-family: var(--font-display); font-weight:700; font-size:14.5px; letter-spacing:0.03em; line-height:1.1; text-transform:uppercase; }
+  .brand-sub { font-family: var(--font-mono); font-size:10px; color:var(--muted); margin-top:2px; letter-spacing:0.04em; display:flex; align-items:center; gap:5px; }
+  .live-dot { width:6px; height:6px; border-radius:50%; background:var(--amber); display:inline-block; box-shadow:0 0 0 0 var(--amber-soft); animation: dotPulse 2s ease-in-out infinite; }
+  @keyframes dotPulse { 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
 
-  #app { max-width: 1440px; margin: 0 auto; padding: 22px 24px 60px; }
-  h1,h2,h3 { margin: 0 0 8px; letter-spacing:-0.015em; }
-  h2 { font-size:16px; font-weight:800; }
+  .header-readouts { display:flex; align-items:stretch; gap:0; margin-left:auto; }
+  .header-readouts.hidden { display:none !important; }
+  .readout { display:flex; flex-direction:column; justify-content:center; padding:2px 16px; border-left:1px solid var(--border); }
+  .readout:first-child { border-left:none; }
+  .readout-label { font-family: var(--font-mono); font-size:9px; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; }
+  .readout-value { font-family: var(--font-mono); font-size:16px; font-weight:700; color:var(--text); line-height:1.3; }
+  .readout-value.on-clock { color: var(--amber); }
+  .header-actions { display:flex; gap:6px; align-items:center; margin-left:14px; }
+
+  #app { max-width: 1480px; margin: 0 auto; padding: 20px 22px 60px; }
+  h1,h2,h3 { margin: 0 0 8px; font-family: var(--font-display); letter-spacing:0.01em; }
+  h2 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-2); }
   h3 { font-size:15px; font-weight:700; }
 
   .panel {
@@ -101,141 +130,189 @@
     padding:18px; margin-bottom:16px; box-shadow:var(--shadow-sm);
   }
   .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-  label { font-size:11.5px; font-weight:700; color:var(--muted); display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.05em; }
+  label { font-family: var(--font-mono); font-size:10.5px; font-weight:600; color:var(--muted); display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em; }
 
   input, select, button { font:inherit; padding:9px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--panel-2); color:var(--text); }
-  input:focus, select:focus { outline:2px solid var(--accent-soft); outline-offset:1px; border-color: var(--accent); }
+  input, select { font-family: var(--font-mono); font-size:13px; }
+  input:focus, select:focus { outline:2px solid var(--amber-soft); outline-offset:1px; border-color: var(--amber); }
   button {
-    cursor:pointer; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:var(--accent-fg); border:none; font-weight:700;
+    cursor:pointer; background: var(--text); color:var(--bg); border:none; font-weight:700; font-family: var(--font-body);
     box-shadow: var(--shadow-sm); transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
   }
-  button:hover { filter:brightness(1.08); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  @media (prefers-color-scheme: dark) { button { background: var(--amber); color:#1a1200; } }
+  button:hover { filter:brightness(1.1); box-shadow: var(--shadow-md); transform: translateY(-1px); }
   button:active { transform: translateY(0); }
   button.secondary { background:var(--panel-2); color:var(--text); border:1px solid var(--border-strong); box-shadow:none; }
   button.secondary:hover { background:var(--border); filter:none; }
-  button.ghost { background:transparent; color:var(--text-2); border:1px solid var(--border); font-weight:600; padding:7px 12px; font-size:12.5px; box-shadow:none; }
+  button.ghost { background:transparent; color:var(--text-2); border:1px solid var(--border); font-weight:600; padding:7px 12px; font-size:12px; box-shadow:none; font-family: var(--font-mono); text-transform:uppercase; letter-spacing:0.04em; }
   button.ghost:hover { background:var(--panel-2); color:var(--text); filter:none; transform:none; }
   button:disabled { opacity:0.45; cursor:not-allowed; transform:none; filter:none; }
 
-  table { width:100%; border-collapse: collapse; font-size:13.5px; }
-  th, td { text-align:left; padding:10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  table { width:100%; border-collapse: collapse; font-size:13px; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  td { font-family: var(--font-body); }
+  td.mono-cell { font-family: var(--font-mono); }
   th {
-    color:var(--muted); font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.05em;
-    position:sticky; top:0; background: var(--panel); backdrop-filter: blur(6px);
+    color:var(--muted); font-weight:600; font-size:10px; text-transform:uppercase; letter-spacing:0.07em; font-family: var(--font-mono);
+    position:sticky; top:0; background: var(--panel);
     cursor:pointer; z-index:1;
   }
-  td.col-adp, th.col-adp { color:var(--text-2); font-weight:700; }
+  td.col-adp, th.col-adp { color:var(--text-2); font-weight:600; font-family: var(--font-mono); }
   tbody tr { transition: background .12s ease; }
   tbody tr:hover { background: var(--row-hover); }
-  tbody tr.drafted-row { opacity:0.5; }
+  tbody tr.drafted-row { opacity:0.45; }
   tbody tr.drafted-row:hover { background:transparent; }
   .board-scroll { max-height: 540px; overflow:auto; border:1px solid var(--border); border-radius:var(--radius-sm); }
 
-  .pill { display:inline-block; padding:3px 9px; border-radius:99px; font-size:10.5px; font-weight:800; letter-spacing:0.02em; }
-  .pos-QB{background:#fee2e2;color:#9f1239;} .pos-RB{background:#d1fae5;color:#065f46;} .pos-WR{background:#dbeafe;color:#1e40af;}
-  .pos-TE{background:#fef3c7;color:#92400e;} .pos-DST{background:#e5e7eb;color:#374151;} .pos-K{background:#f3e8ff;color:#6b21a8;}
-  @media (prefers-color-scheme: dark) {
-    .pos-QB{background:#3f1620;color:#fda4af;} .pos-RB{background:#0d3327;color:#6ee7b7;} .pos-WR{background:#152238;color:#93c5fd;}
-    .pos-TE{background:#3a2a0d;color:#fcd34d;} .pos-DST{background:#22252f;color:#cbd5e1;} .pos-K{background:#2a1b3d;color:#e0b3ff;}
+  /* ---------- Position tags: bracketed labels, not pastel pills ---------- */
+  .pos-tag {
+    display:inline-flex; align-items:center; font-family: var(--font-mono); font-size:10.5px; font-weight:700;
+    letter-spacing:0.03em; padding-left:6px; border-left:3px solid var(--pos-color, var(--muted));
+    color: var(--pos-color, var(--text-2));
   }
+  .pos-QB { --pos-color: #c23b5a; } .pos-RB { --pos-color: var(--good); } .pos-WR { --pos-color: #3b6fc2; }
+  .pos-TE { --pos-color: var(--amber); } .pos-DST { --pos-color: var(--text-2); } .pos-K { --pos-color: #8a5fc2; }
 
-  .score-badge {
-    display:inline-flex; align-items:center; justify-content:center; min-width:38px; height:26px; padding:0 8px;
-    border-radius:8px; font-weight:800; font-size:13px; color:#fff; box-shadow: var(--shadow-sm);
-  }
-  .score-90 { background: linear-gradient(135deg, #a855f7, #ec4899); box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 0 16px rgba(168,85,247,0.4); }
-  .score-75 { background: linear-gradient(135deg, #10b981, #22d3ee); }
-  .score-60 { background: linear-gradient(135deg, #f59e0b, #fb923c); }
-  .score-0  { background: linear-gradient(135deg, #6b7280, #4b5563); }
+  /* ---------- Score gauge: the signature element ---------- */
+  .score-gauge { display:inline-flex; align-items:center; gap:7px; }
+  .gauge-track { width:44px; height:6px; border-radius:3px; background:var(--track-bg); overflow:hidden; }
+  .gauge-fill { display:block; height:100%; border-radius:3px; }
+  .gauge-num { font-family: var(--font-mono); font-weight:700; font-size:13px; min-width:22px; text-align:right; }
+  .tier-elite .gauge-fill { background: var(--good); } .tier-elite .gauge-num { color: var(--good); }
+  .tier-good  .gauge-fill { background: var(--teal); } .tier-good  .gauge-num { color: var(--teal); }
+  .tier-mid   .gauge-fill { background: var(--amber); } .tier-mid   .gauge-num { color: var(--amber); }
+  .tier-low   .gauge-fill { background: var(--muted); } .tier-low   .gauge-num { color: var(--muted); }
 
-  .card-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(225px,1fr)); gap:14px; }
+  /* ---------- On-the-clock cards: spec-sheet style ---------- */
+  .card-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap:12px; }
   .pick-card {
-    position:relative; border:1px solid var(--border); border-radius:var(--radius); padding:18px 14px 14px;
-    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    position:relative; border:1px solid var(--border); border-radius:var(--radius); padding:16px 14px 14px;
+    background: var(--panel);
     box-shadow: var(--shadow-sm); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
   .pick-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
   .pick-card .rank-badge {
-    position:absolute; top:-10px; left:14px; width:26px; height:26px; border-radius:50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; font-size:12px; font-weight:800;
-    display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow-md);
+    position:absolute; top:-9px; left:14px; min-width:22px; height:20px; padding:0 6px; border-radius:4px;
+    background: var(--panel-2); border:1px solid var(--border-strong); color:var(--text-2); font-family: var(--font-mono); font-size:10.5px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
   }
-  .pick-card .rank-badge.rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+  .pick-card .rank-badge.rank-1 { background: var(--amber); color:#1a1200; border-color:var(--amber); }
   .pick-card .top { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-top:6px; }
-  .pick-card h3 { font-size:15.5px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-  .pick-card .meta { color:var(--muted); font-size:11.5px; margin:4px 0 10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-  .pick-card .meta .adp-chip { color:var(--text-2); font-weight:700; }
-  .pick-card .reasoning { font-size:12.8px; line-height:1.5; margin-bottom:12px; color:var(--text-2); }
+  .pick-card h3 { font-size:15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family: var(--font-body); font-weight:700; }
+  .pick-card .spec-row { display:grid; grid-template-columns: repeat(3,1fr); gap:4px; margin:10px 0; padding:8px 0; border-top:1px dashed var(--border); border-bottom:1px dashed var(--border); }
+  .pick-card .spec { text-align:center; }
+  .pick-card .spec-label { font-family: var(--font-mono); font-size:8.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; }
+  .pick-card .spec-value { font-family: var(--font-mono); font-size:13px; font-weight:700; color:var(--text); margin-top:1px; }
+  .pick-card .reasoning { font-size:12.5px; line-height:1.55; margin-bottom:12px; color:var(--text-2); }
   .pick-card button { width:100%; }
 
-  .badge-sleeper { background: linear-gradient(135deg, var(--good), var(--accent-2)); color:#06240f; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:6px; }
-  @media (prefers-color-scheme: dark) { .badge-sleeper { color:#04140b; } }
+  .badge-sleeper { background: var(--amber-soft); color: var(--amber); font-family: var(--font-mono); font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; letter-spacing:0.04em; border:1px solid var(--amber); }
 
+  /* ---------- On-the-clock alert (amber, matches the live signal) ---------- */
   .clock-banner {
-    background: linear-gradient(90deg, var(--accent), var(--tier1));
-    color:#fff; padding:13px 18px; border-radius:var(--radius); font-weight:800; margin-bottom:16px;
-    display:flex; justify-content:space-between; align-items:center; box-shadow: var(--shadow-md);
-    animation: pulseGlow 2.6s ease-in-out infinite;
+    background: var(--amber-soft); border:1px solid var(--amber);
+    color: var(--amber); padding:11px 18px; border-radius:var(--radius); font-weight:700; margin-bottom:16px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family: var(--font-mono); font-size:12.5px; text-transform:uppercase; letter-spacing:0.05em;
   }
-  @keyframes pulseGlow { 0%,100%{ box-shadow: var(--shadow-md); } 50%{ box-shadow: 0 4px 26px rgba(99,102,241,0.5); } }
+  .clock-banner #clockBannerText::before { content:"● "; }
+  @media (prefers-reduced-motion: no-preference) { .clock-banner { animation: bannerPulse 2.2s ease-in-out infinite; } }
+  @keyframes bannerPulse { 0%,100%{ box-shadow: 0 0 0 0 var(--amber-soft); } 50%{ box-shadow: 0 0 0 5px transparent; } }
 
-  .tabs { display:flex; gap:4px; margin-bottom:14px; border-bottom:1px solid var(--border); }
+  /* ---------- Tabs ---------- */
+  .tabs { display:flex; gap:0; margin-bottom:14px; border-bottom:1px solid var(--border); }
   .tab-btn {
     background:transparent; color:var(--muted); border:none; border-bottom:2px solid transparent; border-radius:0;
-    font-weight:700; padding:9px 4px; margin-right:20px; box-shadow:none; font-size:13.5px;
+    font-weight:600; padding:9px 4px; margin-right:22px; box-shadow:none; font-size:11px; font-family: var(--font-mono);
+    text-transform:uppercase; letter-spacing:0.06em;
   }
   .tab-btn:hover { color:var(--text); filter:none; transform:none; box-shadow:none; }
-  .tab-btn.active { color:var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn.active { color:var(--amber); border-bottom-color: var(--amber); }
 
   .hidden { display:none !important; }
-  .status-line { font-size:12px; color:var(--muted); margin-top:6px; }
-  .roster-slot {
-    display:flex; justify-content:space-between; align-items:center; padding:9px 10px; margin-bottom:3px;
-    font-size:13px; border-left:3px solid transparent; border-radius:6px; background:transparent;
-  }
-  .roster-slot.filled { border-left-color: var(--accent); background: var(--accent-soft); }
-  .roster-slot .slot-label { font-weight:700; color:var(--text-2); font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
-  .roster-slot.empty { color:var(--muted); font-style:italic; }
-  .roster-slot .warn-bye { color:var(--warn); font-size:11px; margin-left:6px; font-weight:700; }
+  .status-line { font-size:12px; color:var(--muted); margin-top:6px; font-family: var(--font-mono); }
 
-  .log-item { font-size:12.5px; padding:8px 4px; border-bottom:1px dashed var(--border); display:flex; justify-content:space-between; align-items:center; }
-  .log-item .mine-tag { color: var(--accent); font-weight:800; font-size:10.5px; margin-left:6px; }
+  /* ---------- Roster: manifest list ---------- */
+  .roster-slot {
+    display:flex; justify-content:space-between; align-items:center; padding:8px 10px; margin-bottom:2px;
+    font-size:13px; border-left:3px solid var(--border); border-radius:0 5px 5px 0; background:transparent;
+  }
+  .roster-slot.filled { border-left-color: var(--amber); background: var(--amber-soft); }
+  .roster-slot .slot-label { font-family: var(--font-mono); font-weight:700; color:var(--text-2); font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; min-width:56px; }
+  .roster-slot.empty .slot-label { color:var(--muted); }
+  .roster-slot.empty > span:last-child { color:var(--muted); font-family: var(--font-mono); font-size:11px; }
+  .roster-slot .warn-bye { color:var(--bad); font-size:11px; margin-left:6px; font-weight:700; }
+
+  /* ---------- Draft log: ticker tape ---------- */
+  .log-item { font-family: var(--font-mono); font-size:12px; padding:7px 4px; border-bottom:1px dashed var(--border); display:flex; justify-content:space-between; align-items:center; }
+  .log-item .mine-tag { color: var(--amber); font-weight:700; font-size:10px; margin-left:6px; }
 
   .toolbar-right { margin-left:auto; display:flex; gap:8px; }
   input[type="search"] { min-width:200px; }
-  .empty-state { color:var(--muted); padding:28px; text-align:center; font-size:13.5px; }
+  .empty-state { color:var(--muted); padding:28px; text-align:center; font-size:13px; font-family: var(--font-mono); }
 
   .drafted-name { text-decoration: line-through; color:var(--muted); }
-  .drafted-tag { font-size:10.5px; font-weight:800; color:var(--muted); border:1px solid var(--border); padding:4px 9px; border-radius:6px; white-space:nowrap; }
+  .drafted-tag { font-family: var(--font-mono); font-size:9.5px; font-weight:700; color:var(--muted); border:1px solid var(--border); padding:4px 8px; border-radius:4px; white-space:nowrap; text-transform:uppercase; letter-spacing:0.04em; }
 
-  .hero-card { text-align:center; padding:44px 24px; }
-  .hero-card .brand-mark { width:58px; height:58px; font-size:28px; margin:0 auto 18px; border-radius:16px; }
-  .hero-card h1 { font-size:26px; font-weight:800; margin-bottom:6px; }
-  .setup-fields { justify-content:center; margin-top:22px; }
+  /* ---------- Setup: boot screen ---------- */
+  .hero-card { text-align:center; padding:48px 24px; position:relative; overflow:hidden; }
+  .hero-card::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  }
+  .hero-card .brand-mark { width:52px; height:52px; font-size:16px; margin:0 auto 20px; border-radius:12px; }
+  .hero-card h1 { font-size:22px; font-weight:700; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.04em; }
+  .setup-fields { justify-content:center; margin-top:24px; }
   .setup-fields > div { text-align:left; }
-  .feature-row { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:24px; color:var(--muted); font-size:12.5px; }
-  .feature-row span { display:flex; align-items:center; gap:5px; }
+  .feature-row { display:flex; gap:0; justify-content:center; flex-wrap:wrap; margin-top:28px; border-top:1px solid var(--border); padding-top:16px; }
+  .feature-row span { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:11px; font-family: var(--font-mono); padding:4px 16px; border-left:1px solid var(--border); }
+  .feature-row span:first-child { border-left:none; }
+  .feature-row span::before { content:"▸"; color:var(--amber); }
 
+  @media (max-width: 900px) {
+    .header-readouts { margin-left:0; }
+  }
   @media (max-width: 720px) {
     #app { padding:14px; }
     .app-header { padding:11px 16px; }
     th, td { padding:8px 6px; }
+    .readout { padding:2px 10px; }
+    .feature-row span { border-left:none; padding:4px 0; width:100%; justify-content:center; }
   }
 </style>
 </head>
 <body>
 <header class="app-header">
   <div class="brand">
-    <span class="brand-mark">🏈</span>
+    <span class="brand-mark">FD</span>
     <div>
       <div class="brand-title">Fantasy Draft Assistant</div>
-      <div class="brand-sub">Live 2026 rankings · updated daily</div>
+      <div class="brand-sub"><span class="live-dot"></span>DRAFT DAY INSTRUMENT PANEL</div>
+    </div>
+  </div>
+  <div class="header-readouts hidden" id="headerDraftBar">
+    <div class="readout">
+      <span class="readout-label">Pick</span>
+      <span class="readout-value mono" id="hudPick">1</span>
+    </div>
+    <div class="readout">
+      <span class="readout-label">Round</span>
+      <span class="readout-value mono" id="hudRound">1</span>
+    </div>
+    <div class="readout">
+      <span class="readout-label">On Clock</span>
+      <span class="readout-value mono" id="hudTeam">—</span>
+    </div>
+    <div class="header-actions">
+      <button class="ghost" id="undoBtn">Undo</button>
+      <button class="ghost" id="exportBtn">Export</button>
+      <button class="ghost" id="resetBtn">Reset</button>
     </div>
   </div>
 </header>
 <div id="app">
   <div class="panel hero-card" id="setupPanel">
-    <span class="brand-mark">🏈</span>
+    <span class="brand-mark">FD</span>
     <h1>Fantasy Draft Assistant</h1>
     <p class="status-line" id="dataStatusLine">Loading player data…</p>
     <div class="row setup-fields">
@@ -257,29 +334,21 @@
       </div>
     </div>
     <div class="feature-row">
-      <span>✓ Live VORP-based scoring</span>
-      <span>✓ On-the-clock recommendations</span>
-      <span>✓ Curated sleepers &amp; value picks</span>
-      <span>✓ Daily-updated rankings</span>
+      <span>Live VORP scoring</span>
+      <span>On-the-clock recommendations</span>
+      <span>Curated value picks</span>
+      <span>Daily-updated rankings</span>
     </div>
     <details style="margin-top:20px;">
-      <summary style="cursor:pointer; color:var(--muted); font-size:13px;">Roster settings (fixed for this build)</summary>
+      <summary style="cursor:pointer; color:var(--muted); font-size:12px; font-family: var(--font-mono);">Roster settings (fixed for this build)</summary>
       <p class="status-line" id="rosterSlotsDisplay"></p>
     </details>
   </div>
 
   <div id="draftApp" class="hidden">
     <div class="clock-banner hidden" id="clockBanner">
-      <span id="clockBannerText">You're on the clock!</span>
-      <span id="clockPickInfo"></span>
-    </div>
-    <div class="panel row" style="align-items:center;">
-      <div><strong id="pickStatusText">Pick 1, Round 1</strong> <span class="status-line" id="onClockTeamText"></span></div>
-      <div class="toolbar-right">
-        <button class="ghost" id="undoBtn">Undo last pick</button>
-        <button class="ghost" id="exportBtn">Export draft state</button>
-        <button class="ghost" id="resetBtn">Reset draft</button>
-      </div>
+      <span id="clockBannerText">You're on the clock</span>
+      <span id="clockPickInfo" class="mono"></span>
     </div>
 
     <div class="panel hidden" id="onClockPanel">
@@ -648,7 +717,7 @@ function buildReasoning(player, comps){
   const situationClause = (player.blurb && (player.blurb.riskReason || player.situation && player.situation.competitionNotes)) || (player.blurb && player.blurb.summary) || '';
   let clauses = [needClause, valueClause, situationClause].filter(Boolean);
   if(player.valueMetrics && player.valueMetrics.sleeperFlag && player.blurb && player.blurb.sleeperReason){
-    clauses.push('💎 ' + player.blurb.sleeperReason);
+    clauses.push('◆ ' + player.blurb.sleeperReason);
   }
   return clauses.join(' ');
 }
@@ -751,26 +820,42 @@ function importStateFromFile(file){
 function showDraftApp(){
   document.getElementById('setupPanel').classList.add('hidden');
   document.getElementById('draftApp').classList.remove('hidden');
+  document.getElementById('headerDraftBar').classList.remove('hidden');
 }
 
-function scoreBadgeClass(score){
-  if(score>=90) return 'score-90';
-  if(score>=75) return 'score-75';
-  if(score>=60) return 'score-60';
-  return 'score-0';
+function scoreTierClass(score){
+  if(score>=90) return 'tier-elite';
+  if(score>=75) return 'tier-good';
+  if(score>=60) return 'tier-mid';
+  return 'tier-low';
+}
+
+function scoreGaugeHtml(score){
+  return `<span class="score-gauge ${scoreTierClass(score)}">
+    <span class="gauge-track"><span class="gauge-fill" style="width:${Math.max(4,score)}%"></span></span>
+    <span class="gauge-num">${score}</span>
+  </span>`;
+}
+
+function posTagHtml(position){
+  return `<span class="pos-tag pos-${position}">${position}</span>`;
 }
 
 function renderAll(){
   const pickNumber = draftState.picks.length+1;
   const round = currentRound();
   const team = teamAtPick(pickNumber, draftState.leagueSize);
-  document.getElementById('pickStatusText').textContent = `Pick ${pickNumber}, Round ${round}`;
-  document.getElementById('onClockTeamText').textContent = `Team ${team} on the clock`;
-
   const myTurn = isMyTurn();
+
+  document.getElementById('hudPick').textContent = pickNumber;
+  document.getElementById('hudRound').textContent = round;
+  const hudTeamEl = document.getElementById('hudTeam');
+  hudTeamEl.textContent = myTurn ? 'YOU' : ('Team ' + team);
+  hudTeamEl.classList.toggle('on-clock', myTurn);
+
   document.getElementById('clockBanner').classList.toggle('hidden', !myTurn);
   document.getElementById('onClockPanel').classList.toggle('hidden', !myTurn);
-  document.getElementById('clockPickInfo').textContent = `Pick #${pickNumber} (Round ${round})`;
+  document.getElementById('clockPickInfo').textContent = `PICK #${pickNumber} · ROUND ${round}`;
 
   if(myTurn) renderOnClock();
   renderBoard();
@@ -789,13 +874,15 @@ function renderOnClock(){
   const container = document.getElementById('onClockCards');
   container.innerHTML = scored.map(({p,comps}, idx) => `
     <div class="pick-card">
-      <span class="rank-badge ${idx===0?'rank-1':''}">#${idx+1}</span>
+      <span class="rank-badge ${idx===0?'rank-1':''}">${idx+1}</span>
       <div class="top">
-        <div>
-          <h3>${escapeHtml(p.name)} <span class="pill pos-${p.position}">${p.position}</span></h3>
-          <div class="meta"><span class="adp-chip">ADP ${p.adp? p.adp.overall : '-'}</span> · ${p.team} · Bye ${p.byeWeek||'-'} · Tier ${p.tier||'-'}${p.valueMetrics&&p.valueMetrics.sleeperFlag?' <span class="badge-sleeper">SLEEPER</span>':''}</div>
-        </div>
-        <span class="score-badge ${scoreBadgeClass(comps.score)}">${comps.score}</span>
+        <h3>${escapeHtml(p.name)} ${posTagHtml(p.position)}${p.valueMetrics&&p.valueMetrics.sleeperFlag?' <span class="badge-sleeper">VALUE</span>':''}</h3>
+        ${scoreGaugeHtml(comps.score)}
+      </div>
+      <div class="spec-row">
+        <div class="spec"><div class="spec-label">ADP</div><div class="spec-value">${p.adp? p.adp.overall : '-'}</div></div>
+        <div class="spec"><div class="spec-label">Bye</div><div class="spec-value">${p.byeWeek||'-'}</div></div>
+        <div class="spec"><div class="spec-label">Tier</div><div class="spec-value">${p.tier||'-'}</div></div>
       </div>
       <div class="reasoning">${escapeHtml(buildReasoning(p, comps))}</div>
       <button data-draft-mine="${p.id}">Draft to me</button>
@@ -823,14 +910,14 @@ function renderBoard(){
     <tr>
       <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
       <td>${escapeHtml(p.name)}</td>
-      <td><span class="pill pos-${p.position}">${p.position}</span></td>
-      <td>${p.byeWeek||'-'}</td>
-      <td>${p.tier||'-'}</td>
-      <td>${p.projection?p.projection.projPPG.toFixed(1):'-'}</td>
-      <td><span class="score-badge ${scoreBadgeClass(comps.score)}">${comps.score}</span></td>
+      <td>${posTagHtml(p.position)}</td>
+      <td class="mono-cell">${p.byeWeek||'-'}</td>
+      <td class="mono-cell">${p.tier||'-'}</td>
+      <td class="mono-cell">${p.projection?p.projection.projPPG.toFixed(1):'-'}</td>
+      <td>${scoreGaugeHtml(comps.score)}</td>
       <td>
-        <button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:12px;">Me</button>
-        <button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:12px;">Other</button>
+        <button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button>
+        <button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:11px;">Other</button>
       </td>
     </tr>
   `).join('') || `<tr><td colspan="8" class="empty-state">No players match.</td></tr>`;
@@ -863,10 +950,10 @@ function renderSleepers(){
     <tr class="${drafted?'drafted-row':''}">
       <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
       <td class="${drafted?'drafted-name':''}">${escapeHtml(p.name)}</td>
-      <td><span class="pill pos-${p.position}">${p.position}</span></td>
-      <td>${p.adp&&p.valueMetrics.valueVsADP? Math.round(p.adp.overall - p.valueMetrics.valueVsADP) : '-'}</td>
+      <td>${posTagHtml(p.position)}</td>
+      <td class="mono-cell">${p.adp&&p.valueMetrics.valueVsADP? Math.round(p.adp.overall - p.valueMetrics.valueVsADP) : '-'}</td>
       <td>${escapeHtml((p.blurb&&p.blurb.sleeperReason)||'')}</td>
-      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:12px;">Me</button>`}</td>
+      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button>`}</td>
     </tr>
   `;
   }).join('') || `<tr><td colspan="6" class="empty-state">No standout sleepers flagged yet in the current data.</td></tr>`;
@@ -882,7 +969,7 @@ function renderRoster(){
         const player = ALL_PLAYERS.find(p=>p.id===entry.playerId);
         rows.push(`<div class="roster-slot filled"><span class="slot-label">${slot.label}</span><span>${player?escapeHtml(player.name)+' ('+player.team+')':entry.playerId}</span></div>`);
       } else {
-        rows.push(`<div class="roster-slot empty"><span class="slot-label">${slot.label}</span><span>empty</span></div>`);
+        rows.push(`<div class="roster-slot empty"><span class="slot-label">${slot.label}</span><span>—</span></div>`);
       }
     }
     return rows.join('');
@@ -893,7 +980,7 @@ function renderRoster(){
 function renderLog(){
   const items = draftState.picks.slice().reverse().map(pk => {
     const player = ALL_PLAYERS.find(p=>p.id===pk.playerId);
-    return `<div class="log-item"><span>#${pk.pickNumber} (R${pk.round}) — ${player?escapeHtml(player.name):pk.playerId}${pk.mine?' <span class="mine-tag">★ MINE</span>':''}</span><span>Team ${pk.team}</span></div>`;
+    return `<div class="log-item"><span>#${pk.pickNumber} (R${pk.round}) — ${player?escapeHtml(player.name):pk.playerId}${pk.mine?' <span class="mine-tag">★ MINE</span>':''}</span><span>TEAM ${pk.team}</span></div>`;
   }).join('');
   document.getElementById('logList').innerHTML = items || '<div class="empty-state">No picks yet.</div>';
 }
@@ -922,6 +1009,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   draftState = { started:false, leagueSize:draftState.leagueSize, myDraftSlot:draftState.myDraftSlot, picks:[], drafted:new Set(), myRoster:{} };
   autosave();
   document.getElementById('draftApp').classList.add('hidden');
+  document.getElementById('headerDraftBar').classList.add('hidden');
   document.getElementById('setupPanel').classList.remove('hidden');
 });
 
