@@ -6,69 +6,239 @@
 <title>Fantasy Draft Assistant</title>
 <style>
   :root {
-    --bg: #f6f7f9; --panel: #ffffff; --border: #e2e5ea; --text: #1a1d24; --muted: #6b7280;
-    --accent: #2563eb; --accent-fg: #ffffff; --good: #16a34a; --warn: #d97706; --bad: #dc2626;
-    --tier1: #7c3aed; --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --bg: #f4f5f9;
+    --panel: #ffffff;
+    --panel-2: #fbfbfd;
+    --border: #e3e6ee;
+    --border-strong: #d3d7e2;
+    --text: #12141a;
+    --text-2: #4b5163;
+    --muted: #8a90a0;
+    --accent: #4f46e5;
+    --accent-2: #06b6d4;
+    --accent-fg: #ffffff;
+    --good: #059669;
+    --warn: #d97706;
+    --bad: #dc2626;
+    --tier1: #7c3aed;
+    --shadow-sm: 0 1px 2px rgba(16,24,40,0.06);
+    --shadow-md: 0 4px 16px rgba(16,24,40,0.08);
+    --shadow-lg: 0 12px 32px rgba(16,24,40,0.14);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --header-bg: rgba(255,255,255,0.85);
+    --row-hover: rgba(79,70,229,0.06);
+    --accent-soft: rgba(79,70,229,0.07);
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#0f1115; --panel:#171a21; --border:#2a2e37; --text:#e8eaed; --muted:#9aa2af;
-      --accent:#3b82f6; --accent-fg:#0b0d12; --good:#4ade80; --warn:#fbbf24; --bad:#f87171; --tier1:#a78bfa;
-      --shadow: 0 1px 3px rgba(0,0,0,0.4); }
+    :root {
+      --bg: #0a0b10;
+      --panel: #13151d;
+      --panel-2: #171a24;
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.16);
+      --text: #f2f3f7;
+      --text-2: #b4b9c8;
+      --muted: #767c8c;
+      --accent: #6366f1;
+      --accent-2: #22d3ee;
+      --accent-fg: #06070b;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --bad: #f87171;
+      --tier1: #a78bfa;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.35);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,0.5);
+      --header-bg: rgba(19,21,29,0.8);
+      --row-hover: rgba(99,102,241,0.10);
+      --accent-soft: rgba(99,102,241,0.12);
+    }
   }
   * { box-sizing: border-box; }
-  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); }
-  #app { max-width: 1400px; margin: 0 auto; padding: 16px; }
-  h1,h2,h3 { margin: 0 0 8px; }
-  .panel { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:14px; box-shadow:var(--shadow); }
+  html { scroll-behavior: smooth; }
+  body {
+    margin:0; min-height:100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(1100px 560px at 8% -8%, rgba(79,70,229,0.09), transparent),
+      radial-gradient(900px 460px at 100% 0%, rgba(6,182,212,0.07), transparent),
+      var(--bg);
+    background-attachment: fixed;
+    color:var(--text);
+    font-feature-settings: "tnum" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color:#fff; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius:99px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  .app-header {
+    display:flex; align-items:center; gap:12px; justify-content:space-between;
+    padding:13px 24px; border-bottom:1px solid var(--border);
+    background: var(--panel); background: var(--header-bg);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    position:sticky; top:0; z-index:50;
+  }
+  .brand { display:flex; align-items:center; gap:11px; }
+  .brand-mark {
+    width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); font-size:19px; flex-shrink:0;
+    box-shadow: var(--shadow-md);
+  }
+  .brand-title { font-weight:800; font-size:16px; letter-spacing:-0.01em; line-height:1.15; }
+  .brand-sub { font-size:11px; color:var(--muted); margin-top:1px; font-weight:600; }
+
+  #app { max-width: 1440px; margin: 0 auto; padding: 22px 24px 60px; }
+  h1,h2,h3 { margin: 0 0 8px; letter-spacing:-0.015em; }
+  h2 { font-size:16px; font-weight:800; }
+  h3 { font-size:15px; font-weight:700; }
+
+  .panel {
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:18px; margin-bottom:16px; box-shadow:var(--shadow-sm);
+  }
   .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-  label { font-size:13px; color:var(--muted); display:block; margin-bottom:4px; }
-  input, select, button { font:inherit; padding:8px 10px; border-radius:7px; border:1px solid var(--border); background:var(--bg); color:var(--text); }
-  button { cursor:pointer; background:var(--accent); color:var(--accent-fg); border:none; font-weight:600; }
-  button.secondary { background:var(--bg); color:var(--text); border:1px solid var(--border); font-weight:500; }
-  button.ghost { background:transparent; color:var(--muted); border:1px solid var(--border); font-weight:500; padding:5px 8px; font-size:12px; }
-  button:disabled { opacity:0.5; cursor:not-allowed; }
-  table { width:100%; border-collapse: collapse; font-size:14px; }
-  th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--border); white-space:nowrap; }
-  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.03em; position:sticky; top:0; background:var(--panel); cursor:pointer; }
-  tbody tr:hover { background: rgba(127,127,127,0.06); }
-  .board-scroll { max-height: 520px; overflow:auto; border:1px solid var(--border); border-radius:8px; }
-  .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; }
-  .pos-QB{background:#fee2e2;color:#991b1b;} .pos-RB{background:#dcfce7;color:#166534;} .pos-WR{background:#dbeafe;color:#1e40af;}
+  label { font-size:11.5px; font-weight:700; color:var(--muted); display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.05em; }
+
+  input, select, button { font:inherit; padding:9px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--panel-2); color:var(--text); }
+  input:focus, select:focus { outline:2px solid var(--accent-soft); outline-offset:1px; border-color: var(--accent); }
+  button {
+    cursor:pointer; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:var(--accent-fg); border:none; font-weight:700;
+    box-shadow: var(--shadow-sm); transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  }
+  button:hover { filter:brightness(1.08); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  button:active { transform: translateY(0); }
+  button.secondary { background:var(--panel-2); color:var(--text); border:1px solid var(--border-strong); box-shadow:none; }
+  button.secondary:hover { background:var(--border); filter:none; }
+  button.ghost { background:transparent; color:var(--text-2); border:1px solid var(--border); font-weight:600; padding:7px 12px; font-size:12.5px; box-shadow:none; }
+  button.ghost:hover { background:var(--panel-2); color:var(--text); filter:none; transform:none; }
+  button:disabled { opacity:0.45; cursor:not-allowed; transform:none; filter:none; }
+
+  table { width:100%; border-collapse: collapse; font-size:13.5px; }
+  th, td { text-align:left; padding:10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  th {
+    color:var(--muted); font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.05em;
+    position:sticky; top:0; background: var(--panel); backdrop-filter: blur(6px);
+    cursor:pointer; z-index:1;
+  }
+  td.col-adp, th.col-adp { color:var(--text-2); font-weight:700; }
+  tbody tr { transition: background .12s ease; }
+  tbody tr:hover { background: var(--row-hover); }
+  tbody tr.drafted-row { opacity:0.5; }
+  tbody tr.drafted-row:hover { background:transparent; }
+  .board-scroll { max-height: 540px; overflow:auto; border:1px solid var(--border); border-radius:var(--radius-sm); }
+
+  .pill { display:inline-block; padding:3px 9px; border-radius:99px; font-size:10.5px; font-weight:800; letter-spacing:0.02em; }
+  .pos-QB{background:#fee2e2;color:#9f1239;} .pos-RB{background:#d1fae5;color:#065f46;} .pos-WR{background:#dbeafe;color:#1e40af;}
   .pos-TE{background:#fef3c7;color:#92400e;} .pos-DST{background:#e5e7eb;color:#374151;} .pos-K{background:#f3e8ff;color:#6b21a8;}
   @media (prefers-color-scheme: dark) {
-    .pos-QB{background:#3f1d1d;color:#fca5a5;} .pos-RB{background:#153524;color:#86efac;} .pos-WR{background:#1c2f4d;color:#93c5fd;}
-    .pos-TE{background:#3f3115;color:#fcd34d;} .pos-DST{background:#2a2e37;color:#cbd5e1;} .pos-K{background:#2e1f3f;color:#d8b4fe;}
+    .pos-QB{background:#3f1620;color:#fda4af;} .pos-RB{background:#0d3327;color:#6ee7b7;} .pos-WR{background:#152238;color:#93c5fd;}
+    .pos-TE{background:#3a2a0d;color:#fcd34d;} .pos-DST{background:#22252f;color:#cbd5e1;} .pos-K{background:#2a1b3d;color:#e0b3ff;}
   }
-  .score-badge { display:inline-flex; align-items:center; justify-content:center; min-width:34px; padding:2px 6px; border-radius:7px; font-weight:800; font-size:13px; }
-  .score-90{background:var(--tier1);color:#fff;} .score-75{background:var(--good);color:#06240f;} .score-60{background:var(--warn);color:#2b1a02;} .score-0{background:var(--border);color:var(--muted);}
-  .grid-3 { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:12px; }
-  .pick-card { border:1px solid var(--border); border-radius:10px; padding:12px; background:var(--bg); }
-  .pick-card .top { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
-  .pick-card h3 { font-size:16px; }
-  .pick-card .meta { color:var(--muted); font-size:12px; margin:2px 0 8px; }
-  .pick-card .reasoning { font-size:13px; line-height:1.4; margin-bottom:10px; }
-  .badge-sleeper { background:var(--good); color:#06240f; font-size:10px; font-weight:800; padding:2px 6px; border-radius:6px; margin-left:6px; }
-  .clock-banner { background: linear-gradient(90deg, var(--accent), var(--tier1)); color:#fff; padding:10px 14px; border-radius:9px; font-weight:700; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
-  .tabs { display:flex; gap:6px; margin-bottom:10px; }
-  .tab-btn { background:var(--bg); color:var(--muted); border:1px solid var(--border); font-weight:600; padding:7px 12px; }
-  .tab-btn.active { background:var(--accent); color:var(--accent-fg); border-color:var(--accent); }
+
+  .score-badge {
+    display:inline-flex; align-items:center; justify-content:center; min-width:38px; height:26px; padding:0 8px;
+    border-radius:8px; font-weight:800; font-size:13px; color:#fff; box-shadow: var(--shadow-sm);
+  }
+  .score-90 { background: linear-gradient(135deg, #a855f7, #ec4899); box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 0 16px rgba(168,85,247,0.4); }
+  .score-75 { background: linear-gradient(135deg, #10b981, #22d3ee); }
+  .score-60 { background: linear-gradient(135deg, #f59e0b, #fb923c); }
+  .score-0  { background: linear-gradient(135deg, #6b7280, #4b5563); }
+
+  .card-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(225px,1fr)); gap:14px; }
+  .pick-card {
+    position:relative; border:1px solid var(--border); border-radius:var(--radius); padding:18px 14px 14px;
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    box-shadow: var(--shadow-sm); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .pick-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+  .pick-card .rank-badge {
+    position:absolute; top:-10px; left:14px; width:26px; height:26px; border-radius:50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; font-size:12px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow-md);
+  }
+  .pick-card .rank-badge.rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+  .pick-card .top { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-top:6px; }
+  .pick-card h3 { font-size:15.5px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .pick-card .meta { color:var(--muted); font-size:11.5px; margin:4px 0 10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .pick-card .meta .adp-chip { color:var(--text-2); font-weight:700; }
+  .pick-card .reasoning { font-size:12.8px; line-height:1.5; margin-bottom:12px; color:var(--text-2); }
+  .pick-card button { width:100%; }
+
+  .badge-sleeper { background: linear-gradient(135deg, var(--good), var(--accent-2)); color:#06240f; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:6px; }
+  @media (prefers-color-scheme: dark) { .badge-sleeper { color:#04140b; } }
+
+  .clock-banner {
+    background: linear-gradient(90deg, var(--accent), var(--tier1));
+    color:#fff; padding:13px 18px; border-radius:var(--radius); font-weight:800; margin-bottom:16px;
+    display:flex; justify-content:space-between; align-items:center; box-shadow: var(--shadow-md);
+    animation: pulseGlow 2.6s ease-in-out infinite;
+  }
+  @keyframes pulseGlow { 0%,100%{ box-shadow: var(--shadow-md); } 50%{ box-shadow: 0 4px 26px rgba(99,102,241,0.5); } }
+
+  .tabs { display:flex; gap:4px; margin-bottom:14px; border-bottom:1px solid var(--border); }
+  .tab-btn {
+    background:transparent; color:var(--muted); border:none; border-bottom:2px solid transparent; border-radius:0;
+    font-weight:700; padding:9px 4px; margin-right:20px; box-shadow:none; font-size:13.5px;
+  }
+  .tab-btn:hover { color:var(--text); filter:none; transform:none; box-shadow:none; }
+  .tab-btn.active { color:var(--accent); border-bottom-color: var(--accent); }
+
   .hidden { display:none !important; }
   .status-line { font-size:12px; color:var(--muted); margin-top:6px; }
-  .roster-slot { display:flex; justify-content:space-between; padding:6px 8px; border-bottom:1px solid var(--border); font-size:13px; }
+  .roster-slot {
+    display:flex; justify-content:space-between; align-items:center; padding:9px 10px; margin-bottom:3px;
+    font-size:13px; border-left:3px solid transparent; border-radius:6px; background:transparent;
+  }
+  .roster-slot.filled { border-left-color: var(--accent); background: var(--accent-soft); }
+  .roster-slot .slot-label { font-weight:700; color:var(--text-2); font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
   .roster-slot.empty { color:var(--muted); font-style:italic; }
-  .roster-slot .warn-bye { color:var(--warn); font-size:11px; margin-left:6px; }
-  .log-item { font-size:12px; padding:4px 0; border-bottom:1px dashed var(--border); display:flex; justify-content:space-between; }
+  .roster-slot .warn-bye { color:var(--warn); font-size:11px; margin-left:6px; font-weight:700; }
+
+  .log-item { font-size:12.5px; padding:8px 4px; border-bottom:1px dashed var(--border); display:flex; justify-content:space-between; align-items:center; }
+  .log-item .mine-tag { color: var(--accent); font-weight:800; font-size:10.5px; margin-left:6px; }
+
   .toolbar-right { margin-left:auto; display:flex; gap:8px; }
-  input[type="search"] { min-width:180px; }
-  .empty-state { color:var(--muted); padding:20px; text-align:center; font-size:14px; }
+  input[type="search"] { min-width:200px; }
+  .empty-state { color:var(--muted); padding:28px; text-align:center; font-size:13.5px; }
+
+  .drafted-name { text-decoration: line-through; color:var(--muted); }
+  .drafted-tag { font-size:10.5px; font-weight:800; color:var(--muted); border:1px solid var(--border); padding:4px 9px; border-radius:6px; white-space:nowrap; }
+
+  .hero-card { text-align:center; padding:44px 24px; }
+  .hero-card .brand-mark { width:58px; height:58px; font-size:28px; margin:0 auto 18px; border-radius:16px; }
+  .hero-card h1 { font-size:26px; font-weight:800; margin-bottom:6px; }
+  .setup-fields { justify-content:center; margin-top:22px; }
+  .setup-fields > div { text-align:left; }
+  .feature-row { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:24px; color:var(--muted); font-size:12.5px; }
+  .feature-row span { display:flex; align-items:center; gap:5px; }
+
+  @media (max-width: 720px) {
+    #app { padding:14px; }
+    .app-header { padding:11px 16px; }
+    th, td { padding:8px 6px; }
+  }
 </style>
 </head>
 <body>
+<header class="app-header">
+  <div class="brand">
+    <span class="brand-mark">🏈</span>
+    <div>
+      <div class="brand-title">Fantasy Draft Assistant</div>
+      <div class="brand-sub">Live 2026 rankings · updated daily</div>
+    </div>
+  </div>
+</header>
 <div id="app">
-  <div class="panel" id="setupPanel">
-    <h1>🏈 Fantasy Draft Assistant</h1>
+  <div class="panel hero-card" id="setupPanel">
+    <span class="brand-mark">🏈</span>
+    <h1>Fantasy Draft Assistant</h1>
     <p class="status-line" id="dataStatusLine">Loading player data…</p>
-    <div class="row" style="margin-top:10px;">
+    <div class="row setup-fields">
       <div>
         <label for="leagueSizeInput">League size</label>
         <input type="number" id="leagueSizeInput" value="12" min="4" max="16" style="width:80px;">
@@ -86,7 +256,13 @@
         <button class="secondary" id="importBtn">Resume from file…</button>
       </div>
     </div>
-    <details style="margin-top:12px;">
+    <div class="feature-row">
+      <span>✓ Live VORP-based scoring</span>
+      <span>✓ On-the-clock recommendations</span>
+      <span>✓ Curated sleepers &amp; value picks</span>
+      <span>✓ Daily-updated rankings</span>
+    </div>
+    <details style="margin-top:20px;">
       <summary style="cursor:pointer; color:var(--muted); font-size:13px;">Roster settings (fixed for this build)</summary>
       <p class="status-line" id="rosterSlotsDisplay"></p>
     </details>
@@ -108,7 +284,7 @@
 
     <div class="panel hidden" id="onClockPanel">
       <h2>Top picks for you right now</h2>
-      <div class="grid-3" id="onClockCards"></div>
+      <div class="card-grid" id="onClockCards"></div>
     </div>
 
     <div class="row" style="align-items:flex-start; gap:14px;">
@@ -136,14 +312,14 @@
               </select>
             </div>
             <div class="board-scroll"><table>
-              <thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>ADP</th><th>Tier</th><th>Proj PPG</th><th>Score</th><th></th></tr></thead>
+              <thead><tr><th class="col-adp">ADP</th><th>Player</th><th>Pos</th><th>Bye</th><th>Tier</th><th>Proj PPG</th><th>Score</th><th></th></tr></thead>
               <tbody id="boardBody"></tbody>
             </table></div>
           </div>
           <div id="tab-sleepers" class="hidden">
             <p class="status-line" id="sleepersIntro">Players whose model value significantly exceeds current ADP.</p>
             <div class="board-scroll"><table>
-              <thead><tr><th>Player</th><th>Pos</th><th>ADP</th><th>Model Rank</th><th>Why</th><th></th></tr></thead>
+              <thead><tr><th class="col-adp">ADP</th><th>Player</th><th>Pos</th><th>Model Rank</th><th>Why</th><th></th></tr></thead>
               <tbody id="sleepersBody"></tbody>
             </table></div>
           </div>
@@ -603,18 +779,21 @@ function renderAll(){
   renderLog();
 }
 
+const ON_CLOCK_COUNT = 5;
+
 function renderOnClock(){
   const pool = availablePlayers();
   const scored = pool.map(p => ({p, comps: scorePlayer(p)}))
     .sort((a,b)=>b.comps.score - a.comps.score)
-    .slice(0,3);
+    .slice(0, ON_CLOCK_COUNT);
   const container = document.getElementById('onClockCards');
-  container.innerHTML = scored.map(({p,comps}) => `
+  container.innerHTML = scored.map(({p,comps}, idx) => `
     <div class="pick-card">
+      <span class="rank-badge ${idx===0?'rank-1':''}">#${idx+1}</span>
       <div class="top">
         <div>
           <h3>${escapeHtml(p.name)} <span class="pill pos-${p.position}">${p.position}</span></h3>
-          <div class="meta">${p.team} · Bye ${p.byeWeek||'-'} · ADP ${p.adp? p.adp.overall : '-'} · Tier ${p.tier||'-'}${p.valueMetrics&&p.valueMetrics.sleeperFlag?'<span class="badge-sleeper">SLEEPER</span>':''}</div>
+          <div class="meta"><span class="adp-chip">ADP ${p.adp? p.adp.overall : '-'}</span> · ${p.team} · Bye ${p.byeWeek||'-'} · Tier ${p.tier||'-'}${p.valueMetrics&&p.valueMetrics.sleeperFlag?' <span class="badge-sleeper">SLEEPER</span>':''}</div>
         </div>
         <span class="score-badge ${scoreBadgeClass(comps.score)}">${comps.score}</span>
       </div>
@@ -642,10 +821,10 @@ function renderBoard(){
   const rows = filteredSortedBoard();
   document.getElementById('boardBody').innerHTML = rows.map(({p,comps}) => `
     <tr>
+      <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
       <td>${escapeHtml(p.name)}</td>
       <td><span class="pill pos-${p.position}">${p.position}</span></td>
       <td>${p.byeWeek||'-'}</td>
-      <td>${p.adp?p.adp.overall:'-'}</td>
       <td>${p.tier||'-'}</td>
       <td>${p.projection?p.projection.projPPG.toFixed(1):'-'}</td>
       <td><span class="score-badge ${scoreBadgeClass(comps.score)}">${comps.score}</span></td>
@@ -668,23 +847,29 @@ function renderSleepers(){
   // excluded — "sleeper kicker" isn't a meaningful draft concept, and their
   // much narrower scoring range doesn't compare well against skill positions
   // on a cross-position VORP rank anyway.
-  const pool = availablePlayers().filter(p => p.valueMetrics && p.valueMetrics.sleeperFlag && p.adp && p.adp.overall <= SLEEPERS_ADP_CEILING && p.position!=='DST' && p.position!=='K');
+  // Uses ALL_PLAYERS (not just available) so this stays a stable board through
+  // the draft — already-picked players stay visible, just struck through,
+  // instead of the list reshuffling out from under you every pick.
+  const pool = ALL_PLAYERS.filter(p => p.valueMetrics && p.valueMetrics.sleeperFlag && p.adp && p.adp.overall <= SLEEPERS_ADP_CEILING && p.position!=='DST' && p.position!=='K');
   pool.sort((a,b)=> (b.valueMetrics.valueVsADP||0) - (a.valueMetrics.valueVsADP||0));
   const shown = pool.slice(0, SLEEPERS_MAX_SHOWN);
   const introEl = document.getElementById('sleepersIntro');
   if(introEl) introEl.textContent = pool.length > shown.length
-    ? `Top ${shown.length} of ${pool.length} available players flagged as value picks (ranked by value vs. ADP).`
-    : `Players whose model value significantly exceeds current ADP (${pool.length} available).`;
-  document.getElementById('sleepersBody').innerHTML = shown.map(p => `
-    <tr>
-      <td>${escapeHtml(p.name)}</td>
+    ? `Top ${shown.length} of ${pool.length} players flagged as value picks (ranked by value vs. ADP). Drafted players stay listed, struck through.`
+    : `Players whose model value significantly exceeds current ADP (${pool.length} total). Drafted players stay listed, struck through.`;
+  document.getElementById('sleepersBody').innerHTML = shown.map(p => {
+    const drafted = draftState.drafted.has(p.id);
+    return `
+    <tr class="${drafted?'drafted-row':''}">
+      <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
+      <td class="${drafted?'drafted-name':''}">${escapeHtml(p.name)}</td>
       <td><span class="pill pos-${p.position}">${p.position}</span></td>
-      <td>${p.adp?p.adp.overall:'-'}</td>
       <td>${p.adp&&p.valueMetrics.valueVsADP? Math.round(p.adp.overall - p.valueMetrics.valueVsADP) : '-'}</td>
       <td>${escapeHtml((p.blurb&&p.blurb.sleeperReason)||'')}</td>
-      <td><button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:12px;">Me</button></td>
+      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:12px;">Me</button>`}</td>
     </tr>
-  `).join('') || `<tr><td colspan="6" class="empty-state">No standout sleepers flagged yet in the current data.</td></tr>`;
+  `;
+  }).join('') || `<tr><td colspan="6" class="empty-state">No standout sleepers flagged yet in the current data.</td></tr>`;
 }
 
 function renderRoster(){
@@ -695,9 +880,9 @@ function renderRoster(){
       const entry = filled[i];
       if(entry){
         const player = ALL_PLAYERS.find(p=>p.id===entry.playerId);
-        rows.push(`<div class="roster-slot"><span>${slot.label}</span><span>${player?escapeHtml(player.name)+' ('+player.team+')':entry.playerId}</span></div>`);
+        rows.push(`<div class="roster-slot filled"><span class="slot-label">${slot.label}</span><span>${player?escapeHtml(player.name)+' ('+player.team+')':entry.playerId}</span></div>`);
       } else {
-        rows.push(`<div class="roster-slot empty"><span>${slot.label}</span><span>empty</span></div>`);
+        rows.push(`<div class="roster-slot empty"><span class="slot-label">${slot.label}</span><span>empty</span></div>`);
       }
     }
     return rows.join('');
@@ -708,7 +893,7 @@ function renderRoster(){
 function renderLog(){
   const items = draftState.picks.slice().reverse().map(pk => {
     const player = ALL_PLAYERS.find(p=>p.id===pk.playerId);
-    return `<div class="log-item"><span>#${pk.pickNumber} (R${pk.round}) — ${player?escapeHtml(player.name):pk.playerId} ${pk.mine?'⭐':''}</span><span>Team ${pk.team}</span></div>`;
+    return `<div class="log-item"><span>#${pk.pickNumber} (R${pk.round}) — ${player?escapeHtml(player.name):pk.playerId}${pk.mine?' <span class="mine-tag">★ MINE</span>':''}</span><span>Team ${pk.team}</span></div>`;
   }).join('');
   document.getElementById('logList').innerHTML = items || '<div class="empty-state">No picks yet.</div>';
 }
