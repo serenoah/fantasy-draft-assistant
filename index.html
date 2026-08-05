@@ -808,6 +808,29 @@ function currentRound(){
   return Math.ceil((draftState.picks.length+1) / draftState.leagueSize);
 }
 
+// Red-zone opportunity (targets for pass-catchers, carries for RBs) is the
+// strongest touchdown-equity signal we have beyond raw yardage — more RZ
+// looks means more scoring chances than the rest of a player's stat line
+// implies. Normalized per-position (a RB's carries aren't on the same scale
+// as a WR's targets) against the pool of currently-available players so it
+// stays meaningful as the draft thins out. Players with no RZ data get a
+// neutral 0 rather than being penalized for a research gap.
+function redZoneBonus(player){
+  const ps = player.prevSeason;
+  if(!ps) return 0;
+  const hasData = ps.redZoneTargets !== undefined || ps.redZoneCarries !== undefined;
+  if(!hasData) return 0;
+  const usage = (ps.redZoneTargets||0) + (ps.redZoneCarries||0);
+  const samePosWithData = availablePlayers().filter(p =>
+    p.position===player.position && p.prevSeason &&
+    (p.prevSeason.redZoneTargets !== undefined || p.prevSeason.redZoneCarries !== undefined)
+  );
+  if(samePosWithData.length < 3) return 0; // not enough same-position data to normalize fairly
+  const maxUsage = Math.max(...samePosWithData.map(p => (p.prevSeason.redZoneTargets||0)+(p.prevSeason.redZoneCarries||0)));
+  if(maxUsage <= 0) return 0;
+  return Math.round((usage / maxUsage) * 8); // up to +8 pts for the position's top RZ earner among available players
+}
+
 function scorePlayer(player){
   const pool = availablePlayers();
   const samePos = pool.filter(p=>p.position===player.position);
@@ -834,16 +857,18 @@ function scorePlayer(player){
   const byePenalty = byeConflictPenalty(player);
   const needMult = needMultiplierFor(player.position);
   const competitionPenalty = teamCompetitionPenalty(player);
+  const rzBonus = redZoneBonus(player);
 
   let base = valueScore*SCORE_WEIGHTS.value + scarcityScore*SCORE_WEIGHTS.scarcity;
   base += adpBonus;
+  base += rzBonus;
   base *= needMult;
   base -= byePenalty;
   base -= riskPenalty;
   base -= competitionPenalty;
 
   const score = Math.max(1, Math.min(100, Math.round(base)));
-  return { score, valueScore, scarcityScore, adpBonus, needMult, byePenalty, riskPenalty, competitionPenalty, deltaPicks, stage };
+  return { score, valueScore, scarcityScore, adpBonus, rzBonus, needMult, byePenalty, riskPenalty, competitionPenalty, deltaPicks, stage };
 }
 
 // The "Rankings" tab's big-board score — deliberately independent of the
@@ -870,10 +895,11 @@ function computeBigBoardScore(player){
   const risk = player.risk ? player.risk.injuryRisk : 'low';
   const flatRiskPenalty = { low:0, medium:6, high:14 }[risk] || 0;
   const competitionPenalty = teamCompetitionPenalty(player);
+  const rzBonus = redZoneBonus(player);
 
-  let base = valueScore*0.75 + scarcityScore*0.25 + adpBonus - flatRiskPenalty - competitionPenalty;
+  let base = valueScore*0.75 + scarcityScore*0.25 + adpBonus + rzBonus - flatRiskPenalty - competitionPenalty;
   const score = Math.max(1, Math.min(100, Math.round(base)));
-  return { score, valueScore, scarcityScore, adpBonus, flatRiskPenalty, competitionPenalty, deltaPicks, modelRank };
+  return { score, valueScore, scarcityScore, adpBonus, rzBonus, flatRiskPenalty, competitionPenalty, deltaPicks, modelRank };
 }
 
 const PHRASES = {
@@ -935,7 +961,8 @@ function scoreBreakdownRows(player, comps){
     const rz = [];
     if(ps.redZoneTargets !== undefined) rz.push(`${ps.redZoneTargets} RZ targets`);
     if(ps.redZoneCarries) rz.push(`${ps.redZoneCarries} RZ carries`);
-    rows.push({ label: 'Red-zone usage (last season)', value: rz.join(', ') || 'none recorded' });
+    const rzImpact = comps.rzBonus>0 ? ` (+${comps.rzBonus} pts, TD-equity bonus)` : '';
+    rows.push({ label: 'Red-zone usage (last season)', value: (rz.join(', ') || 'none recorded') + rzImpact });
   }
   rows.push(
     { label: 'Value over replacement', value: `${Math.round(comps.valueScore)}/100` },
@@ -966,6 +993,7 @@ function buildCompareVerdict(entries){
     { label:'value versus market ADP', delta: winner.comps.adpBonus - runnerUp.comps.adpBonus },
     { label:'injury risk', delta: runnerUpRisk - winnerRisk },
     { label:'team target/touch competition', delta: runnerUp.comps.competitionPenalty - winner.comps.competitionPenalty },
+    { label:'red-zone (touchdown-equity) usage', delta: (winner.comps.rzBonus||0) - (runnerUp.comps.rzBonus||0) },
   ];
   if(winner.comps.needMult !== undefined && runnerUp.comps.needMult !== undefined){
     diffs.push({ label:'fit with your current roster needs', delta: (winner.comps.needMult - runnerUp.comps.needMult)*40 });
