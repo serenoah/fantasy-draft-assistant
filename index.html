@@ -208,6 +208,25 @@
 
   .badge-sleeper { background: var(--amber-soft); color: var(--amber); font-family: var(--font-mono); font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; letter-spacing:0.04em; border:1px solid var(--amber); }
 
+  /* ---------- Draft Guru ---------- */
+  .guru-summary {
+    border:1px solid var(--border); border-radius:var(--radius); background:var(--panel-2);
+    padding:14px 16px; margin-bottom:14px; display:flex; flex-direction:column; gap:8px;
+  }
+  .guru-summary p { font-size:13px; line-height:1.6; color:var(--text-2); margin:0; }
+  .badge-onclock {
+    align-self:flex-start; background: var(--amber-soft); color: var(--amber); border:1px solid var(--amber);
+    font-family: var(--font-mono); font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px;
+    letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .risk-urgent, .risk-contested, .risk-safe {
+    font-family: var(--font-mono); font-size:10.5px; font-weight:700; letter-spacing:0.03em;
+    padding:2px 7px; border-radius:4px; white-space:nowrap;
+  }
+  .risk-urgent { color: var(--bad); background: rgba(199,52,52,0.1); border:1px solid var(--bad); }
+  .risk-contested { color: var(--amber); background: var(--amber-soft); border:1px solid var(--amber); }
+  .risk-safe { color: var(--good); background: rgba(13,148,103,0.1); border:1px solid var(--good); }
+
   /* ---------- On-the-clock alert (amber, matches the live signal) ---------- */
   .clock-banner {
     background: var(--amber-soft); border:1px solid var(--amber);
@@ -406,12 +425,20 @@
         <div class="panel">
           <div class="tabs">
             <button class="tab-btn active" data-tab="board">Available Players</button>
+            <button class="tab-btn" data-tab="guru">Draft Guru</button>
             <button class="tab-btn" data-tab="rankings">Rankings</button>
             <button class="tab-btn" data-tab="draftboard">Draft Board</button>
             <button class="tab-btn" data-tab="sleepers">Sleepers &amp; Value</button>
             <button class="tab-btn" data-tab="log">Draft Log</button>
           </div>
 
+          <div id="tab-guru" class="hidden">
+            <div id="guruVision"></div>
+            <div class="board-scroll"><table>
+              <thead><tr><th>Open Need</th><th>Top Targets</th><th>Survival Risk</th><th></th></tr></thead>
+              <tbody id="guruNeedsBody"></tbody>
+            </table></div>
+          </div>
           <div id="tab-board">
             <div class="row" style="margin-bottom:10px;">
               <input type="search" id="searchInput" placeholder="Search player…">
@@ -820,6 +847,131 @@ function byeConflictPenalty(player){
 
 function currentRound(){
   return Math.ceil((draftState.picks.length+1) / draftState.leagueSize);
+}
+
+/* ================= DRAFT GURU ================= */
+// A real-time strategic layer on top of the existing need/scoring engine:
+// instead of just scoring the single best pick right now, it tracks every
+// still-open roster slot, finds the current best-fit candidates for each,
+// and estimates whether that slot's targets will still be there by your
+// next turn — recomputed fresh after every pick (yours or anyone else's),
+// same as the rest of the app's live-recompute model.
+
+// A player has to clear this score to count as a "viable" target for a
+// need — otherwise a thin position with only replacement-level players left
+// would still report a large "pool", masking real scarcity.
+const GURU_VIABLE_SCORE_THRESHOLD = 60;
+const GURU_RISK_ORDER = { urgent: 0, contested: 1, safe: 2 };
+
+function nextMyPickNumber(fromPickNumber){
+  let p = fromPickNumber;
+  let guard = 0;
+  while(teamAtPick(p, draftState.leagueSize) !== draftState.myDraftSlot && guard < 1000){
+    p++; guard++;
+  }
+  return p;
+}
+
+// Which roster slots are still genuinely open, in the same priority order
+// and with the same DST/K-deferral and FLEX-masking gates as
+// needMultiplierFor() — a slot only counts as a real need here if it would
+// also score as one there, so the Guru's plan never contradicts the scores
+// driving the recommendations underneath it.
+function computeOpenNeeds(){
+  const filled = draftState.myRoster;
+  const stage = roundStage(currentRound());
+  const needs = [];
+  for(const slot of ROSTER_SLOTS){
+    if(slot.key==='BENCH') continue;
+    if((slot.key==='DST' || slot.key==='K') && stage!=='late') continue;
+    if(slot.key==='FLEX'){
+      const starterFeedersFull = ROSTER_SLOTS
+        .filter(s=>['RB','WR','TE'].includes(s.key))
+        .every(s => (filled[s.key]||[]).length >= s.count);
+      if(!starterFeedersFull) continue;
+    }
+    const used = (filled[slot.key]||[]).length;
+    if(used < slot.count){
+      needs.push({ slotKey: slot.key, label: slot.label, eligible: slot.eligible, remaining: slot.count - used });
+    }
+  }
+  if(needs.length===0){
+    const benchSlot = ROSTER_SLOTS.find(s=>s.key==='BENCH');
+    const benchUsed = (filled.BENCH||[]).length;
+    if(benchUsed < benchSlot.count){
+      needs.push({ slotKey:'BENCH', label:'Bench (Best Available)', eligible: benchSlot.eligible, remaining: benchSlot.count - benchUsed });
+    }
+  }
+  return needs;
+}
+
+function computeDraftPlan(){
+  const pickNumber = draftState.picks.length + 1;
+  const myNext = nextMyPickNumber(pickNumber);
+  const picksUntilMine = myNext - pickNumber;
+  const pool = availablePlayers();
+  const needs = computeOpenNeeds();
+
+  const targets = needs.map(need => {
+    const scored = pool.filter(p=>need.eligible.includes(p.position))
+      .map(p=>({p, comps: scorePlayer(p)}))
+      .sort((a,b)=>b.comps.score - a.comps.score);
+    const candidates = scored.slice(0,3);
+    const viablePoolSize = scored.filter(x=>x.comps.score >= GURU_VIABLE_SCORE_THRESHOLD).length;
+    // Every pick between now and my next turn is a chance one of my targets
+    // gets taken — if fewer viable players remain than picks left before I'm
+    // up again, there's a real risk none of them survive.
+    let risk;
+    if(viablePoolSize <= picksUntilMine) risk = 'urgent';
+    else if(viablePoolSize <= picksUntilMine*2) risk = 'contested';
+    else risk = 'safe';
+    return { ...need, candidates, viablePoolSize, risk };
+  });
+  targets.sort((a,b)=> GURU_RISK_ORDER[a.risk] - GURU_RISK_ORDER[b.risk]);
+
+  // Positional run: 3+ of the last 6 picks (any team) at one position is a
+  // real, commonly-cited draft-room signal that a position is drying up
+  // faster than its ADP alone would suggest.
+  const recentPicks = draftState.picks.slice(-6);
+  const posCounts = {};
+  recentPicks.forEach(pk => {
+    const pl = ALL_PLAYERS.find(x=>x.id===pk.playerId);
+    if(pl) posCounts[pl.position] = (posCounts[pl.position]||0) + 1;
+  });
+  const runs = Object.entries(posCounts).filter(([,c])=>c>=3).map(([pos,count])=>({pos,count}));
+
+  const visionSummary = buildVisionSummary(targets, runs, picksUntilMine);
+  return { pickNumber, myNext, picksUntilMine, targets, runs, visionSummary };
+}
+
+function buildVisionSummary(targets, runs, picksUntilMine){
+  if(targets.length===0) return 'Roster is full — nothing left to plan for.';
+  const stage = roundStage(currentRound());
+  const stageLabel = stage==='early'
+    ? 'Early rounds — best player available with an eye on need.'
+    : stage==='mid'
+      ? 'Mid-draft — filling starters and watching for positional runs.'
+      : 'Late rounds — rounding out bench, DST/K, and upside swings.';
+  const parts = [stageLabel];
+
+  const top = targets[0];
+  const names = top.candidates.map(c=>c.p.name).slice(0,2).join(' or ');
+  if(top.candidates.length===0){
+    parts.push(`${top.label} board is empty among available players.`);
+  } else if(picksUntilMine===0){
+    parts.push(`You're on the clock — ${names} tops the board for your open ${top.label}.`);
+  } else if(top.risk==='urgent'){
+    parts.push(`${top.label} is thin — ${names} may not survive your next ${picksUntilMine} pick${picksUntilMine===1?'':'s'}.`);
+  } else if(top.risk==='contested'){
+    parts.push(`Targeting ${top.label}: ${names} could go before your next turn, worth reaching for.`);
+  } else {
+    parts.push(`Targeting ${top.label}: ${names} should still be there at your next turn.`);
+  }
+
+  if(runs.length>0){
+    parts.push(`Heads up: ${runs.map(r=>`${r.pos} run (${r.count} of the last 6 picks)`).join(', ')}.`);
+  }
+  return parts.join(' ');
 }
 
 // Where this player sits in ADP order among other available players at the
@@ -1257,6 +1409,7 @@ function renderAll(){
   document.getElementById('clockPickInfo').textContent = `PICK #${pickNumber} · ROUND ${round}`;
 
   if(myTurn) renderOnClock();
+  renderDraftGuru();
   renderBoard();
   renderRankings();
   renderDraftBoard();
@@ -1400,6 +1553,33 @@ function renderBoard(){
   `).join('') || `<tr><td colspan="9" class="empty-state">No players match.</td></tr>`;
 }
 
+function renderDraftGuru(){
+  const visionEl = document.getElementById('guruVision');
+  const body = document.getElementById('guruNeedsBody');
+  if(!visionEl || !body) return;
+
+  const plan = computeDraftPlan();
+  const onClockTag = plan.picksUntilMine===0
+    ? '<span class="badge-onclock">On the clock</span>'
+    : `<span class="badge-onclock" style="background:var(--panel-2); color:var(--text-2); border-color:var(--border-strong);">${plan.picksUntilMine} pick${plan.picksUntilMine===1?'':'s'} until your next turn</span>`;
+  visionEl.innerHTML = `<div class="guru-summary">${onClockTag}<p>${escapeHtml(plan.visionSummary)}</p></div>`;
+
+  const riskLabel = { urgent:'Urgent — may not survive', contested:'Contested — worth reaching', safe:'Safe — should be there' };
+  body.innerHTML = plan.targets.map(t => {
+    const cands = t.candidates.length
+      ? t.candidates.map(c=>`${escapeHtml(c.p.name)} <span class="mono">(${c.comps.score})</span>`).join(', ')
+      : 'No eligible players remain';
+    const topId = t.candidates[0] ? t.candidates[0].p.id : null;
+    return `
+    <tr>
+      <td>${escapeHtml(t.label)}${t.remaining>1?` <span class="mono">×${t.remaining}</span>`:''}</td>
+      <td>${cands}</td>
+      <td><span class="risk-${t.risk}">${riskLabel[t.risk]}</span></td>
+      <td>${topId ? `<button class="secondary" data-draft-mine="${topId}" style="padding:4px 8px;font-size:11px;">Draft top target</button>` : ''}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="4" class="empty-state">Roster is full — no open needs.</td></tr>`;
+}
+
 const SLEEPERS_MAX_SHOWN = 25;
 const SLEEPERS_ADP_CEILING = 200; // keep the tab to plausibly-draftable players, not deep waiver noise
 
@@ -1510,7 +1690,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     activeTab = btn.dataset.tab;
-    ['board','rankings','draftboard','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
+    ['board','guru','rankings','draftboard','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
   });
 });
 
