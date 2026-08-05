@@ -705,19 +705,31 @@ function computeValueMetrics(){
 // Applies to WR/RB/TE, where touches/targets are a genuinely shared, finite
 // resource; QB/K/DST don't have a comparable dynamic.
 const COMPETITION_POSITIONS = ['WR','RB','TE'];
+const TARGET_SHARE_RIVAL_GAP = 10; // percentage points — close enough to mean a real shared role
 function computeTeamCompetition(){
   for(const p of ALL_PLAYERS){
     if(!COMPETITION_POSITIONS.includes(p.position) || !p.tier){ continue; }
-    const rivals = ALL_PLAYERS.filter(o =>
-      o.id!==p.id && o.team===p.team && o.position===p.position &&
-      o.tier && Math.abs(o.tier - p.tier) <= 1
-    );
+    const pShare = p.prevSeason && p.prevSeason.targetShare;
+    const teammatesSamePos = ALL_PLAYERS.filter(o => o.id!==p.id && o.team===p.team && o.position===p.position);
+    // Prefer real target-share proximity when both players have it — more
+    // precise than tier alone (e.g. a 28% and a 5% target-share teammate at
+    // similar tiers aren't actually fighting over the same role). Falls back
+    // to tier proximity for players without prior-season target data
+    // (rookies, pure-rushing backs).
+    const rivals = teammatesSamePos.filter(o => {
+      const oShare = o.prevSeason && o.prevSeason.targetShare;
+      if(pShare !== undefined && oShare !== undefined){
+        return Math.abs(oShare - pShare) <= TARGET_SHARE_RIVAL_GAP;
+      }
+      return o.tier && Math.abs(o.tier - p.tier) <= 1;
+    });
     const intensity = rivals.length>=2 ? 'high' : rivals.length===1 ? 'medium' : 'low';
     if(!p.valueMetrics) p.valueMetrics = {};
     p.valueMetrics.teamCompetition = {
       competingTeammates: rivals.length,
       intensity,
       rivalNames: rivals.map(r=>r.name),
+      basis: pShare!==undefined ? 'target share' : 'tier',
     };
   }
 }
@@ -905,11 +917,19 @@ function buildReasoning(player, comps){
 function scoreBreakdownRows(player, comps){
   const riskLabel = player.risk ? player.risk.injuryRisk : 'low';
   const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
-  const rows = [
+  const rows = [];
+  const ps = player.prevSeason;
+  if(ps && ps.targetShare !== undefined){
+    rows.push({ label: 'Target share (last season)', value: `${ps.targetShare}%` });
+  }
+  if(ps && ps.catchRate !== undefined){
+    rows.push({ label: 'Catch rate (last season)', value: `${ps.catchRate}%` });
+  }
+  rows.push(
     { label: 'Value over replacement', value: `${Math.round(comps.valueScore)}/100` },
     { label: 'Positional scarcity', value: `${Math.round(comps.scarcityScore)}/100` },
     { label: 'ADP value', value: `${comps.deltaPicks>0?'+':''}${Math.round(comps.deltaPicks)} picks (${comps.adpBonus>=0?'+':''}${comps.adpBonus.toFixed(1)} pts)` },
-  ];
+  );
   if(comps.needMult !== undefined) rows.push({ label: 'Roster fit multiplier', value: `×${comps.needMult.toFixed(2)}` });
   if(comps.byePenalty !== undefined) rows.push({ label: 'Bye-week conflict', value: comps.byePenalty>0 ? `−${comps.byePenalty} pts` : 'none' });
   if(tc && tc.competingTeammates>0){
