@@ -247,7 +247,8 @@
   .draft-board-table { table-layout: fixed; }
   .draft-board-table th, .draft-board-table td { padding:6px 7px; font-size:11.5px; border-right:1px solid var(--border); }
   .draft-board-table th:last-child, .draft-board-table td:last-child { border-right:none; }
-  .draft-board-table .round-col { width:32px; text-align:center; color:var(--muted); font-weight:700; font-family: var(--font-mono); background:var(--panel); }
+  .round-col { width:32px; text-align:center; color:var(--muted); font-weight:700; font-family: var(--font-mono); }
+  .draft-board-table .round-col { background:var(--panel); }
   .draft-board-table th { text-align:center; width:84px; }
   .draft-board-table th.my-team-col { color:var(--amber); }
   .board-cell { max-width:84px; overflow:hidden; white-space:nowrap; }
@@ -405,6 +406,7 @@
         <div class="panel">
           <div class="tabs">
             <button class="tab-btn active" data-tab="board">Available Players</button>
+            <button class="tab-btn" data-tab="rankings">Rankings</button>
             <button class="tab-btn" data-tab="draftboard">Draft Board</button>
             <button class="tab-btn" data-tab="sleepers">Sleepers &amp; Value</button>
             <button class="tab-btn" data-tab="log">Draft Log</button>
@@ -434,6 +436,21 @@
             <div class="board-scroll"><table>
               <thead><tr><th class="cmp-col">Cmp</th><th class="col-adp">ADP</th><th>Player</th><th>Pos</th><th>Bye</th><th>Tier</th><th>Proj PPG</th><th>Score</th><th></th></tr></thead>
               <tbody id="boardBody"></tbody>
+            </table></div>
+          </div>
+          <div id="tab-rankings" class="hidden">
+            <p class="status-line">Model-driven big board — value over replacement, positional scarcity, market-ADP delta, injury risk, and team target/touch competition. Not adjusted for your own roster (that's what "My Score" on Available Players does); this is just who's best, period. Drafted players stay listed, struck through.</p>
+            <div class="row" style="margin-bottom:10px;">
+              <input type="search" id="rankingsSearchInput" placeholder="Search player…">
+              <select id="rankingsPosFilter">
+                <option value="ALL">All positions</option>
+                <option value="QB">QB</option><option value="RB">RB</option><option value="WR">WR</option>
+                <option value="TE">TE</option><option value="DST">DST</option><option value="K">K</option>
+              </select>
+            </div>
+            <div class="board-scroll"><table>
+              <thead><tr><th class="round-col">Rk</th><th class="col-adp">ADP</th><th>Player</th><th>Pos</th><th>Bye</th><th>Tier</th><th>Proj PPG</th><th>Model Score</th><th>Δ vs ADP</th><th></th></tr></thead>
+              <tbody id="rankingsBody"></tbody>
             </table></div>
           </div>
           <div id="tab-draftboard" class="hidden">
@@ -552,6 +569,8 @@ let sortMode = 'score';
 let posFilterVal = 'ALL';
 let searchVal = '';
 let compareSelection = []; // player ids queued for the Explain/Compare modal, max 3
+let rankingsPosFilterVal = 'ALL';
+let rankingsSearchVal = '';
 
 /* ================= DATA LOADING ================= */
 async function fetchWithTimeout(url, ms){
@@ -623,6 +642,7 @@ async function loadData(){
   }, '');
   computeBaselines();
   computeValueMetrics();
+  computeTeamCompetition();
   const srcLabel = DATA_SOURCE==='live' ? 'Live data from GitHub' : DATA_SOURCE==='local' ? 'Local data file' : 'Fallback placeholder data (limited) — connect to internet and reload for full rankings';
   statusEl.textContent = `${srcLabel} · ${ALL_PLAYERS.length} players loaded${DATA_AS_OF ? ' · as of '+DATA_AS_OF : ''}`;
   document.getElementById('rosterSlotsDisplay').textContent = ROSTER_SLOTS.map(s=>`${s.count}x ${s.label}`).join(', ');
@@ -677,6 +697,34 @@ function computeValueMetrics(){
       bustRiskFlag: !!(p.risk && p.risk.injuryRisk==='high' && p.tier && p.tier<=3),
     };
   }
+}
+
+// Derives real within-team opportunity competition directly from data already
+// collected (team + position + tier) — no new research needed, and it stays
+// accurate automatically as the daily cron updates tiers/depth-chart info.
+// Applies to WR/RB/TE, where touches/targets are a genuinely shared, finite
+// resource; QB/K/DST don't have a comparable dynamic.
+const COMPETITION_POSITIONS = ['WR','RB','TE'];
+function computeTeamCompetition(){
+  for(const p of ALL_PLAYERS){
+    if(!COMPETITION_POSITIONS.includes(p.position) || !p.tier){ continue; }
+    const rivals = ALL_PLAYERS.filter(o =>
+      o.id!==p.id && o.team===p.team && o.position===p.position &&
+      o.tier && Math.abs(o.tier - p.tier) <= 1
+    );
+    const intensity = rivals.length>=2 ? 'high' : rivals.length===1 ? 'medium' : 'low';
+    if(!p.valueMetrics) p.valueMetrics = {};
+    p.valueMetrics.teamCompetition = {
+      competingTeammates: rivals.length,
+      intensity,
+      rivalNames: rivals.map(r=>r.name),
+    };
+  }
+}
+function teamCompetitionPenalty(player){
+  const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
+  if(!tc) return 0;
+  return { low:0, medium:4, high:9 }[tc.intensity] || 0;
 }
 
 function roundStage(round){
@@ -773,15 +821,47 @@ function scorePlayer(player){
 
   const byePenalty = byeConflictPenalty(player);
   const needMult = needMultiplierFor(player.position);
+  const competitionPenalty = teamCompetitionPenalty(player);
 
   let base = valueScore*SCORE_WEIGHTS.value + scarcityScore*SCORE_WEIGHTS.scarcity;
   base += adpBonus;
   base *= needMult;
   base -= byePenalty;
   base -= riskPenalty;
+  base -= competitionPenalty;
 
   const score = Math.max(1, Math.min(100, Math.round(base)));
-  return { score, valueScore, scarcityScore, adpBonus, needMult, byePenalty, riskPenalty, deltaPicks, stage };
+  return { score, valueScore, scarcityScore, adpBonus, needMult, byePenalty, riskPenalty, competitionPenalty, deltaPicks, stage };
+}
+
+// The "Rankings" tab's big-board score — deliberately independent of the
+// user's own roster (no need multiplier, no bye-conflict check). It answers
+// "who is just the best player, period," as a data-informed alternative to
+// raw consensus ADP, versus "My Score" on the board tab which is reactive
+// to whatever's already been drafted onto your team.
+function computeBigBoardScore(player){
+  const pool = availablePlayers();
+  const samePos = pool.filter(p=>p.position===player.position);
+  const vorps = pool.map(vorp);
+  const minV = Math.min(...vorps), maxV = Math.max(...vorps);
+  const v = vorp(player);
+  const valueScore = maxV>minV ? ((v-minV)/(maxV-minV))*100 : 50;
+
+  const topTierRemaining = samePos.filter(p=>p.tier && p.tier<=3).length;
+  const scarcityScore = Math.max(0, Math.min(100, 100 - topTierRemaining*8));
+
+  const modelRank = pool.slice().sort((a,b)=>vorp(b)-vorp(a)).findIndex(p=>p.id===player.id) + 1;
+  const marketRank = player.adp ? player.adp.overall : modelRank;
+  const deltaPicks = marketRank - modelRank;
+  const adpBonus = Math.max(ADP_BONUS_CLAMP[0], Math.min(ADP_BONUS_CLAMP[1], deltaPicks*ADP_BONUS_FACTOR));
+
+  const risk = player.risk ? player.risk.injuryRisk : 'low';
+  const flatRiskPenalty = { low:0, medium:6, high:14 }[risk] || 0;
+  const competitionPenalty = teamCompetitionPenalty(player);
+
+  let base = valueScore*0.75 + scarcityScore*0.25 + adpBonus - flatRiskPenalty - competitionPenalty;
+  const score = Math.max(1, Math.min(100, Math.round(base)));
+  return { score, valueScore, scarcityScore, adpBonus, flatRiskPenalty, competitionPenalty, deltaPicks, modelRank };
 }
 
 const PHRASES = {
@@ -808,6 +888,10 @@ function buildReasoning(player, comps){
   const valueClause = pick(PHRASES.value[valueKey], seed>>2);
   const situationClause = (player.blurb && (player.blurb.riskReason || player.situation && player.situation.competitionNotes)) || (player.blurb && player.blurb.summary) || '';
   let clauses = [needClause, valueClause, situationClause].filter(Boolean);
+  const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
+  if(tc && tc.intensity==='high'){
+    clauses.push(`⚠ Real target/touch competition on ${player.team} from ${tc.rivalNames.join(' and ')}.`);
+  }
   if(player.valueMetrics && player.valueMetrics.sleeperFlag && player.blurb && player.blurb.sleeperReason){
     clauses.push('◆ ' + player.blurb.sleeperReason);
   }
@@ -820,27 +904,40 @@ function buildReasoning(player, comps){
 // computed for the live score, never invented at explain-time.
 function scoreBreakdownRows(player, comps){
   const riskLabel = player.risk ? player.risk.injuryRisk : 'low';
-  return [
+  const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
+  const rows = [
     { label: 'Value over replacement', value: `${Math.round(comps.valueScore)}/100` },
     { label: 'Positional scarcity', value: `${Math.round(comps.scarcityScore)}/100` },
     { label: 'ADP value', value: `${comps.deltaPicks>0?'+':''}${Math.round(comps.deltaPicks)} picks (${comps.adpBonus>=0?'+':''}${comps.adpBonus.toFixed(1)} pts)` },
-    { label: 'Roster fit multiplier', value: `×${comps.needMult.toFixed(2)}` },
-    { label: 'Bye-week conflict', value: comps.byePenalty>0 ? `−${comps.byePenalty} pts` : 'none' },
-    { label: `Injury risk (${riskLabel})`, value: comps.riskPenalty>0 ? `−${comps.riskPenalty} pts (${comps.stage} rounds)` : 'no penalty' },
   ];
+  if(comps.needMult !== undefined) rows.push({ label: 'Roster fit multiplier', value: `×${comps.needMult.toFixed(2)}` });
+  if(comps.byePenalty !== undefined) rows.push({ label: 'Bye-week conflict', value: comps.byePenalty>0 ? `−${comps.byePenalty} pts` : 'none' });
+  if(tc && tc.competingTeammates>0){
+    rows.push({ label: 'Team target/touch competition', value: `−${teamCompetitionPenalty(player)} pts (${tc.competingTeammates} similar-tier teammate${tc.competingTeammates>1?'s':''}: ${tc.rivalNames.join(', ')})` });
+  } else if(tc){
+    rows.push({ label: 'Team target/touch competition', value: 'none — clear role on the team' });
+  }
+  const riskPts = comps.riskPenalty !== undefined ? comps.riskPenalty : comps.flatRiskPenalty;
+  rows.push({ label: `Injury risk (${riskLabel})`, value: riskPts>0 ? `−${riskPts} pts` : 'no penalty' });
+  return rows;
 }
 
 function buildCompareVerdict(entries){
   const ranked = entries.slice().sort((a,b)=>b.comps.score-a.comps.score);
   const winner = ranked[0], runnerUp = ranked[1];
   if(!runnerUp) return `${winner.player.name} scores ${winner.comps.score}/100 right now.`;
+  const winnerRisk = winner.comps.riskPenalty !== undefined ? winner.comps.riskPenalty : winner.comps.flatRiskPenalty;
+  const runnerUpRisk = runnerUp.comps.riskPenalty !== undefined ? runnerUp.comps.riskPenalty : runnerUp.comps.flatRiskPenalty;
   const diffs = [
     { label:'value over replacement', delta: winner.comps.valueScore - runnerUp.comps.valueScore },
     { label:'positional scarcity', delta: winner.comps.scarcityScore - runnerUp.comps.scarcityScore },
-    { label:'fit with your current roster needs', delta: (winner.comps.needMult - runnerUp.comps.needMult)*40 },
     { label:'value versus market ADP', delta: winner.comps.adpBonus - runnerUp.comps.adpBonus },
-    { label:'injury risk', delta: runnerUp.comps.riskPenalty - winner.comps.riskPenalty },
+    { label:'injury risk', delta: runnerUpRisk - winnerRisk },
+    { label:'team target/touch competition', delta: runnerUp.comps.competitionPenalty - winner.comps.competitionPenalty },
   ];
+  if(winner.comps.needMult !== undefined && runnerUp.comps.needMult !== undefined){
+    diffs.push({ label:'fit with your current roster needs', delta: (winner.comps.needMult - runnerUp.comps.needMult)*40 });
+  }
   const biggest = diffs.reduce((a,b)=> Math.abs(b.delta)>Math.abs(a.delta) ? b : a);
   const scoreDiff = winner.comps.score - runnerUp.comps.score;
   const margin = scoreDiff>=15 ? 'clearly' : scoreDiff>=6 ? 'moderately' : 'narrowly';
@@ -871,15 +968,21 @@ function renderCompareTray(){
   btn.textContent = compareSelection.length>=2 ? `Compare (${compareSelection.length})` : 'Compare';
 }
 
-function openCompareModal(ids){
+function openCompareModal(ids, mode){
+  // mode='rankings' uses the roster-independent big-board score (matches what's
+  // shown on the Rankings tab); default 'live' uses the roster-aware My Score
+  // (matches Available Players / on-the-clock) — keeps the modal's number
+  // consistent with whichever score the user actually clicked "?" on.
+  const scoreFn = mode==='rankings' ? computeBigBoardScore : scorePlayer;
   const entries = ids.map(id => {
     const player = ALL_PLAYERS.find(p=>p.id===id);
     if(!player) return null;
-    return { player, comps: scorePlayer(player) };
+    return { player, comps: scoreFn(player) };
   }).filter(Boolean);
   if(!entries.length) return;
 
   document.getElementById('compareModalTitle').textContent = entries.length===1 ? `Why ${entries[0].player.name}?` : 'Player Comparison';
+  const modeNote = mode==='rankings' ? '<p class="status-line" style="margin:0 20px;">Model rank score — independent of your current roster.</p>' : '';
   const verdict = entries.length>=2 ? `<div class="compare-verdict">${escapeHtml(buildCompareVerdict(entries))}</div>` : '';
   const cols = entries.map(({player,comps}) => `
     <div class="compare-col">
@@ -894,7 +997,7 @@ function openCompareModal(ids){
       <p class="reasoning">${escapeHtml(buildReasoning(player, comps))}</p>
     </div>
   `).join('');
-  document.getElementById('compareModalBody').innerHTML = `${verdict}<div class="compare-grid cols-${entries.length}">${cols}</div>`;
+  document.getElementById('compareModalBody').innerHTML = `${modeNote}${verdict}<div class="compare-grid cols-${entries.length}">${cols}</div>`;
   document.getElementById('compareModal').classList.remove('hidden');
 }
 function closeCompareModal(){
@@ -1039,11 +1142,41 @@ function renderAll(){
 
   if(myTurn) renderOnClock();
   renderBoard();
+  renderRankings();
   renderDraftBoard();
   renderSleepers();
   renderRoster();
   renderLog();
   renderCompareTray();
+}
+
+function renderRankings(){
+  const body = document.getElementById('rankingsBody');
+  if(!body) return;
+  let pool = ALL_PLAYERS.slice();
+  if(rankingsPosFilterVal!=='ALL') pool = pool.filter(p=>p.position===rankingsPosFilterVal);
+  if(rankingsSearchVal) pool = pool.filter(p=>p.name.toLowerCase().includes(rankingsSearchVal.toLowerCase()));
+  const scored = pool.map(p=>({p, comps: computeBigBoardScore(p)}));
+  scored.sort((a,b)=> b.comps.score - a.comps.score);
+  body.innerHTML = scored.map(({p,comps}, idx) => {
+    const drafted = draftState.drafted.has(p.id);
+    const deltaAdp = p.adp ? (p.adp.overall - comps.modelRank) : 0;
+    const deltaLabel = p.adp ? `${deltaAdp>0?'+':''}${Math.round(deltaAdp)}` : '-';
+    return `
+    <tr class="${drafted?'drafted-row':''}">
+      <td class="round-col">${idx+1}</td>
+      <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
+      <td class="${drafted?'drafted-name':''}">${escapeHtml(p.name)}</td>
+      <td>${posTagHtml(p.position)}</td>
+      <td class="mono-cell">${p.byeWeek||'-'}</td>
+      <td class="mono-cell">${p.tier||'-'}</td>
+      <td class="mono-cell">${p.projection?p.projection.projPPG.toFixed(1):'-'}</td>
+      <td>${scoreGaugeHtml(comps.score)}</td>
+      <td class="mono-cell">${deltaLabel}</td>
+      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button><button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:11px;">Other</button><button class="ghost explain-btn" data-explain="${p.id}" data-explain-mode="rankings" style="padding:4px 7px;font-size:11px;" title="Why this rank?">?</button>`}</td>
+    </tr>
+  `;
+  }).join('') || `<tr><td colspan="10" class="empty-state">No players match.</td></tr>`;
 }
 
 function renderDraftBoard(){
@@ -1253,6 +1386,8 @@ document.getElementById('importFile').addEventListener('change', (e) => {
 
 document.getElementById('searchInput').addEventListener('input', (e) => { searchVal = e.target.value; renderBoard(); });
 document.getElementById('posFilter').addEventListener('change', (e) => { posFilterVal = e.target.value; renderBoard(); });
+document.getElementById('rankingsSearchInput').addEventListener('input', (e) => { rankingsSearchVal = e.target.value; renderRankings(); });
+document.getElementById('rankingsPosFilter').addEventListener('change', (e) => { rankingsPosFilterVal = e.target.value; renderRankings(); });
 document.getElementById('sortSelect').addEventListener('change', (e) => { sortMode = e.target.value; renderBoard(); });
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1260,7 +1395,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     activeTab = btn.dataset.tab;
-    ['board','draftboard','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
+    ['board','rankings','draftboard','sleepers','log'].forEach(t => document.getElementById('tab-'+t).classList.toggle('hidden', t!==activeTab));
   });
 });
 
@@ -1268,10 +1403,11 @@ document.getElementById('app').addEventListener('click', (e) => {
   const mineId = e.target.getAttribute('data-draft-mine');
   const otherId = e.target.getAttribute('data-draft-other');
   const explainId = e.target.getAttribute('data-explain');
+  const explainMode = e.target.getAttribute('data-explain-mode');
   const removeCmpId = e.target.getAttribute('data-remove-compare');
   if(mineId) makePick(mineId, true);
   if(otherId) makePick(otherId, false);
-  if(explainId) openCompareModal([explainId]);
+  if(explainId) openCompareModal([explainId], explainMode);
   if(removeCmpId){ compareSelection = compareSelection.filter(x=>x!==removeCmpId); renderCompareTray(); renderBoard(); }
 });
 document.getElementById('app').addEventListener('change', (e) => {
