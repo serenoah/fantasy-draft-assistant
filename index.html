@@ -439,7 +439,7 @@
             </table></div>
           </div>
           <div id="tab-rankings" class="hidden">
-            <p class="status-line">Model-driven big board — value over replacement, positional scarcity, market-ADP delta, injury risk, and team target/touch competition. Not adjusted for your own roster (that's what "My Score" on Available Players does); this is just who's best, period. Drafted players stay listed, struck through.</p>
+            <p class="status-line">Model-driven big board — value over replacement, positional scarcity, market-ADP delta, injury risk, red-zone usage, and team target/touch competition. Not adjusted for your own roster (that's what "My Score" on Available Players does); this is just who's best, period, among players still on the board.</p>
             <div class="row" style="margin-bottom:10px;">
               <input type="search" id="rankingsSearchInput" placeholder="Search player…">
               <select id="rankingsPosFilter">
@@ -1213,27 +1213,26 @@ function renderAll(){
 function renderRankings(){
   const body = document.getElementById('rankingsBody');
   if(!body) return;
-  let pool = ALL_PLAYERS.slice();
+  let pool = availablePlayers(); // drafted players drop off the list entirely, same as Available Players
   if(rankingsPosFilterVal!=='ALL') pool = pool.filter(p=>p.position===rankingsPosFilterVal);
   if(rankingsSearchVal) pool = pool.filter(p=>p.name.toLowerCase().includes(rankingsSearchVal.toLowerCase()));
   const scored = pool.map(p=>({p, comps: computeBigBoardScore(p)}));
   scored.sort((a,b)=> b.comps.score - a.comps.score);
   body.innerHTML = scored.map(({p,comps}, idx) => {
-    const drafted = draftState.drafted.has(p.id);
     const deltaAdp = p.adp ? (p.adp.overall - comps.modelRank) : 0;
     const deltaLabel = p.adp ? `${deltaAdp>0?'+':''}${Math.round(deltaAdp)}` : '-';
     return `
-    <tr class="${drafted?'drafted-row':''}">
+    <tr>
       <td class="round-col">${idx+1}</td>
       <td class="col-adp">${p.adp?p.adp.overall:'-'}</td>
-      <td class="${drafted?'drafted-name':''}">${escapeHtml(p.name)}</td>
+      <td>${escapeHtml(p.name)}</td>
       <td>${posTagHtml(p.position)}</td>
       <td class="mono-cell">${p.byeWeek||'-'}</td>
       <td class="mono-cell">${p.tier||'-'}</td>
       <td class="mono-cell">${p.projection?p.projection.projPPG.toFixed(1):'-'}</td>
       <td>${scoreGaugeHtml(comps.score)}</td>
       <td class="mono-cell">${deltaLabel}</td>
-      <td>${drafted ? '<span class="drafted-tag">Drafted</span>' : `<button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button><button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:11px;">Other</button><button class="ghost explain-btn" data-explain="${p.id}" data-explain-mode="rankings" style="padding:4px 7px;font-size:11px;" title="Why this rank?">?</button>`}</td>
+      <td><button class="secondary" data-draft-mine="${p.id}" style="padding:4px 8px;font-size:11px;">Me</button><button class="ghost" data-draft-other="${p.id}" style="padding:4px 8px;font-size:11px;">Other</button><button class="ghost explain-btn" data-explain="${p.id}" data-explain-mode="rankings" style="padding:4px 7px;font-size:11px;" title="Why this rank?">?</button></td>
     </tr>
   `;
   }).join('') || `<tr><td colspan="10" class="empty-state">No players match.</td></tr>`;
