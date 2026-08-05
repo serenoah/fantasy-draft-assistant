@@ -746,38 +746,99 @@ function computeValueMetrics(){
 // Applies to WR/RB/TE, where touches/targets are a genuinely shared, finite
 // resource; QB/K/DST don't have a comparable dynamic.
 const COMPETITION_POSITIONS = ['WR','RB','TE'];
-const TARGET_SHARE_RIVAL_GAP = 10; // percentage points — close enough to mean a real shared role
+// Percentage points of target-share gap (or rush attempts, for two RBs)
+// beyond which two teammates aren't really fighting over the same role
+// anymore. Used as the span of a smooth 0-1 taper, not a hard cutoff — a
+// 2-point gap is a much bigger threat than a 9-point gap, and the old
+// binary "within 10 points = rival" cutoff treated those identically.
+const TARGET_SHARE_RIVAL_SPAN = 15;
+const RUSH_VOLUME_RIVAL_SPAN = 120;
+const COMPETITION_MEANINGFUL_WEIGHT = 0.2; // below this, don't even list it as a rival
+const COMPETITION_PENALTY_PER_UNIT = 6;
+const COMPETITION_PENALTY_CAP = 12;
+
+// How directly two same-team pass-catchers/backs compete for the SAME
+// finite pool of touches. Target share is the real signal here — it's
+// comparable ACROSS positions, because targets are one shared team-wide
+// pool. A TE and a WR who each pull ~20% of their team's targets are
+// fighting over that pool just as much as two WRs would be; a TE with a
+// 6% target share sitting next to a 28%-share WR1 is not "competition"
+// just because they're both pass-catchers. RBs get an extra rushing-volume
+// check against other RBs, since two backs can split carries heavily with
+// very little receiving overlap. Returns 0 (no real overlap) to 1
+// (essentially identical share).
+function rivalryWeight(a, b){
+  let weight = 0;
+  const aShare = a.prevSeason && a.prevSeason.targetShare;
+  const bShare = b.prevSeason && b.prevSeason.targetShare;
+  if(aShare !== undefined && bShare !== undefined){
+    const gap = Math.abs(aShare - bShare);
+    weight = Math.max(weight, Math.max(0, 1 - gap/TARGET_SHARE_RIVAL_SPAN));
+  }
+  if(a.position==='RB' && b.position==='RB'){
+    const aRush = a.prevSeason && a.prevSeason.rushAtt;
+    const bRush = b.prevSeason && b.prevSeason.rushAtt;
+    if(aRush !== undefined && bRush !== undefined){
+      const gap = Math.abs(aRush - bRush);
+      weight = Math.max(weight, Math.max(0, 1 - gap/RUSH_VOLUME_RIVAL_SPAN));
+    }
+  }
+  return weight;
+}
+
 function computeTeamCompetition(){
   for(const p of ALL_PLAYERS){
-    if(!COMPETITION_POSITIONS.includes(p.position) || !p.tier){ continue; }
-    const pShare = p.prevSeason && p.prevSeason.targetShare;
-    const teammatesSamePos = ALL_PLAYERS.filter(o => o.id!==p.id && o.team===p.team && o.position===p.position);
-    // Prefer real target-share proximity when both players have it — more
-    // precise than tier alone (e.g. a 28% and a 5% target-share teammate at
-    // similar tiers aren't actually fighting over the same role). Falls back
-    // to tier proximity for players without prior-season target data
-    // (rookies, pure-rushing backs).
-    const rivals = teammatesSamePos.filter(o => {
-      const oShare = o.prevSeason && o.prevSeason.targetShare;
-      if(pShare !== undefined && oShare !== undefined){
-        return Math.abs(oShare - pShare) <= TARGET_SHARE_RIVAL_GAP;
-      }
-      return o.tier && Math.abs(o.tier - p.tier) <= 1;
-    });
-    const intensity = rivals.length>=2 ? 'high' : rivals.length===1 ? 'medium' : 'low';
+    if(!COMPETITION_POSITIONS.includes(p.position)) continue;
+    // Cross-position on purpose — real target competition doesn't respect
+    // position lines (a TE and a WR1 both eat into the same target pool).
+    const teammates = ALL_PLAYERS.filter(o => o.id!==p.id && o.team===p.team && COMPETITION_POSITIONS.includes(o.position));
+    const hasVolumeData = (p.prevSeason && p.prevSeason.targetShare !== undefined)
+      || (p.position==='RB' && p.prevSeason && p.prevSeason.rushAtt !== undefined);
+
+    let rivals, basis;
+    if(hasVolumeData){
+      rivals = teammates
+        .map(o => ({ player:o, weight: rivalryWeight(p, o) }))
+        .filter(r => r.weight >= COMPETITION_MEANINGFUL_WEIGHT)
+        .sort((a,b)=>b.weight-a.weight);
+      basis = 'target/touch share';
+    } else if(p.tier){
+      // No usable volume data (rookie, unresearched) — fall back to
+      // positional-tier proximity. Tier is position-relative, so this stays
+      // same-position only; a TE tier-1 and a WR tier-1 aren't comparable
+      // the way their target shares would be.
+      rivals = teammates
+        .filter(o => o.position===p.position && o.tier && Math.abs(o.tier-p.tier)<=1)
+        .map(o => ({ player:o, weight:0.6 }));
+      basis = 'tier (no volume data)';
+    } else {
+      rivals = [];
+      basis = 'none';
+    }
+
+    // Score off the top 2 rivals only — a deep receiving corps can surface
+    // 4+ teammates who each plausibly overlap a little, and summing all of
+    // them let mild, incidental overlap stack up to the same penalty as one
+    // real head-to-head committee split. The 1-2 most direct competitors are
+    // what actually determines whether a role is shared; a weaker 3rd/4th
+    // name is real context (still shown in rivalNames) but shouldn't keep
+    // adding to the score.
+    const competitionScore = rivals.slice(0,2).reduce((sum,r)=>sum+r.weight, 0);
     if(!p.valueMetrics) p.valueMetrics = {};
     p.valueMetrics.teamCompetition = {
       competingTeammates: rivals.length,
-      intensity,
-      rivalNames: rivals.map(r=>r.name),
-      basis: pShare!==undefined ? 'target share' : 'tier',
+      competitionScore: Math.round(competitionScore*100)/100,
+      intensity: competitionScore>=1.3 ? 'high' : competitionScore>=0.5 ? 'medium' : 'low',
+      rivalNames: rivals.map(r=>r.player.name),
+      rivalDetails: rivals.map(r=>({ name:r.player.name, position:r.player.position, weight:Math.round(r.weight*100)/100 })),
+      basis,
     };
   }
 }
 function teamCompetitionPenalty(player){
   const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
   if(!tc) return 0;
-  return { low:0, medium:4, high:9 }[tc.intensity] || 0;
+  return Math.min(COMPETITION_PENALTY_CAP, Math.round(tc.competitionScore * COMPETITION_PENALTY_PER_UNIT));
 }
 
 function roundStage(round){
@@ -1233,7 +1294,8 @@ function buildReasoning(player, comps){
 
   const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
   if(tc && tc.intensity==='high'){
-    clauses.push(`⚠ Real target/touch competition on ${player.team} from ${tc.rivalNames.join(' and ')}.`);
+    const topRivals = tc.rivalDetails.slice(0,2).map(r=>`${r.name} (${r.position}, ${Math.round(r.weight*100)}% share overlap)`);
+    clauses.push(`⚠ Real target/touch competition on ${player.team} — ${topRivals.join(' and ')}.`);
   }
   if(player.valueMetrics && player.valueMetrics.sleeperFlag && player.blurb && player.blurb.sleeperReason){
     clauses.push('◆ ' + player.blurb.sleeperReason);
@@ -1277,9 +1339,10 @@ function scoreBreakdownRows(player, comps){
   if(comps.needMult !== undefined) rows.push({ label: 'Roster fit multiplier', value: `×${comps.needMult.toFixed(2)}` });
   if(comps.byePenalty !== undefined) rows.push({ label: 'Bye-week conflict', value: comps.byePenalty>0 ? `−${comps.byePenalty} pts` : 'none' });
   if(tc && tc.competingTeammates>0){
-    rows.push({ label: 'Team target/touch competition', value: `−${teamCompetitionPenalty(player)} pts (${tc.competingTeammates} similar-tier teammate${tc.competingTeammates>1?'s':''}: ${tc.rivalNames.join(', ')})` });
+    const rivalText = tc.rivalDetails.map(r=>`${r.name} (${r.position}, ${Math.round(r.weight*100)}% share overlap)`).join(', ');
+    rows.push({ label: 'Team target/touch competition', value: `−${teamCompetitionPenalty(player)} pts — ${rivalText}` });
   } else if(tc){
-    rows.push({ label: 'Team target/touch competition', value: 'none — clear role on the team' });
+    rows.push({ label: 'Team target/touch competition', value: `none — clear role, no teammate with an overlapping ${tc.basis==='tier (no volume data)' ? 'tier' : 'target/touch share'}` });
   }
   const riskPts = comps.riskPenalty !== undefined ? comps.riskPenalty : comps.flatRiskPenalty;
   rows.push({ label: `Injury risk (${riskLabel})`, value: riskPts>0 ? `−${riskPts} pts` : 'no penalty' });
