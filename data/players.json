@@ -2381,7 +2381,12 @@
                            "pprPts":  174.0,
                            "pprPtsPerGame":  14.5,
                            "catchRate":  74.4,
-                           "targetShare":  16.7
+                           "targetShare":  16.7,
+                           "yacTotal":  305,
+                           "yacPerReception":  4.8,
+                           "airYardsTotal":  559,
+                           "aDOT":  6.5,
+                           "redZoneTargets":  16
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  18.5,
@@ -2473,7 +2478,13 @@
                            "pprPts":  165.3,
                            "pprPtsPerGame":  9.7,
                            "catchRate":  73.4,
-                           "targetShare":  13.8
+                           "targetShare":  13.8,
+                           "yacTotal":  250,
+                           "yacPerReception":  4.3,
+                           "airYardsTotal":  738,
+                           "aDOT":  9.0,
+                           "redZoneTargets":  14,
+                           "redZoneCarries":  1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.5,
@@ -2559,7 +2570,12 @@
                            "pprPts":  315.9,
                            "pprPtsPerGame":  18.6,
                            "catchRate":  74.6,
-                           "targetShare":  26
+                           "targetShare":  26,
+                           "yacTotal":  583,
+                           "yacPerReception":  4.6,
+                           "airYardsTotal":  1149,
+                           "aDOT":  6.8,
+                           "redZoneTargets":  32
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  18.6,
@@ -2645,7 +2661,13 @@
                            "pprPts":  188.5,
                            "pprPtsPerGame":  11.1,
                            "catchRate":  73.8,
-                           "targetShare":  18.8
+                           "targetShare":  18.8,
+                           "yacTotal":  474,
+                           "yacPerReception":  6.2,
+                           "airYardsTotal":  605,
+                           "aDOT":  5.4,
+                           "redZoneTargets":  19,
+                           "redZoneCarries":  4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.5,
@@ -2737,7 +2759,12 @@
                            "pprPts":  116.9,
                            "pprPtsPerGame":  14.6,
                            "catchRate":  69.6,
-                           "targetShare":  9.4
+                           "targetShare":  9.4,
+                           "yacTotal":  344,
+                           "yacPerReception":  10.8,
+                           "airYardsTotal":  207,
+                           "aDOT":  4.7,
+                           "redZoneTargets":  12
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -2823,7 +2850,12 @@
                            "pprPts":  106.9,
                            "pprPtsPerGame":  11.9,
                            "catchRate":  81.6,
-                           "targetShare":  8.4
+                           "targetShare":  8.4,
+                           "yacTotal":  274,
+                           "yacPerReception":  6.9,
+                           "airYardsTotal":  279,
+                           "aDOT":  5.7,
+                           "redZoneTargets":  4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  12.5,
@@ -2909,7 +2941,12 @@
                            "pprPts":  210.8,
                            "pprPtsPerGame":  12.4,
                            "catchRate":  74.6,
-                           "targetShare":  21.7
+                           "targetShare":  21.7,
+                           "yacTotal":  400,
+                           "yacPerReception":  4.5,
+                           "airYardsTotal":  873,
+                           "aDOT":  7.4,
+                           "redZoneTargets":  11
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  12.5,
@@ -3001,7 +3038,13 @@
                            "pprPts":  181.1,
                            "pprPtsPerGame":  11.3,
                            "catchRate":  67.3,
-                           "targetShare":  19.2
+                           "targetShare":  19.2,
+                           "yacTotal":  352,
+                           "yacPerReception":  4.9,
+                           "airYardsTotal":  642,
+                           "aDOT":  6.0,
+                           "redZoneTargets":  10,
+                           "redZoneCarries":  2
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -3093,7 +3136,13 @@
                            "pprPts":  161.8,
                            "pprPtsPerGame":  16.2,
                            "catchRate":  82.6,
-                           "targetShare":  12
+                           "targetShare":  12,
+                           "yacTotal":  252,
+                           "yacPerReception":  4.4,
+                           "airYardsTotal":  462,
+                           "aDOT":  6.7,
+                           "redZoneTargets":  12,
+                           "redZoneCarries":  1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.0,
@@ -3185,7 +3234,13 @@
                            "pprPts":  191.1,
                            "pprPtsPerGame":  11.2,
                            "catchRate":  70.4,
-                           "targetShare":  18.5
+                           "targetShare":  18.5,
+                           "yacTotal":  422,
+                           "yacPerReception":  5.6,
+                           "airYardsTotal":  734,
+                           "aDOT":  6.8,
+                           "redZoneTargets":  11,
+                           "redZoneCarries":  1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  12.5,
@@ -3277,7 +3332,12 @@
                            "pprPts":  190.0,
                            "pprPtsPerGame":  11.2,
                            "catchRate":  82,
-                           "targetShare":  16
+                           "targetShare":  16,
+                           "yacTotal":  307,
+                           "yacPerReception":  3.7,
+                           "airYardsTotal":  479,
+                           "aDOT":  4.7,
+                           "redZoneTargets":  23
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.0,
@@ -3363,7 +3423,12 @@
                            "pprPts":  63.7,
                            "pprPtsPerGame":  4.6,
                            "catchRate":  75,
-                           "targetShare":  6.8
+                           "targetShare":  6.8,
+                           "yacTotal":  117,
+                           "yacPerReception":  4.3,
+                           "airYardsTotal":  288,
+                           "aDOT":  8.0,
+                           "redZoneTargets":  6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.5,
@@ -3455,7 +3520,13 @@
                            "pprPts":  131.0,
                            "pprPtsPerGame":  7.7,
                            "catchRate":  68.6,
-                           "targetShare":  16.6
+                           "targetShare":  16.6,
+                           "yacTotal":  101,
+                           "yacPerReception":  2.1,
+                           "airYardsTotal":  518,
+                           "aDOT":  7.4,
+                           "redZoneTargets":  14,
+                           "redZoneCarries":  3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.5,
@@ -3549,7 +3620,12 @@
                            "pprPts":  126.1,
                            "pprPtsPerGame":  10.51,
                            "catchRate":  79.6,
-                           "targetShare":  9.9
+                           "targetShare":  9.9,
+                           "yacTotal":  259,
+                           "yacPerReception":  6.6,
+                           "airYardsTotal":  466,
+                           "aDOT":  9.5,
+                           "redZoneTargets":  6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.2,
@@ -3637,7 +3713,12 @@
                            "pprPts":  185.1,
                            "pprPtsPerGame":  12.34,
                            "catchRate":  75,
-                           "targetShare":  16.1
+                           "targetShare":  16.1,
+                           "yacTotal":  234,
+                           "yacPerReception":  3.9,
+                           "airYardsTotal":  558,
+                           "aDOT":  6.8,
+                           "redZoneTargets":  15
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.3,
@@ -3725,7 +3806,12 @@
                            "pprPts":  183.9,
                            "pprPtsPerGame":  10.82,
                            "catchRate":  75.5,
-                           "targetShare":  17.3
+                           "targetShare":  17.3,
+                           "yacTotal":  362,
+                           "yacPerReception":  4.7,
+                           "airYardsTotal":  765,
+                           "aDOT":  7.5,
+                           "redZoneTargets":  8
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.6,
@@ -3813,7 +3899,12 @@
                            "pprPts":  124.0,
                            "pprPtsPerGame":  7.29,
                            "catchRate":  71.8,
-                           "targetShare":  16.6
+                           "targetShare":  16.6,
+                           "yacTotal":  342,
+                           "yacPerReception":  6.1,
+                           "airYardsTotal":  371,
+                           "aDOT":  4.7,
+                           "redZoneTargets":  5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.4,
@@ -3901,7 +3992,12 @@
                            "pprPts":  118.0,
                            "pprPtsPerGame":  9.83,
                            "catchRate":  76.7,
-                           "targetShare":  10.7
+                           "targetShare":  10.7,
+                           "yacTotal":  247,
+                           "yacPerReception":  5.4,
+                           "airYardsTotal":  414,
+                           "aDOT":  6.9,
+                           "redZoneTargets":  9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.2,
@@ -3989,7 +4085,12 @@
                            "pprPts":  178.8,
                            "pprPtsPerGame":  10.52,
                            "catchRate":  70.6,
-                           "targetShare":  16.9
+                           "targetShare":  16.9,
+                           "yacTotal":  335,
+                           "yacPerReception":  5.6,
+                           "airYardsTotal":  696,
+                           "aDOT":  8.0,
+                           "redZoneTargets":  22
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.8,
@@ -4077,7 +4178,12 @@
                            "pprPts":  133.4,
                            "pprPtsPerGame":  8.89,
                            "catchRate":  70,
-                           "targetShare":  12.3
+                           "targetShare":  12.3,
+                           "yacTotal":  221,
+                           "yacPerReception":  4.5,
+                           "airYardsTotal":  621,
+                           "aDOT":  9.0,
+                           "redZoneTargets":  14
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.9,
@@ -4257,7 +4363,12 @@
                            "pprPts":  177.7,
                            "pprPtsPerGame":  10.45,
                            "catchRate":  75.9,
-                           "targetShare":  18.6
+                           "targetShare":  18.6,
+                           "yacTotal":  358,
+                           "yacPerReception":  4.4,
+                           "airYardsTotal":  657,
+                           "aDOT":  6.2,
+                           "redZoneTargets":  11
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.0,
@@ -4345,7 +4456,13 @@
                            "pprPts":  112.8,
                            "pprPtsPerGame":  7.52,
                            "catchRate":  75,
-                           "targetShare":  14
+                           "targetShare":  14,
+                           "yacTotal":  219,
+                           "yacPerReception":  4.3,
+                           "airYardsTotal":  343,
+                           "aDOT":  5.2,
+                           "redZoneTargets":  11,
+                           "redZoneCarries":  1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -4433,7 +4550,13 @@
                            "pprPts":  65.5,
                            "pprPtsPerGame":  6.55,
                            "catchRate":  74.3,
-                           "targetShare":  7.3
+                           "targetShare":  7.3,
+                           "yacTotal":  199,
+                           "yacPerReception":  7.7,
+                           "airYardsTotal":  158,
+                           "aDOT":  4.8,
+                           "redZoneTargets":  5,
+                           "redZoneCarries":  1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.5,
@@ -4521,7 +4644,13 @@
                            "pprPts":  139.9,
                            "pprPtsPerGame":  8.23,
                            "catchRate":  74.3,
-                           "targetShare":  14.6
+                           "targetShare":  14.6,
+                           "yacTotal":  271,
+                           "yacPerReception":  5.2,
+                           "airYardsTotal":  306,
+                           "aDOT":  4.5,
+                           "redZoneTargets":  12,
+                           "redZoneCarries":  3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.0,
@@ -4609,7 +4738,12 @@
                            "pprPts":  91.7,
                            "pprPtsPerGame":  5.73,
                            "catchRate":  75.9,
-                           "targetShare":  10.2
+                           "targetShare":  10.2,
+                           "yacTotal":  159,
+                           "yacPerReception":  3.6,
+                           "airYardsTotal":  308,
+                           "aDOT":  5.6,
+                           "redZoneTargets":  7
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -4698,7 +4832,13 @@
                            "pprPts":  368.9,
                            "pprPtsPerGame":  21.7,
                            "catchRate":  81.9,
-                           "targetShare":  16.2
+                           "targetShare":  16.2,
+                           "yacTotal":  615,
+                           "yacPerReception":  8.0,
+                           "airYardsTotal":  47,
+                           "aDOT":  0.5,
+                           "redZoneTargets":  12,
+                           "redZoneCarries":  51
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  22.5,
@@ -4780,7 +4920,13 @@
                            "pprPts":  374.8,
                            "pprPtsPerGame":  22.05,
                            "catchRate":  76.7,
-                           "targetShare":  18.9
+                           "targetShare":  18.9,
+                           "yacTotal":  857,
+                           "yacPerReception":  10.8,
+                           "airYardsTotal":  93,
+                           "aDOT":  0.9,
+                           "redZoneTargets":  12,
+                           "redZoneCarries":  32
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  22.5,
@@ -4857,7 +5003,13 @@
                            "pprPts":  416.6,
                            "pprPtsPerGame":  24.51,
                            "catchRate":  79.1,
-                           "targetShare":  22.5
+                           "targetShare":  22.5,
+                           "yacTotal":  720,
+                           "yacPerReception":  7.1,
+                           "airYardsTotal":  297,
+                           "aDOT":  2.3,
+                           "redZoneTargets":  25,
+                           "redZoneCarries":  71
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  22.0,
@@ -4939,7 +5091,13 @@
                            "pprPts":  362.3,
                            "pprPtsPerGame":  21.31,
                            "catchRate":  83.6,
-                           "targetShare":  10.1
+                           "targetShare":  10.1,
+                           "yacTotal":  434,
+                           "yacPerReception":  9.4,
+                           "airYardsTotal":  -50,
+                           "aDOT":  -0.9,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  70
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  20.5,
@@ -5021,7 +5179,13 @@
                            "pprPts":  308.2,
                            "pprPtsPerGame":  18.13,
                            "catchRate":  82.5,
-                           "targetShare":  8.1
+                           "targetShare":  8.1,
+                           "yacTotal":  272,
+                           "yacPerReception":  8.2,
+                           "airYardsTotal":  52,
+                           "aDOT":  1.3,
+                           "redZoneTargets":  3,
+                           "redZoneCarries":  53
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  18.5,
@@ -5098,7 +5262,13 @@
                            "pprPts":  322.8,
                            "pprPtsPerGame":  20.18,
                            "catchRate":  78.8,
-                           "targetShare":  17.7
+                           "targetShare":  17.7,
+                           "yacTotal":  552,
+                           "yacPerReception":  8.2,
+                           "airYardsTotal":  34,
+                           "aDOT":  0.4,
+                           "redZoneTargets":  9,
+                           "redZoneCarries":  29
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  19.5,
@@ -5180,7 +5350,13 @@
                            "pprPts":  247.1,
                            "pprPtsPerGame":  14.53,
                            "catchRate":  75.3,
-                           "targetShare":  14.2
+                           "targetShare":  14.2,
+                           "yacTotal":  452,
+                           "yacPerReception":  8.2,
+                           "airYardsTotal":  -110,
+                           "aDOT":  -1.5,
+                           "redZoneTargets":  10,
+                           "redZoneCarries":  31
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.5,
@@ -5262,7 +5438,13 @@
                            "pprPts":  232.3,
                            "pprPtsPerGame":  14.52,
                            "catchRate":  74,
-                           "targetShare":  10.1
+                           "targetShare":  10.1,
+                           "yacTotal":  296,
+                           "yacPerReception":  8.0,
+                           "airYardsTotal":  0,
+                           "aDOT":  0.0,
+                           "redZoneTargets":  6,
+                           "redZoneCarries":  39
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.0,
@@ -5344,7 +5526,13 @@
                            "pprPts":  285.5,
                            "pprPtsPerGame":  16.79,
                            "catchRate":  71.4,
-                           "targetShare":  5
+                           "targetShare":  5,
+                           "yacTotal":  135,
+                           "yacPerReception":  9.0,
+                           "airYardsTotal":  13,
+                           "aDOT":  0.6,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  62
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.0,
@@ -5426,7 +5614,13 @@
                            "pprPts":  135.7,
                            "pprPtsPerGame":  15.08,
                            "catchRate":  91.4,
-                           "targetShare":  6.2
+                           "targetShare":  6.2,
+                           "yacTotal":  245,
+                           "yacPerReception":  7.7,
+                           "airYardsTotal":  -52,
+                           "aDOT":  -1.5,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  22
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  17.0,
@@ -5508,7 +5702,13 @@
                            "pprPts":  191.9,
                            "pprPtsPerGame":  11.29,
                            "catchRate":  86.1,
-                           "targetShare":  6.2
+                           "targetShare":  6.2,
+                           "yacTotal":  339,
+                           "yacPerReception":  10.9,
+                           "airYardsTotal":  -40,
+                           "aDOT":  -1.1,
+                           "redZoneTargets":  3,
+                           "redZoneCarries":  31
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -5590,7 +5790,13 @@
                            "pprPts":  280.6,
                            "pprPtsPerGame":  16.51,
                            "catchRate":  78.4,
-                           "targetShare":  13.8
+                           "targetShare":  13.8,
+                           "yacTotal":  450,
+                           "yacPerReception":  6.5,
+                           "airYardsTotal":  44,
+                           "aDOT":  0.5,
+                           "redZoneTargets":  11,
+                           "redZoneCarries":  34
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  17.0,
@@ -5753,7 +5959,13 @@
                            "pprPts":  267.3,
                            "pprPtsPerGame":  15.72,
                            "catchRate":  72,
-                           "targetShare":  8.4
+                           "targetShare":  8.4,
+                           "yacTotal":  155,
+                           "yacPerReception":  4.3,
+                           "airYardsTotal":  135,
+                           "aDOT":  2.7,
+                           "redZoneTargets":  9,
+                           "redZoneCarries":  51
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.5,
@@ -5830,7 +6042,13 @@
                            "pprPts":  241.1,
                            "pprPtsPerGame":  16.07,
                            "catchRate":  81.8,
-                           "targetShare":  9
+                           "targetShare":  9,
+                           "yacTotal":  304,
+                           "yacPerReception":  8.4,
+                           "airYardsTotal":  -40,
+                           "aDOT":  -0.9,
+                           "redZoneTargets":  6,
+                           "redZoneCarries":  48
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.0,
@@ -5912,7 +6130,13 @@
                            "pprPts":  207.5,
                            "pprPtsPerGame":  12.97,
                            "catchRate":  75,
-                           "targetShare":  9.7
+                           "targetShare":  9.7,
+                           "yacTotal":  321,
+                           "yacPerReception":  8.9,
+                           "airYardsTotal":  19,
+                           "aDOT":  0.4,
+                           "redZoneTargets":  8,
+                           "redZoneCarries":  21
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.0,
@@ -5994,7 +6218,13 @@
                            "pprPts":  246.8,
                            "pprPtsPerGame":  15.43,
                            "catchRate":  68.6,
-                           "targetShare":  8.2
+                           "targetShare":  8.2,
+                           "yacTotal":  206,
+                           "yacPerReception":  5.9,
+                           "airYardsTotal":  -66,
+                           "aDOT":  -1.3,
+                           "redZoneTargets":  12,
+                           "redZoneCarries":  51
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.5,
@@ -6076,7 +6306,13 @@
                            "pprPts":  127.7,
                            "pprPtsPerGame":  15.96,
                            "catchRate":  75,
-                           "targetShare":  6.1
+                           "targetShare":  6.1,
+                           "yacTotal":  209,
+                           "yacPerReception":  8.7,
+                           "airYardsTotal":  -6,
+                           "aDOT":  -0.2,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  23
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.5,
@@ -6158,7 +6394,13 @@
                            "pprPts":  140.5,
                            "pprPtsPerGame":  14.05,
                            "catchRate":  85.7,
-                           "targetShare":  6.3
+                           "targetShare":  6.3,
+                           "yacTotal":  360,
+                           "yacPerReception":  12.0,
+                           "airYardsTotal":  -56,
+                           "aDOT":  -1.6,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  17
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.0,
@@ -6240,7 +6482,13 @@
                            "pprPts":  253.9,
                            "pprPtsPerGame":  14.94,
                            "catchRate":  69.2,
-                           "targetShare":  8.8
+                           "targetShare":  8.8,
+                           "yacTotal":  339,
+                           "yacPerReception":  9.4,
+                           "airYardsTotal":  -68,
+                           "aDOT":  -1.3,
+                           "redZoneTargets":  9,
+                           "redZoneCarries":  53
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.0,
@@ -6322,7 +6570,13 @@
                            "pprPts":  208.2,
                            "pprPtsPerGame":  12.25,
                            "catchRate":  83.3,
-                           "targetShare":  8.4
+                           "targetShare":  8.4,
+                           "yacTotal":  244,
+                           "yacPerReception":  7.0,
+                           "airYardsTotal":  0,
+                           "aDOT":  0.0,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  34
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.0,
@@ -6404,7 +6658,13 @@
                            "pprPts":  162.8,
                            "pprPtsPerGame":  9.58,
                            "catchRate":  82.8,
-                           "targetShare":  5
+                           "targetShare":  5,
+                           "yacTotal":  199,
+                           "yacPerReception":  8.3,
+                           "airYardsTotal":  14,
+                           "aDOT":  0.5,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  33
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.0,
@@ -6492,7 +6752,13 @@
                            "pprPts":  232.6,
                            "pprPtsPerGame":  14.54,
                            "catchRate":  70.8,
-                           "targetShare":  8.4
+                           "targetShare":  8.4,
+                           "yacTotal":  357,
+                           "yacPerReception":  10.5,
+                           "airYardsTotal":  -29,
+                           "aDOT":  -0.6,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  40
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.5,
@@ -6569,7 +6835,13 @@
                            "pprPts":  167.8,
                            "pprPtsPerGame":  11.99,
                            "catchRate":  72.2,
-                           "targetShare":  6.5
+                           "targetShare":  6.5,
+                           "yacTotal":  194,
+                           "yacPerReception":  7.5,
+                           "airYardsTotal":  -18,
+                           "aDOT":  -0.5,
+                           "redZoneTargets":  0,
+                           "redZoneCarries":  31
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.0,
@@ -6652,7 +6924,13 @@
                            "pprPts":  217.1,
                            "pprPtsPerGame":  13.57,
                            "catchRate":  88.9,
-                           "targetShare":  8.2
+                           "targetShare":  8.2,
+                           "yacTotal":  439,
+                           "yacPerReception":  11.0,
+                           "airYardsTotal":  -108,
+                           "aDOT":  -2.4,
+                           "redZoneTargets":  5,
+                           "redZoneCarries":  40
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.8,
@@ -6734,7 +7012,13 @@
                            "pprPts":  90.6,
                            "pprPtsPerGame":  6.04,
                            "catchRate":  71.4,
-                           "targetShare":  2.5
+                           "targetShare":  2.5,
+                           "yacTotal":  80,
+                           "yacPerReception":  8.0,
+                           "airYardsTotal":  8,
+                           "aDOT":  0.6,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  24
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.5,
@@ -6914,7 +7198,13 @@
                            "pprPts":  218.3,
                            "pprPtsPerGame":  12.84,
                            "catchRate":  78,
-                           "targetShare":  9.1
+                           "targetShare":  9.1,
+                           "yacTotal":  350,
+                           "yacPerReception":  9.0,
+                           "airYardsTotal":  -50,
+                           "aDOT":  -1.0,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  30
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.2,
@@ -7002,7 +7292,13 @@
                            "pprPts":  127.4,
                            "pprPtsPerGame":  8.49,
                            "catchRate":  76.9,
-                           "targetShare":  7.6
+                           "targetShare":  7.6,
+                           "yacTotal":  291,
+                           "yacPerReception":  9.7,
+                           "airYardsTotal":  -39,
+                           "aDOT":  -1.0,
+                           "redZoneTargets":  6,
+                           "redZoneCarries":  17
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10,
@@ -7090,7 +7386,13 @@
                            "pprPts":  180.8,
                            "pprPtsPerGame":  12.91,
                            "catchRate":  86.5,
-                           "targetShare":  7.4
+                           "targetShare":  7.4,
+                           "yacTotal":  263,
+                           "yacPerReception":  8.2,
+                           "airYardsTotal":  159,
+                           "aDOT":  4.3,
+                           "redZoneTargets":  5,
+                           "redZoneCarries":  26
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  12,
@@ -7167,7 +7469,13 @@
                            "pprPts":  120.7,
                            "pprPtsPerGame":  10.06,
                            "catchRate":  68.3,
-                           "targetShare":  8.5
+                           "targetShare":  8.5,
+                           "yacTotal":  227,
+                           "yacPerReception":  8.1,
+                           "airYardsTotal":  -20,
+                           "aDOT":  -0.5,
+                           "redZoneTargets":  5,
+                           "redZoneCarries":  14
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.5,
@@ -7255,7 +7563,13 @@
                            "pprPts":  191.8,
                            "pprPtsPerGame":  11.28,
                            "catchRate":  80.5,
-                           "targetShare":  7.2
+                           "targetShare":  7.2,
+                           "yacTotal":  203,
+                           "yacPerReception":  6.2,
+                           "airYardsTotal":  12,
+                           "aDOT":  0.3,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  18
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.5,
@@ -7332,7 +7646,13 @@
                            "pprPts":  122.2,
                            "pprPtsPerGame":  7.19,
                            "catchRate":  57.1,
-                           "targetShare":  2.3
+                           "targetShare":  2.3,
+                           "yacTotal":  37,
+                           "yacPerReception":  4.6,
+                           "airYardsTotal":  29,
+                           "aDOT":  2.1,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  26
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -7409,7 +7729,13 @@
                            "pprPts":  208.6,
                            "pprPtsPerGame":  12.27,
                            "catchRate":  81,
-                           "targetShare":  9.5
+                           "targetShare":  9.5,
+                           "yacTotal":  360,
+                           "yacPerReception":  7.7,
+                           "airYardsTotal":  29,
+                           "aDOT":  0.5,
+                           "redZoneTargets":  10,
+                           "redZoneCarries":  26
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11,
@@ -7491,7 +7817,13 @@
                            "pprPts":  130.9,
                            "pprPtsPerGame":  8.18,
                            "catchRate":  87.5,
-                           "targetShare":  3.3
+                           "targetShare":  3.3,
+                           "yacTotal":  102,
+                           "yacPerReception":  7.3,
+                           "airYardsTotal":  -53,
+                           "aDOT":  -3.3,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  26
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9,
@@ -7573,7 +7905,13 @@
                            "pprPts":  115.9,
                            "pprPtsPerGame":  11.59,
                            "catchRate":  78.6,
-                           "targetShare":  2.3
+                           "targetShare":  2.3,
+                           "yacTotal":  56,
+                           "yacPerReception":  5.1,
+                           "airYardsTotal":  -29,
+                           "aDOT":  -2.1,
+                           "redZoneTargets":  0,
+                           "redZoneCarries":  19
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.5,
@@ -7661,7 +7999,13 @@
                            "pprPts":  143,
                            "pprPtsPerGame":  8.41,
                            "catchRate":  88.9,
-                           "targetShare":  9.6
+                           "targetShare":  9.6,
+                           "yacTotal":  329,
+                           "yacPerReception":  8.2,
+                           "airYardsTotal":  -103,
+                           "aDOT":  -2.3,
+                           "redZoneTargets":  9,
+                           "redZoneCarries":  16
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8,
@@ -7743,7 +8087,13 @@
                            "pprPts":  144.3,
                            "pprPtsPerGame":  8.49,
                            "catchRate":  69.2,
-                           "targetShare":  2.8
+                           "targetShare":  2.8,
+                           "yacTotal":  77,
+                           "yacPerReception":  8.6,
+                           "airYardsTotal":  -20,
+                           "aDOT":  -1.5,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  31
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.5,
@@ -7825,7 +8175,13 @@
                            "pprPts":  142.7,
                            "pprPtsPerGame":  8.39,
                            "catchRate":  60,
-                           "targetShare":  5.2
+                           "targetShare":  5.2,
+                           "yacTotal":  162,
+                           "yacPerReception":  9.0,
+                           "airYardsTotal":  -9,
+                           "aDOT":  -0.3,
+                           "redZoneTargets":  3,
+                           "redZoneCarries":  33
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.5,
@@ -7907,7 +8263,13 @@
                            "pprPts":  223.3,
                            "pprPtsPerGame":  13.14,
                            "catchRate":  85.9,
-                           "targetShare":  15.2
+                           "targetShare":  15.2,
+                           "yacTotal":  528,
+                           "yacPerReception":  7.2,
+                           "airYardsTotal":  -17,
+                           "aDOT":  -0.2,
+                           "redZoneTargets":  15,
+                           "redZoneCarries":  21
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9,
@@ -7989,7 +8351,13 @@
                            "pprPts":  55.4,
                            "pprPtsPerGame":  4.26,
                            "catchRate":  75,
-                           "targetShare":  2.1
+                           "targetShare":  2.1,
+                           "yacTotal":  85,
+                           "yacPerReception":  9.4,
+                           "airYardsTotal":  -28,
+                           "aDOT":  -2.3,
+                           "redZoneTargets":  0,
+                           "redZoneCarries":  11
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4,
@@ -8071,7 +8439,13 @@
                            "pprPts":  92,
                            "pprPtsPerGame":  7.08,
                            "catchRate":  75,
-                           "targetShare":  0.7
+                           "targetShare":  0.7,
+                           "yacTotal":  26,
+                           "yacPerReception":  8.7,
+                           "airYardsTotal":  16,
+                           "aDOT":  4.0,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  33
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7,
@@ -8153,7 +8527,13 @@
                            "pprPts":  89.6,
                            "pprPtsPerGame":  5.97,
                            "catchRate":  82.5,
-                           "targetShare":  7.2
+                           "targetShare":  7.2,
+                           "yacTotal":  318,
+                           "yacPerReception":  9.6,
+                           "airYardsTotal":  -60,
+                           "aDOT":  -1.5,
+                           "redZoneTargets":  5,
+                           "redZoneCarries":  6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6,
@@ -8230,7 +8610,13 @@
                            "pprPts":  104.7,
                            "pprPtsPerGame":  9.52,
                            "catchRate":  84.6,
-                           "targetShare":  6.6
+                           "targetShare":  6.6,
+                           "yacTotal":  202,
+                           "yacPerReception":  6.1,
+                           "airYardsTotal":  31,
+                           "aDOT":  0.8,
+                           "redZoneTargets":  5,
+                           "redZoneCarries":  13
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.5,
@@ -8404,7 +8790,13 @@
                            "pprPts":  58.1,
                            "pprPtsPerGame":  3.42,
                            "catchRate":  76.9,
-                           "targetShare":  2.6
+                           "targetShare":  2.6,
+                           "yacTotal":  99,
+                           "yacPerReception":  9.9,
+                           "airYardsTotal":  0,
+                           "aDOT":  0.0,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  7
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  3.8,
@@ -8481,7 +8873,13 @@
                            "pprPts":  162.8,
                            "pprPtsPerGame":  10.85,
                            "catchRate":  75,
-                           "targetShare":  9.1
+                           "targetShare":  9.1,
+                           "yacTotal":  314,
+                           "yacPerReception":  8.7,
+                           "airYardsTotal":  19,
+                           "aDOT":  0.4,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  21
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -8649,7 +9047,13 @@
                            "pprPts":  145.1,
                            "pprPtsPerGame":  9.07,
                            "catchRate":  66.7,
-                           "targetShare":  6.2
+                           "targetShare":  6.2,
+                           "yacTotal":  223,
+                           "yacPerReception":  9.3,
+                           "airYardsTotal":  76,
+                           "aDOT":  2.1,
+                           "redZoneTargets":  8,
+                           "redZoneCarries":  32
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.5,
@@ -8731,7 +9135,13 @@
                            "pprPts":  53.8,
                            "pprPtsPerGame":  3.16,
                            "catchRate":  75,
-                           "targetShare":  0.8
+                           "targetShare":  0.8,
+                           "yacTotal":  39,
+                           "yacPerReception":  13.0,
+                           "airYardsTotal":  -6,
+                           "aDOT":  -1.5,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  16
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  3.0,
@@ -8813,7 +9223,13 @@
                            "pprPts":  87.3,
                            "pprPtsPerGame":  6.72,
                            "catchRate":  73.1,
-                           "targetShare":  4.5
+                           "targetShare":  4.5,
+                           "yacTotal":  121,
+                           "yacPerReception":  6.4,
+                           "airYardsTotal":  -26,
+                           "aDOT":  -1.0,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  18
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  3.5,
@@ -8895,7 +9311,13 @@
                            "pprPts":  111.7,
                            "pprPtsPerGame":  8.59,
                            "catchRate":  90,
-                           "targetShare":  8.8
+                           "targetShare":  8.8,
+                           "yacTotal":  361,
+                           "yacPerReception":  8.0,
+                           "airYardsTotal":  -95,
+                           "aDOT":  -1.9,
+                           "redZoneTargets":  7,
+                           "redZoneCarries":  10
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -8977,7 +9399,13 @@
                            "pprPts":  69.2,
                            "pprPtsPerGame":  4.33,
                            "catchRate":  75,
-                           "targetShare":  5.7
+                           "targetShare":  5.7,
+                           "yacTotal":  189,
+                           "yacPerReception":  9.0,
+                           "airYardsTotal":  31,
+                           "aDOT":  1.1,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4.3,
@@ -9054,7 +9482,13 @@
                            "pprPts":  62.5,
                            "pprPtsPerGame":  3.68,
                            "catchRate":  66.7,
-                           "targetShare":  2.2
+                           "targetShare":  2.2,
+                           "yacTotal":  35,
+                           "yacPerReception":  4.4,
+                           "airYardsTotal":  0,
+                           "aDOT":  0.0,
+                           "redZoneTargets":  4,
+                           "redZoneCarries":  10
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  3.5,
@@ -9136,7 +9570,13 @@
                            "pprPts":  123.0,
                            "pprPtsPerGame":  7.24,
                            "catchRate":  87.5,
-                           "targetShare":  2.5
+                           "targetShare":  2.5,
+                           "yacTotal":  120,
+                           "yacPerReception":  8.6,
+                           "airYardsTotal":  -29,
+                           "aDOT":  -1.8,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  31
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4.5,
@@ -9303,7 +9743,13 @@
                            "pprPts":  179.4,
                            "pprPtsPerGame":  11.21,
                            "catchRate":  83.3,
-                           "targetShare":  5
+                           "targetShare":  5,
+                           "yacTotal":  123,
+                           "yacPerReception":  6.2,
+                           "airYardsTotal":  41,
+                           "aDOT":  1.7,
+                           "redZoneTargets":  3,
+                           "redZoneCarries":  50
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.5,
@@ -9391,7 +9837,13 @@
                            "pprPts":  32.7,
                            "pprPtsPerGame":  1.92,
                            "catchRate":  76.5,
-                           "targetShare":  3.5
+                           "targetShare":  3.5,
+                           "yacTotal":  106,
+                           "yacPerReception":  8.2,
+                           "airYardsTotal":  7,
+                           "aDOT":  0.4,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  2.0,
@@ -9640,7 +10092,13 @@
                            "pprPts":  91.4,
                            "pprPtsPerGame":  5.38,
                            "catchRate":  72.7,
-                           "targetShare":  2
+                           "targetShare":  2,
+                           "yacTotal":  49,
+                           "yacPerReception":  6.1,
+                           "airYardsTotal":  -10,
+                           "aDOT":  -0.9,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  21
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  5.0,
@@ -9717,7 +10175,13 @@
                            "pprPts":  33.3,
                            "pprPtsPerGame":  11.1,
                            "catchRate":  88.9,
-                           "targetShare":  1.4
+                           "targetShare":  1.4,
+                           "yacTotal":  68,
+                           "yacPerReception":  8.5,
+                           "airYardsTotal":  -9,
+                           "aDOT":  -1.0,
+                           "redZoneTargets":  1,
+                           "redZoneCarries":  4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.0,
@@ -9805,7 +10269,13 @@
                            "pprPts":  16.8,
                            "pprPtsPerGame":  1.53,
                            "catchRate":  100,
-                           "targetShare":  0.4
+                           "targetShare":  0.4,
+                           "yacTotal":  16,
+                           "yacPerReception":  8.0,
+                           "airYardsTotal":  -1,
+                           "aDOT":  -0.5,
+                           "redZoneTargets":  0,
+                           "redZoneCarries":  4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  2.2,
@@ -9887,7 +10357,13 @@
                            "pprPts":  81.9,
                            "pprPtsPerGame":  5.46,
                            "catchRate":  81,
-                           "targetShare":  3.3
+                           "targetShare":  3.3,
+                           "yacTotal":  109,
+                           "yacPerReception":  6.4,
+                           "airYardsTotal":  -32,
+                           "aDOT":  -1.5,
+                           "redZoneTargets":  0,
+                           "redZoneCarries":  16
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  5.0,
@@ -9964,7 +10440,13 @@
                            "pprPts":  92.5,
                            "pprPtsPerGame":  5.44,
                            "catchRate":  88.2,
-                           "targetShare":  3.5
+                           "targetShare":  3.5,
+                           "yacTotal":  133,
+                           "yacPerReception":  8.9,
+                           "airYardsTotal":  -32,
+                           "aDOT":  -1.9,
+                           "redZoneTargets":  2,
+                           "redZoneCarries":  24
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4.5,
@@ -10127,7 +10609,13 @@
                            "pprPts":  20.4,
                            "pprPtsPerGame":  4.08,
                            "catchRate":  100,
-                           "targetShare":  0.2
+                           "targetShare":  0.2,
+                           "yacTotal":  10,
+                           "yacPerReception":  10.0,
+                           "airYardsTotal":  -5,
+                           "aDOT":  -5.0,
+                           "redZoneTargets":  0,
+                           "redZoneCarries":  7
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4.0,
@@ -10289,7 +10777,11 @@
                            "pprPts":  246.0,
                            "pprPtsPerGame":  15.4,
                            "catchRate":  77.7,
-                           "targetShare":  27.8
+                           "targetShare":  27.8,
+                           "yacTotal":  722,
+                           "yacPerReception":  5.6,
+                           "airYardsTotal":  1477,
+                           "aDOT":  8.9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.8,
@@ -10377,7 +10869,12 @@
                            "pprPts":  188.6,
                            "pprPtsPerGame":  11.8,
                            "catchRate":  67.6,
-                           "targetShare":  28.9
+                           "targetShare":  28.9,
+                           "yacTotal":  650,
+                           "yacPerReception":  5.2,
+                           "airYardsTotal":  1554,
+                           "aDOT":  8.4,
+                           "redZoneTargets":  21
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  17.0,
@@ -10459,7 +10956,12 @@
                            "pprPts":  240.9,
                            "pprPtsPerGame":  14.2,
                            "catchRate":  73,
-                           "targetShare":  33.9
+                           "targetShare":  33.9,
+                           "yacTotal":  571,
+                           "yacPerReception":  4.8,
+                           "airYardsTotal":  1842,
+                           "aDOT":  11.3,
+                           "redZoneTargets":  17
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.5,
@@ -10541,7 +11043,12 @@
                            "pprPts":  207.0,
                            "pprPtsPerGame":  12.2,
                            "catchRate":  68,
-                           "targetShare":  29.6
+                           "targetShare":  29.6,
+                           "yacTotal":  608,
+                           "yacPerReception":  5.2,
+                           "airYardsTotal":  1445,
+                           "aDOT":  8.4,
+                           "redZoneTargets":  32
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.5,
@@ -10623,7 +11130,12 @@
                            "pprPts":  133.9,
                            "pprPtsPerGame":  11.2,
                            "catchRate":  60.7,
-                           "targetShare":  20.6
+                           "targetShare":  20.6,
+                           "yacTotal":  265,
+                           "yacPerReception":  3.9,
+                           "airYardsTotal":  1210,
+                           "aDOT":  10.8,
+                           "redZoneTargets":  13
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.0,
@@ -10705,7 +11217,11 @@
                            "pprPts":  125.9,
                            "pprPtsPerGame":  9.0,
                            "catchRate":  64.1,
-                           "targetShare":  18.8
+                           "targetShare":  18.8,
+                           "yacTotal":  330,
+                           "yacPerReception":  4.4,
+                           "airYardsTotal":  1439,
+                           "aDOT":  12.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.5,
@@ -10793,7 +11309,11 @@
                            "pprPts":  117.5,
                            "pprPtsPerGame":  6.9,
                            "catchRate":  59.6,
-                           "targetShare":  29.1
+                           "targetShare":  29.1,
+                           "yacTotal":  445,
+                           "yacPerReception":  5.3,
+                           "airYardsTotal":  1466,
+                           "aDOT":  10.4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.5,
@@ -10881,7 +11401,11 @@
                            "pprPts":  97.1,
                            "pprPtsPerGame":  12.1,
                            "catchRate":  67.9,
-                           "targetShare":  13.4
+                           "targetShare":  13.4,
+                           "yacTotal":  429,
+                           "yacPerReception":  8.1,
+                           "airYardsTotal":  351,
+                           "aDOT":  4.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  16.5,
@@ -10963,7 +11487,11 @@
                            "pprPts":  142.3,
                            "pprPtsPerGame":  9.5,
                            "catchRate":  64.5,
-                           "targetShare":  24.3
+                           "targetShare":  24.3,
+                           "yacTotal":  265,
+                           "yacPerReception":  3.4,
+                           "airYardsTotal":  1404,
+                           "aDOT":  11.6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.5,
@@ -11045,7 +11573,12 @@
                            "pprPts":  169.0,
                            "pprPtsPerGame":  10.6,
                            "catchRate":  64.1,
-                           "targetShare":  26.4
+                           "targetShare":  26.4,
+                           "yacTotal":  290,
+                           "yacPerReception":  2.9,
+                           "airYardsTotal":  1825,
+                           "aDOT":  11.7,
+                           "redZoneTargets":  15
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  14.8,
@@ -11127,7 +11660,11 @@
                            "pprPts":  198.9,
                            "pprPtsPerGame":  11.7,
                            "catchRate":  67.9,
-                           "targetShare":  22
+                           "targetShare":  22,
+                           "yacTotal":  484,
+                           "yacPerReception":  5.2,
+                           "airYardsTotal":  1617,
+                           "aDOT":  11.8
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.0,
@@ -11209,7 +11746,11 @@
                            "pprPts":  155.2,
                            "pprPtsPerGame":  10.3,
                            "catchRate":  59.2,
-                           "targetShare":  20.6
+                           "targetShare":  20.6,
+                           "yacTotal":  341,
+                           "yacPerReception":  4.8,
+                           "airYardsTotal":  1560,
+                           "aDOT":  13.0
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.5,
@@ -11291,7 +11832,11 @@
                            "pprPts":  157.3,
                            "pprPtsPerGame":  9.3,
                            "catchRate":  72.9,
-                           "targetShare":  28
+                           "targetShare":  28,
+                           "yacTotal":  482,
+                           "yacPerReception":  5.6,
+                           "airYardsTotal":  1168,
+                           "aDOT":  9.9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -11373,7 +11918,11 @@
                            "pprPts":  63.5,
                            "pprPtsPerGame":  9.1,
                            "catchRate":  61,
-                           "targetShare":  11.9
+                           "targetShare":  11.9,
+                           "yacTotal":  104,
+                           "yacPerReception":  2.9,
+                           "airYardsTotal":  555,
+                           "aDOT":  9.4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.5,
@@ -11455,7 +12004,11 @@
                            "pprPts":  124.8,
                            "pprPtsPerGame":  7.3,
                            "catchRate":  68.1,
-                           "targetShare":  22.7
+                           "targetShare":  22.7,
+                           "yacTotal":  293,
+                           "yacPerReception":  3.8,
+                           "airYardsTotal":  1356,
+                           "aDOT":  12.0
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  12.5,
@@ -11543,7 +12096,11 @@
                            "pprPts":  141.4,
                            "pprPtsPerGame":  8.3,
                            "catchRate":  57.4,
-                           "targetShare":  23.7
+                           "targetShare":  23.7,
+                           "yacTotal":  266,
+                           "yacPerReception":  3.8,
+                           "airYardsTotal":  1525,
+                           "aDOT":  12.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.0,
@@ -11625,7 +12182,11 @@
                            "pprPts":  132.7,
                            "pprPtsPerGame":  7.8,
                            "catchRate":  49.6,
-                           "targetShare":  22.8
+                           "targetShare":  22.8,
+                           "yacTotal":  340,
+                           "yacPerReception":  5.4,
+                           "airYardsTotal":  1549,
+                           "aDOT":  12.2
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -11795,7 +12356,11 @@
                            "pprPts":  152.6,
                            "pprPtsPerGame":  10.2,
                            "catchRate":  60.2,
-                           "targetShare":  15.3
+                           "targetShare":  15.3,
+                           "yacTotal":  189,
+                           "yacPerReception":  3.2,
+                           "airYardsTotal":  1323,
+                           "aDOT":  13.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -11877,7 +12442,12 @@
                            "pprPts":  162.9,
                            "pprPtsPerGame":  11.6,
                            "catchRate":  52.6,
-                           "targetShare":  19.1
+                           "targetShare":  19.1,
+                           "yacTotal":  126,
+                           "yacPerReception":  2.1,
+                           "airYardsTotal":  1505,
+                           "aDOT":  13.2,
+                           "redZoneTargets":  32
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  12.5,
@@ -11965,7 +12535,11 @@
                            "pprPts":  76.2,
                            "pprPtsPerGame":  7.6,
                            "catchRate":  63.3,
-                           "targetShare":  12.8
+                           "targetShare":  12.8,
+                           "yacTotal":  106,
+                           "yacPerReception":  2.8,
+                           "airYardsTotal":  840,
+                           "aDOT":  14.0
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  15.0,
@@ -12047,7 +12621,11 @@
                            "pprPts":  114.9,
                            "pprPtsPerGame":  7.2,
                            "catchRate":  62.3,
-                           "targetShare":  18.6
+                           "targetShare":  18.6,
+                           "yacTotal":  317,
+                           "yacPerReception":  4.8,
+                           "airYardsTotal":  1049,
+                           "aDOT":  9.9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.5,
@@ -12129,7 +12707,11 @@
                            "pprPts":  154.9,
                            "pprPtsPerGame":  9.1,
                            "catchRate":  63.7,
-                           "targetShare":  17.5
+                           "targetShare":  17.5,
+                           "yacTotal":  442,
+                           "yacPerReception":  6.8,
+                           "airYardsTotal":  1265,
+                           "aDOT":  12.4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.0,
@@ -12211,7 +12793,11 @@
                            "pprPts":  130.1,
                            "pprPtsPerGame":  8.1,
                            "catchRate":  64,
-                           "targetShare":  16.3
+                           "targetShare":  16.3,
+                           "yacTotal":  262,
+                           "yacPerReception":  4.1,
+                           "airYardsTotal":  1230,
+                           "aDOT":  12.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.0,
@@ -12299,7 +12885,11 @@
                            "pprPts":  102.1,
                            "pprPtsPerGame":  8.5,
                            "catchRate":  48.9,
-                           "targetShare":  15.7
+                           "targetShare":  15.7,
+                           "yacTotal":  216,
+                           "yacPerReception":  4.9,
+                           "airYardsTotal":  1269,
+                           "aDOT":  14.1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.5,
@@ -12387,7 +12977,11 @@
                            "pprPts":  80.9,
                            "pprPtsPerGame":  5.4,
                            "catchRate":  78.3,
-                           "targetShare":  10.5
+                           "targetShare":  10.5,
+                           "yacTotal":  348,
+                           "yacPerReception":  7.4,
+                           "airYardsTotal":  438,
+                           "aDOT":  7.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.0,
@@ -12469,7 +13063,11 @@
                            "pprPts":  120.2,
                            "pprPtsPerGame":  7.1,
                            "catchRate":  58.8,
-                           "targetShare":  17.2
+                           "targetShare":  17.2,
+                           "yacTotal":  235,
+                           "yacPerReception":  4.7,
+                           "airYardsTotal":  978,
+                           "aDOT":  11.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.5,
@@ -12557,7 +13155,11 @@
                            "pprPts":  54.8,
                            "pprPtsPerGame":  6.9,
                            "catchRate":  49.2,
-                           "targetShare":  10.6
+                           "targetShare":  10.6,
+                           "yacTotal":  51,
+                           "yacPerReception":  1.7,
+                           "airYardsTotal":  843,
+                           "aDOT":  13.6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.0,
@@ -12645,7 +13247,11 @@
                            "pprPts":  136.3,
                            "pprPtsPerGame":  9.1,
                            "catchRate":  56,
-                           "targetShare":  15.4
+                           "targetShare":  15.4,
+                           "yacTotal":  202,
+                           "yacPerReception":  4.3,
+                           "airYardsTotal":  1604,
+                           "aDOT":  19.1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.5,
@@ -12727,7 +13333,11 @@
                            "pprPts":  145.7,
                            "pprPtsPerGame":  8.6,
                            "catchRate":  59.7,
-                           "targetShare":  20.2
+                           "targetShare":  20.2,
+                           "yacTotal":  237,
+                           "yacPerReception":  3.2,
+                           "airYardsTotal":  1562,
+                           "aDOT":  12.6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.5,
@@ -12809,7 +13419,11 @@
                            "pprPts":  86.8,
                            "pprPtsPerGame":  7.2,
                            "catchRate":  56.2,
-                           "targetShare":  11.2
+                           "targetShare":  11.2,
+                           "yacTotal":  123,
+                           "yacPerReception":  3.0,
+                           "airYardsTotal":  993,
+                           "aDOT":  13.6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.5,
@@ -12897,7 +13511,11 @@
                            "pprPts":  128.2,
                            "pprPtsPerGame":  8.5,
                            "catchRate":  59.6,
-                           "targetShare":  18
+                           "targetShare":  18,
+                           "yacTotal":  448,
+                           "yacPerReception":  7.6,
+                           "airYardsTotal":  980,
+                           "aDOT":  9.9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.0,
@@ -12979,7 +13597,11 @@
                            "pprPts":  97.4,
                            "pprPtsPerGame":  9.7,
                            "catchRate":  63.6,
-                           "targetShare":  11.2
+                           "targetShare":  11.2,
+                           "yacTotal":  126,
+                           "yacPerReception":  3.6,
+                           "airYardsTotal":  968,
+                           "aDOT":  17.6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  13.5,
@@ -13067,7 +13689,11 @@
                            "pprPts":  122.4,
                            "pprPtsPerGame":  7.2,
                            "catchRate":  72.1,
-                           "targetShare":  20.2
+                           "targetShare":  20.2,
+                           "yacTotal":  304,
+                           "yacPerReception":  3.8,
+                           "airYardsTotal":  888,
+                           "aDOT":  8.0
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.5,
@@ -13234,7 +13860,11 @@
                            "pprPts":  125.9,
                            "pprPtsPerGame":  7.9,
                            "catchRate":  65.7,
-                           "targetShare":  24.6
+                           "targetShare":  24.6,
+                           "yacTotal":  414,
+                           "yacPerReception":  4.5,
+                           "airYardsTotal":  1218,
+                           "aDOT":  8.7
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -13316,7 +13946,11 @@
                            "pprPts":  126.7,
                            "pprPtsPerGame":  7.9,
                            "catchRate":  61.1,
-                           "targetShare":  16.9
+                           "targetShare":  16.9,
+                           "yacTotal":  284,
+                           "yacPerReception":  4.9,
+                           "airYardsTotal":  1207,
+                           "aDOT":  12.7
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  10.0,
@@ -13398,7 +14032,11 @@
                            "pprPts":  100.8,
                            "pprPtsPerGame":  6.3,
                            "catchRate":  68.2,
-                           "targetShare":  19.5
+                           "targetShare":  19.5,
+                           "yacTotal":  293,
+                           "yacPerReception":  3.9,
+                           "airYardsTotal":  1034,
+                           "aDOT":  9.4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -13480,7 +14118,11 @@
                            "pprPts":  90.8,
                            "pprPtsPerGame":  6.5,
                            "catchRate":  52.7,
-                           "targetShare":  16.2
+                           "targetShare":  16.2,
+                           "yacTotal":  178,
+                           "yacPerReception":  3.7,
+                           "airYardsTotal":  1301,
+                           "aDOT":  14.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  11.0,
@@ -13653,7 +14295,11 @@
                            "pprPts":  50.0,
                            "pprPtsPerGame":  5.6,
                            "catchRate":  64.7,
-                           "targetShare":  9.1
+                           "targetShare":  9.1,
+                           "yacTotal":  215,
+                           "yacPerReception":  6.5,
+                           "airYardsTotal":  393,
+                           "aDOT":  7.7
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -13741,7 +14387,11 @@
                            "pprPts":  142.6,
                            "pprPtsPerGame":  8.4,
                            "catchRate":  61.9,
-                           "targetShare":  19.4
+                           "targetShare":  19.4,
+                           "yacTotal":  296,
+                           "yacPerReception":  3.8,
+                           "airYardsTotal":  1436,
+                           "aDOT":  11.4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.5,
@@ -13905,7 +14555,11 @@
                            "pprPts":  78.4,
                            "pprPtsPerGame":  4.9,
                            "catchRate":  65.9,
-                           "targetShare":  16.1
+                           "targetShare":  16.1,
+                           "yacTotal":  151,
+                           "yacPerReception":  2.6,
+                           "airYardsTotal":  686,
+                           "aDOT":  7.8
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -13987,7 +14641,11 @@
                            "pprPts":  120.2,
                            "pprPtsPerGame":  8.6,
                            "catchRate":  60,
-                           "targetShare":  14.9
+                           "targetShare":  14.9,
+                           "yacTotal":  240,
+                           "yacPerReception":  4.7,
+                           "airYardsTotal":  1033,
+                           "aDOT":  12.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.5,
@@ -14075,7 +14733,11 @@
                            "pprPts":  93.1,
                            "pprPtsPerGame":  6.6,
                            "catchRate":  53.2,
-                           "targetShare":  16.3
+                           "targetShare":  16.3,
+                           "yacTotal":  151,
+                           "yacPerReception":  3.6,
+                           "airYardsTotal":  1138,
+                           "aDOT":  14.4
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.5,
@@ -14163,7 +14825,11 @@
                            "pprPts":  94.4,
                            "pprPtsPerGame":  5.9,
                            "catchRate":  75.8,
-                           "targetShare":  19.2
+                           "targetShare":  19.2,
+                           "yacTotal":  533,
+                           "yacPerReception":  7.4,
+                           "airYardsTotal":  333,
+                           "aDOT":  3.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -14330,7 +14996,11 @@
                            "pprPts":  67.9,
                            "pprPtsPerGame":  4.9,
                            "catchRate":  57.5,
-                           "targetShare":  12.5
+                           "targetShare":  12.5,
+                           "yacTotal":  214,
+                           "yacPerReception":  5.1,
+                           "airYardsTotal":  898,
+                           "aDOT":  12.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  9.5,
@@ -14418,7 +15088,11 @@
                            "pprPts":  52.6,
                            "pprPtsPerGame":  5.3,
                            "catchRate":  67.9,
-                           "targetShare":  9.2
+                           "targetShare":  9.2,
+                           "yacTotal":  79,
+                           "yacPerReception":  2.2,
+                           "airYardsTotal":  737,
+                           "aDOT":  13.9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -14506,7 +15180,11 @@
                            "pprPts":  110.4,
                            "pprPtsPerGame":  6.9,
                            "catchRate":  64.7,
-                           "targetShare":  16.9
+                           "targetShare":  16.9,
+                           "yacTotal":  176,
+                           "yacPerReception":  3.2,
+                           "airYardsTotal":  1088,
+                           "aDOT":  12.8
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -14588,7 +15266,12 @@
                            "pprPts":  116.2,
                            "pprPtsPerGame":  7.3,
                            "catchRate":  72.7,
-                           "targetShare":  17.2
+                           "targetShare":  17.2,
+                           "yacTotal":  461,
+                           "yacPerReception":  6.4,
+                           "airYardsTotal":  525,
+                           "aDOT":  5.3,
+                           "redZoneTargets":  12
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -14676,7 +15359,11 @@
                            "pprPts":  38.9,
                            "pprPtsPerGame":  2.4,
                            "catchRate":  68.8,
-                           "targetShare":  9.3
+                           "targetShare":  9.3,
+                           "yacTotal":  149,
+                           "yacPerReception":  4.5,
+                           "airYardsTotal":  254,
+                           "aDOT":  5.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4.5,
@@ -14840,7 +15527,11 @@
                            "pprPts":  97.6,
                            "pprPtsPerGame":  5.7,
                            "catchRate":  64.1,
-                           "targetShare":  19.1
+                           "targetShare":  19.1,
+                           "yacTotal":  189,
+                           "yacPerReception":  3.2,
+                           "airYardsTotal":  1058,
+                           "aDOT":  11.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.0,
@@ -15260,7 +15951,11 @@
                            "pprPts":  88.5,
                            "pprPtsPerGame":  5.2,
                            "catchRate":  60.3,
-                           "targetShare":  11.7
+                           "targetShare":  11.7,
+                           "yacTotal":  135,
+                           "yacPerReception":  3.3,
+                           "airYardsTotal":  816,
+                           "aDOT":  12.0
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.5,
@@ -15348,7 +16043,11 @@
                            "pprPts":  104.7,
                            "pprPtsPerGame":  6.2,
                            "catchRate":  62,
-                           "targetShare":  17.9
+                           "targetShare":  17.9,
+                           "yacTotal":  296,
+                           "yacPerReception":  5.2,
+                           "airYardsTotal":  948,
+                           "aDOT":  10.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.5,
@@ -15430,7 +16129,11 @@
                            "pprPts":  70.7,
                            "pprPtsPerGame":  4.2,
                            "catchRate":  47.2,
-                           "targetShare":  19
+                           "targetShare":  19,
+                           "yacTotal":  175,
+                           "yacPerReception":  3.5,
+                           "airYardsTotal":  1261,
+                           "aDOT":  11.9
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.5,
@@ -15682,7 +16385,12 @@
                            "pprPts":  118.3,
                            "pprPtsPerGame":  7.9,
                            "catchRate":  61.1,
-                           "targetShare":  18.6
+                           "targetShare":  18.6,
+                           "yacTotal":  187,
+                           "yacPerReception":  3.4,
+                           "airYardsTotal":  918,
+                           "aDOT":  10.2,
+                           "redZoneTargets":  19
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  7.0,
@@ -15844,7 +16552,11 @@
                            "pprPts":  71.7,
                            "pprPtsPerGame":  4.2,
                            "catchRate":  54.7,
-                           "targetShare":  10.3
+                           "targetShare":  10.3,
+                           "yacTotal":  128,
+                           "yacPerReception":  4.4,
+                           "airYardsTotal":  694,
+                           "aDOT":  13.1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  5.5,
@@ -15926,7 +16638,11 @@
                            "pprPts":  70.3,
                            "pprPtsPerGame":  4.4,
                            "catchRate":  67.1,
-                           "targetShare":  14.6
+                           "targetShare":  14.6,
+                           "yacTotal":  291,
+                           "yacPerReception":  6.2,
+                           "airYardsTotal":  581,
+                           "aDOT":  8.3
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  5.5,
@@ -16262,7 +16978,11 @@
                            "pprPts":  29.9,
                            "pprPtsPerGame":  2.3,
                            "catchRate":  53.8,
-                           "targetShare":  9.1
+                           "targetShare":  9.1,
+                           "yacTotal":  118,
+                           "yacPerReception":  4.2,
+                           "airYardsTotal":  374,
+                           "aDOT":  7.2
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  3.5,
@@ -16344,7 +17064,11 @@
                            "pprPts":  35.8,
                            "pprPtsPerGame":  5.1,
                            "catchRate":  62.2,
-                           "targetShare":  8
+                           "targetShare":  8,
+                           "yacTotal":  154,
+                           "yacPerReception":  5.5,
+                           "airYardsTotal":  342,
+                           "aDOT":  7.6
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -16517,7 +17241,11 @@
                            "pprPts":  91.1,
                            "pprPtsPerGame":  6.5,
                            "catchRate":  71.7,
-                           "targetShare":  9.2
+                           "targetShare":  9.2,
+                           "yacTotal":  43,
+                           "yacPerReception":  1.3,
+                           "airYardsTotal":  787,
+                           "aDOT":  17.1
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  6.5,
@@ -16686,7 +17414,11 @@
                            "rushTD":  0,
                            "pprPts":  125.3,
                            "pprPtsPerGame":  7.4,
-                           "catchRate":  83.3
+                           "catchRate":  83.3,
+                           "yacTotal":  374,
+                           "yacPerReception":  4.4,
+                           "airYardsTotal":  867,
+                           "aDOT":  8.5
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  8.0,
@@ -16775,7 +17507,11 @@
                            "pprPts":  50.3,
                            "pprPtsPerGame":  3.4,
                            "catchRate":  44.4,
-                           "targetShare":  13.7
+                           "targetShare":  13.7,
+                           "yacTotal":  77,
+                           "yacPerReception":  2.4,
+                           "airYardsTotal":  1022,
+                           "aDOT":  14.2
                        },
         "anomalyAdjusted":  {
                                 "adjustedPPG":  4.5,

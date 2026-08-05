@@ -925,6 +925,18 @@ function scoreBreakdownRows(player, comps){
   if(ps && ps.catchRate !== undefined){
     rows.push({ label: 'Catch rate (last season)', value: `${ps.catchRate}%` });
   }
+  if(ps && ps.aDOT !== undefined){
+    rows.push({ label: 'Avg. depth of target', value: `${ps.aDOT} yds (${ps.airYardsTotal||'-'} air yds total)` });
+  }
+  if(ps && ps.yacPerReception !== undefined){
+    rows.push({ label: 'Yards after catch', value: `${ps.yacPerReception}/rec (${ps.yacTotal||'-'} total)` });
+  }
+  if(ps && (ps.redZoneTargets !== undefined || ps.redZoneCarries !== undefined)){
+    const rz = [];
+    if(ps.redZoneTargets !== undefined) rz.push(`${ps.redZoneTargets} RZ targets`);
+    if(ps.redZoneCarries) rz.push(`${ps.redZoneCarries} RZ carries`);
+    rows.push({ label: 'Red-zone usage (last season)', value: rz.join(', ') || 'none recorded' });
+  }
   rows.push(
     { label: 'Value over replacement', value: `${Math.round(comps.valueScore)}/100` },
     { label: 'Positional scarcity', value: `${Math.round(comps.scarcityScore)}/100` },
