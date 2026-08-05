@@ -1126,14 +1126,111 @@ const PHRASES = {
 };
 function pick(arr, seed){ return arr[seed % arr.length]; }
 
+function ordinal(n){
+  const s = ['th','st','nd','rd'];
+  const v = n % 100;
+  return n + (s[(v-20)%10] || s[v] || s[0]);
+}
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// Ranks a player's raw stat against same-position players in the CURRENTLY
+// AVAILABLE pool (same convention as adpPercentileScore/redZoneBonus), so a
+// claim like "3rd among available WRs" stays true and meaningful as the
+// draft progresses, rather than referencing the full 200-player universe a
+// player was ranked against back in round 1.
+function statRank(player, pool, statFn, minSampleSize=5){
+  const val = statFn(player);
+  if(val===undefined || val===null || val<=0) return null;
+  const samePos = pool.filter(p=>p.position===player.position);
+  const vals = samePos.map(statFn).filter(v=>v!==undefined && v!==null && v>0);
+  if(vals.length < minSampleSize) return null;
+  const rank = vals.filter(v=>v>val).length + 1;
+  return { val, rank, poolSize: vals.length, percentile: 100 - ((rank-1)/vals.length)*100 };
+}
+
+// Position-specific stats worth leading with, in priority order. Each only
+// fires once the player actually clears a real percentile bar among
+// available same-position players — otherwise it stays silent rather than
+// force a mediocre number into the reasoning text.
+const STAT_HIGHLIGHTS = {
+  WR: [
+    { statFn:p=>p.prevSeason?.targetShare, minPercentile:70,
+      label:(v,r)=>`${v}% target share last season — the ${ordinal(r.rank)}-highest among available WRs.` },
+    { statFn:p=>p.prevSeason?.redZoneTargets, minPercentile:75,
+      label:(v,r)=>`${v} red-zone targets last season, ${ordinal(r.rank)} among available WRs — real touchdown equity beyond the raw yardage.` },
+    { statFn:p=>p.prevSeason?.catchRate, minPercentile:85,
+      label:(v,r)=>`an elite ${v}% catch rate, ${ordinal(r.rank)}-best among available WRs.` },
+    { statFn:p=>p.prevSeason?.yacPerReception, minPercentile:80,
+      label:(v,r)=>`${v} yards after the catch per reception, ${ordinal(r.rank)} among available WRs — more explosive-play equity than the box score shows.` },
+  ],
+  TE: [
+    { statFn:p=>p.prevSeason?.redZoneTargets, minPercentile:70,
+      label:(v,r)=>`${v} red-zone targets last season, ${ordinal(r.rank)} among available TEs — real touchdown equity.` },
+    { statFn:p=>p.prevSeason?.targetShare, minPercentile:70,
+      label:(v,r)=>`${v}% target share, ${ordinal(r.rank)}-highest among available TEs.` },
+    { statFn:p=>p.prevSeason?.catchRate, minPercentile:85,
+      label:(v,r)=>`an elite ${v}% catch rate, ${ordinal(r.rank)} among available TEs.` },
+  ],
+  RB: [
+    { statFn:p=>(p.prevSeason?.redZoneCarries||0)+(p.prevSeason?.redZoneTargets||0), minPercentile:75,
+      label:(v,r)=>`${v} combined red-zone touches last season, ${ordinal(r.rank)} among available RBs — where touchdowns actually come from.` },
+    { statFn:p=>p.prevSeason?.targetShare, minPercentile:75,
+      label:(v,r)=>`${v}% target share out of the backfield, ${ordinal(r.rank)} among available RBs — real PPR floor beyond the run game.` },
+    { statFn:p=>{ const ps=p.prevSeason; return ps && ps.rushAtt>0 ? Math.round((ps.rushYards/ps.rushAtt)*100)/100 : null; }, minPercentile:85,
+      label:(v,r)=>`${v} yards per carry, ${ordinal(r.rank)}-most efficient among available RBs.` },
+    { statFn:p=>p.prevSeason?.rushAtt, minPercentile:85,
+      label:(v,r)=>`${v} carries last season, ${ordinal(r.rank)}-heaviest workload among available RBs — that volume alone is a real floor.` },
+  ],
+  QB: [
+    { statFn:p=>{ const ps=p.prevSeason; return ps && ps.rushAtt>=40 ? ps.rushYards : null; }, minPercentile:75,
+      label:(v,r)=>`${v} rushing yards last season, ${ordinal(r.rank)} among available QBs — a rushing floor most passers don't have.` },
+    { statFn:p=>p.prevSeason?.passTD, minPercentile:80,
+      label:(v,r)=>`${v} passing touchdowns last season, ${ordinal(r.rank)} among available QBs.` },
+    { statFn:p=>p.prevSeason?.passYards, minPercentile:85,
+      label:(v,r)=>`${v} passing yards last season, ${ordinal(r.rank)} among available QBs.` },
+  ],
+};
+
+function buildStatHighlightClauses(player, pool, maxClauses){
+  const defs = STAT_HIGHLIGHTS[player.position];
+  if(!defs) return [];
+  const candidates = [];
+  for(const def of defs){
+    const r = statRank(player, pool, def.statFn);
+    if(r && r.percentile >= def.minPercentile){
+      candidates.push({ text: def.label(r.val, r), percentile: r.percentile });
+    }
+  }
+  candidates.sort((a,b)=>b.percentile-a.percentile);
+  return candidates.slice(0, maxClauses).map(c=>c.text);
+}
+
 function buildReasoning(player, comps){
   const seed = hashStr(player.id + '-' + (draftState.picks.length+1));
+  const pool = availablePlayers();
+  // Lead with real player-level evidence when it clears a real bar — this is
+  // the part that actually explains why the player is good, not just how he
+  // fits your roster or the market. The old need/value framing becomes
+  // supporting context instead of the whole story, and drops its "fair
+  // value"/"room is deep" filler variants once real evidence is leading.
+  const statClauses = buildStatHighlightClauses(player, pool, 2)
+    .map((c,i)=> i===0 ? capitalize(c) : c);
+
   const needKey = comps.needMult>=NEED_MULTIPLIER.required ? 'required' : comps.needMult>=NEED_MULTIPLIER.flex ? 'flex' : comps.needMult>=NEED_MULTIPLIER.bench ? 'bench' : 'full';
   const valueKey = comps.deltaPicks>10 ? 'big' : comps.deltaPicks>3 ? 'small' : comps.deltaPicks>-3 ? 'fair' : 'reach';
-  const needClause = pick(PHRASES.need[needKey], seed).replace(/{POS}/g, player.position);
-  const valueClause = pick(PHRASES.value[valueKey], seed>>2);
+
+  let clauses = [...statClauses];
+  const needIsNotable = needKey==='required' || needKey==='flex';
+  if(needIsNotable || clauses.length===0){
+    clauses.push(pick(PHRASES.need[needKey], seed).replace(/{POS}/g, player.position));
+  }
+  const valueIsNotable = valueKey==='big' || valueKey==='reach';
+  if(valueIsNotable || clauses.length===0){
+    clauses.push(pick(PHRASES.value[valueKey], seed>>2));
+  }
   const situationClause = (player.blurb && (player.blurb.riskReason || player.situation && player.situation.competitionNotes)) || (player.blurb && player.blurb.summary) || '';
-  let clauses = [needClause, valueClause, situationClause].filter(Boolean);
+  if(situationClause && clauses.length<3) clauses.push(situationClause);
+
   const tc = player.valueMetrics && player.valueMetrics.teamCompetition;
   if(tc && tc.intensity==='high'){
     clauses.push(`⚠ Real target/touch competition on ${player.team} from ${tc.rivalNames.join(' and ')}.`);
@@ -1141,7 +1238,7 @@ function buildReasoning(player, comps){
   if(player.valueMetrics && player.valueMetrics.sleeperFlag && player.blurb && player.blurb.sleeperReason){
     clauses.push('◆ ' + player.blurb.sleeperReason);
   }
-  return clauses.join(' ');
+  return clauses.filter(Boolean).join(' ');
 }
 
 /* ================= EXPLAIN / COMPARE ================= */

@@ -2719,7 +2719,7 @@
         "tier":  2,
         "blurb":  {
                       "summary":  "A Pro Bowl rookie season with a franchise-record yardage total for a rookie TE, Warren is poised for a Year 2 leap with Pittman gone and Jones expected back healthy.",
-                      "sleeperReason":  "He was the TE4 in expected fantasy points per game as a rookie despite the QB injury drag down the stretch â€” his ADP may not fully reflect his target-share upside.",
+                      "sleeperReason":  "He was the TE4 in expected fantasy points per game as a rookie despite the QB injury drag down the stretch — his ADP may not fully reflect his target-share upside.",
                       "riskReason":  "His outlook is closely tied to Daniel Jones\u0027 Achilles recovery; a setback would hurt his floor significantly."
                   },
         "newsLog":  [
@@ -2804,7 +2804,7 @@
                      "ageFlag":  false,
                      "contractYear":  false,
                      "otherFlags":  [
-                                        "Coming off ACL surgery â€” early-season workload/snap count is worth monitoring"
+                                        "Coming off ACL surgery — early-season workload/snap count is worth monitoring"
                                     ]
                  },
         "tier":  2,
@@ -3096,7 +3096,7 @@
         "tier":  3,
         "blurb":  {
                       "summary":  "A third-round rookie standout who finished as fantasy\u0027s TE8 in PPG while splitting time with David Njoku, Fannin now inherits the full featured role in Cleveland.",
-                      "sleeperReason":  "Was TE8 in points per game as a rookie while sharing the position with Njoku â€” full-time volume in 2026 gives him top-8 TE upside at a discount.",
+                      "sleeperReason":  "Was TE8 in points per game as a rookie while sharing the position with Njoku — full-time volume in 2026 gives him top-8 TE upside at a discount.",
                       "riskReason":  "Cleveland\u0027s unresolved quarterback competition adds real volatility to his target efficiency."
                   },
         "newsLog":  [
@@ -3435,7 +3435,7 @@
                                 "adjustments":  [
                                                     {
                                                         "factor":  "target_share_shift",
-                                                        "detail":  "Signed a 3-year, $40M deal with the Giants, who are thin at WR behind Malik Nabers (still recovering from a torn ACL) â€” a much larger role than he ever had sharing snaps with Mark Andrews in Baltimore.",
+                                                        "detail":  "Signed a 3-year, $40M deal with the Giants, who are thin at WR behind Malik Nabers (still recovering from a torn ACL) — a much larger role than he ever had sharing snaps with Mark Andrews in Baltimore.",
                                                         "impact":  "positive",
                                                         "magnitude":  "high"
                                                     },
@@ -6495,7 +6495,7 @@
                                 "adjustments":  [
                                                     {
                                                         "factor":  "scheme_change",
-                                                        "detail":  "Signed with New Orleans in free agency after leaving Jacksonville, joining Kellen Moore\u0027s offense as the presumptive lead back â€” a fresh but unproven fit.",
+                                                        "detail":  "Signed with New Orleans in free agency after leaving Jacksonville, joining Kellen Moore\u0027s offense as the presumptive lead back — a fresh but unproven fit.",
                                                         "impact":  "positive",
                                                         "magnitude":  "medium"
                                                     }
@@ -8748,7 +8748,7 @@
                  },
         "tier":  6,
         "blurb":  {
-                      "summary":  "Day 3 pick stuck behind a locked-in starter (Pollard) and fighting Tyjae Spears just to be the No. 2 back â€” a stash-tier flier, not a lock for weekly relevance.",
+                      "summary":  "Day 3 pick stuck behind a locked-in starter (Pollard) and fighting Tyjae Spears just to be the No. 2 back — a stash-tier flier, not a lock for weekly relevance.",
                       "sleeperReason":  "If he wins the RB2 job over Spears in camp, he\u0027d have real change-of-pace and passing-down value in an offense that lacks a clear complementary back.",
                       "riskReason":  "Unproven and not yet ahead of Spears on the depth chart; touches are not guaranteed even if he makes the 53-man roster."
                   },
@@ -9005,7 +9005,7 @@
                  },
         "tier":  8,
         "blurb":  {
-                      "summary":  "A 6th-round pick in one of the deepest, most crowded backfields in the league â€” Croskey-Merritt and free-agent addition Rachaad White are both ahead of him, and he\u0027ll need injuries just to see the field.",
+                      "summary":  "A 6th-round pick in one of the deepest, most crowded backfields in the league — Croskey-Merritt and free-agent addition Rachaad White are both ahead of him, and he\u0027ll need injuries just to see the field.",
                       "sleeperReason":  null,
                       "riskReason":  "Buried behind at least two other backs on a crowded roster; realistic path to touches is limited to injury replacement duty."
                   },
