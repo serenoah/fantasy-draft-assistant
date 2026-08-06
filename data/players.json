@@ -5799,19 +5799,24 @@
                            "redZoneCarries":  34
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  17.0,
+                                "adjustedPPG":  18.5,
                                 "adjustments":  [
-
+                                                    {
+                                                        "factor":  "qb_injury_context",
+                                                        "detail":  "Played 9 of 17 games with backup QBs (Jake Browning, Joe Flacco) while Joe Burrow recovered from turf-toe surgery. Usage held up or even improved without Burrow (5.7 targets/gm vs 4.9), but touchdown rate collapsed from roughly 1.3 combined TD/gm in Burrow's starts to about 0.2/gm with the backups -- a red-zone finishing gap tied to the QB change, not a role or talent issue.",
+                                                        "impact":  "positive",
+                                                        "magnitude":  "medium"
+                                                    }
                                                 ],
-                                "confidence":  "high"
+                                "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  17.0,
-                           "projSeasonPts":  289,
-                           "projFloor":  12,
-                           "projCeiling":  23,
+                           "projPPG":  18.5,
+                           "projSeasonPts":  314.5,
+                           "projFloor":  13,
+                           "projCeiling":  24,
                            "projGamesPlayed":  17,
-                           "methodologyNote":  "Projects a repeat of his three-down role in Cincinnati\u0027s pass-heavy Burrow-led offense."
+                           "methodologyNote":  "Projects meaningfully above his blended 2025 average (16.5 PPG) toward his Burrow-starts pace (roughly 21 PPG), conservatively discounted since that was only a 7-game sample and some TD-rate regression is still expected even with Burrow healthy all season."
                        },
         "schedule":  {
                          "seasonSosGrade":  "B",
