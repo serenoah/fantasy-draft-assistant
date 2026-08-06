@@ -548,6 +548,7 @@ const SCORE_WEIGHTS = { value:0.72, scarcity:0.16 };
 // tight cap means a tie can nudge the score, not dominate it.
 const ADP_BONUS_FACTOR = 0.3;
 const ADP_BONUS_CLAMP = [-8, 8];
+const ADP_BONUS_DISABLED_POSITIONS = new Set(['TE','QB']);
 const NEED_MULTIPLIER = { required:1.4, flex:1.15, bench:0.85, full:0.5 };
 const BYE_CONFLICT_PENALTY = { two:5, three:10 };
 const RISK_PENALTY = {
@@ -555,14 +556,22 @@ const RISK_PENALTY = {
   mid:   { low:0, medium:5, high:10 },
   late:  { low:0, medium:2, high:4 },
 };
-// Positions with a single required starter slot (this league is 1-QB, not
-// superflex) are well-known to get overvalued by pure points-over-
-// replacement math — there's a real cliff after the top few players, but
-// the format only rewards owning ONE of them, so the market (ADP) reliably
-// discounts them relative to raw VORP. Real VBD tools apply exactly this
-// kind of position adjustment; without it the model fights the market
-// instead of tracking it. RB/WR/DST/K are unaffected (1.0 = no adjustment).
-const POSITION_VALUE_DAMPENER = { QB: 0.55, TE: 0.15, RB: 1.0, WR: 1.0, DST: 1.0, K: 1.0 };
+// How much weight each position's score gives to the model's own math vs.
+// real market ADP (1.0 = pure model, lower = more ADP-driven) — see the
+// top-level blend at the end of scorePlayer()/computeBigBoardScore().
+// TE/QB get heavy correction: positions with a single required starter
+// slot are well-known to get overvalued by pure points-over-replacement
+// math — there's a real cliff after the top few players, but the format
+// only rewards owning ONE of them, so the market reliably discounts them
+// relative to raw VORP. Real VBD tools apply exactly this kind of position
+// adjustment; without it the model fights the market instead of tracking
+// it. RB/WR get a light touch (not a full override — the model should
+// still differentiate WITHIN the position) purely as a cross-position
+// sanity check: valueScore below is normalized per-position, so nothing
+// else in the score naturally catches a case like a TE outranking a WR
+// with a dramatically better real ADP. DST/K are unaffected (no
+// projections precise enough to be worth reconciling against ADP).
+const POSITION_VALUE_DAMPENER = { QB: 0.55, TE: 0.15, RB: 0.88, WR: 0.88, DST: 1.0, K: 1.0 };
 
 /* ================= FALLBACK DATA (used only if both live + no data files are reachable) ============ */
 const FALLBACK_PLAYERS = [
@@ -682,6 +691,7 @@ async function loadData(){
     return d && d > max ? d : max;
   }, '');
   computeBaselines();
+  computeTierTotals();
   computeValueMetrics();
   computeTeamCompetition();
   const srcLabel = DATA_SOURCE==='live' ? 'Live data from GitHub' : DATA_SOURCE==='local' ? 'Local data file' : 'Fallback placeholder data (limited) — connect to internet and reload for full rankings';
@@ -698,6 +708,23 @@ function computeBaselines(){
       .sort((a,b)=>b.projection.projPPG - a.projection.projPPG);
     const idx = Math.min(REPLACEMENT_RANK[pos]-1, Math.max(list.length-1,0));
     POSITION_BASELINES[pos] = list.length ? list[idx].projection.projPPG : 0;
+  }
+}
+
+// How many tier<=3 ("elite/near-elite") players each position started the
+// draft with — a fixed reference point, computed once from the full player
+// pool, not the shrinking available pool. Needed because positions differ
+// hugely in how many total tier<=3 players even exist (this dataset has
+// ~28 tier<=3 WRs but only ~9 tier<=3 TEs, just because WR support more
+// depth) — dividing by this total turns scarcityScore into "how much of
+// this position's elite tier is already gone," a ratio that's comparable
+// across positions, instead of a raw remaining-count that floors at 0 for
+// every deep position and never really "empties" for a shallow one.
+let TOP_TIER_TOTAL_BY_POSITION = {};
+function computeTierTotals(){
+  TOP_TIER_TOTAL_BY_POSITION = {};
+  for(const pos of Object.keys(REPLACEMENT_RANK)){
+    TOP_TIER_TOTAL_BY_POSITION[pos] = ALL_PLAYERS.filter(p=>p.position===pos && p.tier && p.tier<=3).length;
   }
 }
 
@@ -1049,6 +1076,20 @@ function adpPercentileScore(player, pool){
   return 100 - (betterCount/samePos.length)*100;
 }
 
+// Same idea as adpPercentileScore, but ranked against EVERY available
+// player regardless of position — the cross-position counterpart. Needed
+// because valueScore is normalized WITHIN position (see scorePlayer): a
+// player's own position pool can't tell you whether a TE going 20th
+// overall actually deserves to outrank a WR going 7th overall. Only a
+// cross-position ADP comparison can catch that.
+function globalAdpPercentileScore(player, pool){
+  if(!player.adp) return 50;
+  const withAdp = pool.filter(p=>p.adp);
+  if(withAdp.length===0) return 50;
+  const betterCount = withAdp.filter(p=>p.adp.overall < player.adp.overall).length;
+  return 100 - (betterCount/withAdp.length)*100;
+}
+
 // Red-zone opportunity (targets for pass-catchers, carries for RBs) is the
 // strongest touchdown-equity signal we have beyond raw yardage — more RZ
 // looks means more scoring chances than the rest of a player's stat line
@@ -1075,15 +1116,28 @@ function redZoneBonus(player){
 function scorePlayer(player){
   const pool = availablePlayers();
   const samePos = pool.filter(p=>p.position===player.position);
-  const vorps = pool.map(vorp);
-  const minV = Math.min(...vorps), maxV = Math.max(...vorps);
+  // Normalized WITHIN position, not across the whole pool. Points-over-
+  // replacement is on a different raw scale per position (a shallow-
+  // replacement position like TE naturally shows a bigger PPG gap between
+  // its best and replacement-level player than a deep position like WR
+  // does) — comparing those raw magnitudes head-to-head systematically
+  // overrates shallow positions and underrates deep ones, which is exactly
+  // how an elite low-ADP WR could end up scored below a mid-ADP TE. Scoring
+  // each position against its OWN pool means the best available player at
+  // any position reads as "100" on equal footing; cross-position value is
+  // handled explicitly below (ADP blend), not implied by raw VORP scale.
+  const samePosVorps = samePos.map(vorp);
+  const minV = Math.min(...samePosVorps), maxV = Math.max(...samePosVorps);
   const v = vorp(player);
   const valueScore = maxV>minV ? ((v-minV)/(maxV-minV))*100 : 50;
   const dampener = POSITION_VALUE_DAMPENER[player.position] ?? 1.0;
 
-  // scarcity: fewer remaining tier<=3 players at this position -> higher
+  // scarcity: what fraction of this position's ORIGINAL tier<=3 pool has
+  // already been drafted, not a raw remaining count — see
+  // TOP_TIER_TOTAL_BY_POSITION's comment for why the ratio matters.
   const topTierRemaining = samePos.filter(p=>p.tier && p.tier<=3).length;
-  const scarcityScore = Math.max(0, Math.min(100, 100 - topTierRemaining*8));
+  const topTierTotal = TOP_TIER_TOTAL_BY_POSITION[player.position] || 0;
+  const scarcityScore = topTierTotal>0 ? Math.max(0, Math.min(100, (1 - topTierRemaining/topTierTotal)*100)) : 0;
 
   // adp bonus: model rank vs market adp. Uses competition ranking (tied VORP
   // shares the same rank) instead of a strict sequential sort — with human-
@@ -1093,10 +1147,10 @@ function scorePlayer(player){
   const modelRank = pool.filter(p => vorp(p) > v).length + 1;
   const marketRank = player.adp ? player.adp.overall : modelRank;
   const deltaPicks = marketRank - modelRank; // positive = model likes more than market
-  // Dampened positions handle ADP alignment via the top-level blend below
-  // instead — leaving this on too would let the same tie-driven noise back
-  // in through a second channel.
-  const adpBonus = dampener < 1.0 ? 0 : Math.max(ADP_BONUS_CLAMP[0], Math.min(ADP_BONUS_CLAMP[1], deltaPicks*ADP_BONUS_FACTOR));
+  // TE/QB skip this: their VORP ties (round-number projections) make
+  // modelRank noisy, and the top-level ADP blend below already does a more
+  // reliable job of aligning them to market for those two positions.
+  const adpBonus = ADP_BONUS_DISABLED_POSITIONS.has(player.position) ? 0 : Math.max(ADP_BONUS_CLAMP[0], Math.min(ADP_BONUS_CLAMP[1], deltaPicks*ADP_BONUS_FACTOR));
 
   const round = currentRound();
   const stage = roundStage(round);
@@ -1118,15 +1172,13 @@ function scorePlayer(player){
 
   let score = Math.max(1, Math.min(100, Math.round(base)));
 
-  // Positions with a single required starter slot are well-known to get
-  // overvalued by pure model math — not just via VORP, but via secondary
-  // signals too (red-zone usage, injury status) that can still pull a score
-  // away from the market even after the value component is fixed. Blend the
-  // model's full opinion with where the market actually drafts this player
-  // at the TOP level, so ADP reliably dominates the final number for these
-  // positions rather than getting outvoted by any single sub-factor.
+  // Cross-position ADP sanity check, applied on top of the (now
+  // position-relative) score. TE/QB get heavily corrected toward market
+  // consensus for the reasons in POSITION_VALUE_DAMPENER's comment; RB/WR
+  // get a light touch just to catch cases like the one above, without
+  // overriding the model's own within-position read.
   if(dampener < 1.0){
-    const adpPct = adpPercentileScore(player, pool);
+    const adpPct = globalAdpPercentileScore(player, pool);
     score = Math.max(1, Math.min(100, Math.round(score*dampener + adpPct*(1-dampener))));
   }
 
@@ -1141,19 +1193,21 @@ function scorePlayer(player){
 function computeBigBoardScore(player){
   const pool = availablePlayers();
   const samePos = pool.filter(p=>p.position===player.position);
-  const vorps = pool.map(vorp);
-  const minV = Math.min(...vorps), maxV = Math.max(...vorps);
+  // Position-relative, same reasoning as scorePlayer() — see its comment.
+  const samePosVorps = samePos.map(vorp);
+  const minV = Math.min(...samePosVorps), maxV = Math.max(...samePosVorps);
   const v = vorp(player);
   const valueScore = maxV>minV ? ((v-minV)/(maxV-minV))*100 : 50;
   const dampener = POSITION_VALUE_DAMPENER[player.position] ?? 1.0;
 
   const topTierRemaining = samePos.filter(p=>p.tier && p.tier<=3).length;
-  const scarcityScore = Math.max(0, Math.min(100, 100 - topTierRemaining*8));
+  const topTierTotal = TOP_TIER_TOTAL_BY_POSITION[player.position] || 0;
+  const scarcityScore = topTierTotal>0 ? Math.max(0, Math.min(100, (1 - topTierRemaining/topTierTotal)*100)) : 0;
 
   const modelRank = pool.filter(p => vorp(p) > v).length + 1;
   const marketRank = player.adp ? player.adp.overall : modelRank;
   const deltaPicks = marketRank - modelRank;
-  const adpBonus = dampener < 1.0 ? 0 : Math.max(ADP_BONUS_CLAMP[0], Math.min(ADP_BONUS_CLAMP[1], deltaPicks*ADP_BONUS_FACTOR));
+  const adpBonus = ADP_BONUS_DISABLED_POSITIONS.has(player.position) ? 0 : Math.max(ADP_BONUS_CLAMP[0], Math.min(ADP_BONUS_CLAMP[1], deltaPicks*ADP_BONUS_FACTOR));
 
   const risk = player.risk ? player.risk.injuryRisk : 'low';
   const flatRiskPenalty = { low:0, medium:6, high:14 }[risk] || 0;
@@ -1163,8 +1217,9 @@ function computeBigBoardScore(player){
   let base = valueScore*0.80 + scarcityScore*0.20 + adpBonus + rzBonus - flatRiskPenalty - competitionPenalty;
   let score = Math.max(1, Math.min(100, Math.round(base)));
 
+  // Cross-position ADP sanity check — see scorePlayer()'s comment.
   if(dampener < 1.0){
-    const adpPct = adpPercentileScore(player, pool);
+    const adpPct = globalAdpPercentileScore(player, pool);
     score = Math.max(1, Math.min(100, Math.round(score*dampener + adpPct*(1-dampener))));
   }
 
