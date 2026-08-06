@@ -653,22 +653,28 @@
                            "pprPtsPerGame":  18.3
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  19.0,
+                                "adjustedPPG":  18.5,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "weapons_upgrade",
                                                         "detail":  "Retained George Pickens on the franchise tag and re-signed RB Javonte Williams, giving Prescott strong offensive continuity into 2026.",
                                                         "impact":  "positive",
                                                         "magnitude":  "low"
+                                                    },
+                                                    {
+                                                        "factor":  "age_injury_history",
+                                                        "detail":  "Turns 33 in 2026 and has a recent history of a season-ending injury (2024 hamstring) -- the same category of risk that earns comparable-age QBs an explicit negative adjustment elsewhere in this dataset.",
+                                                        "impact":  "negative",
+                                                        "magnitude":  "low"
                                                     }
                                                 ],
                                 "confidence":  "high"
                             },
         "projection":  {
-                           "projPPG":  19.0,
-                           "projSeasonPts":  323.0,
-                           "projFloor":  14.0,
-                           "projCeiling":  24.0,
+                           "projPPG":  18.5,
+                           "projSeasonPts":  296,
+                           "projFloor":  13.5,
+                           "projCeiling":  23.5,
                            "projGamesPlayed":  16,
                            "methodologyNote":  "Projects a slight regression to the mean off a career-best touchdown rate, offset by strong receiver continuity."
                        },
@@ -2670,11 +2676,11 @@
                            "redZoneCarries":  4
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  14.5,
+                                "adjustedPPG":  15.0,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "qb_change",
-                                                        "detail":  "Daniel Jones\u0027 season-ending Achilles injury cratered Warren\u0027s usage over the final 7 games (5.6 half-PPR ppg vs. 11.1 in his first 10); a healthy Jones removes that drag in 2026.",
+                                                        "detail":  "Daniel Jones' season-ending Achilles injury cratered Warren's usage over the final 7 games (5.6 half-PPR ppg vs. 11.1 in his first 10); a healthy Jones removes that drag in 2026.",
                                                         "impact":  "positive",
                                                         "magnitude":  "medium"
                                                     },
@@ -2683,15 +2689,21 @@
                                                         "detail":  "With Michael Pittman Jr. no longer on the roster, Warren profiles for an expanded target share as the top receiving weapon.",
                                                         "impact":  "positive",
                                                         "magnitude":  "medium"
+                                                    },
+                                                    {
+                                                        "factor":  "td_regression",
+                                                        "detail":  "Converted just 4 of 19 red-zone targets into touchdowns (21%), the lowest rate among high-volume TEs in this class -- a real efficiency outlier independent of the usage tailwinds above.",
+                                                        "impact":  "positive",
+                                                        "magnitude":  "medium"
                                                     }
                                                 ],
                                 "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  14.0,
-                           "projSeasonPts":  238.0,
-                           "projFloor":  10.0,
-                           "projCeiling":  19.0,
+                           "projPPG":  14.5,
+                           "projSeasonPts":  246.5,
+                           "projFloor":  10.5,
+                           "projCeiling":  19.5,
                            "projGamesPlayed":  17,
                            "methodologyNote":  "Extrapolates his healthy-Jones, Pittman-departed target share increase into a Year 2 TE1-caliber breakout."
                        },
@@ -4251,7 +4263,7 @@
         "name":  "Kenyon Sadiq",
         "team":  "NYJ",
         "position":  "TE",
-        "byeWeek":  12,
+        "byeWeek":  13,
         "adp":  {
                     "overall":  218,
                     "positionRank":  19,
@@ -4900,7 +4912,7 @@
         "name":  "Bijan Robinson",
         "team":  "ATL",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  11,
         "adp":  {
                     "overall":  3,
                     "positionRank":  2,
@@ -4983,7 +4995,7 @@
         "name":  "Christian McCaffrey",
         "team":  "SF",
         "position":  "RB",
-        "byeWeek":  7,
+        "byeWeek":  8,
         "adp":  {
                     "overall":  5,
                     "positionRank":  3,
@@ -5071,7 +5083,7 @@
         "name":  "Jonathan Taylor",
         "team":  "IND",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  13,
         "adp":  {
                     "overall":  7,
                     "positionRank":  4,
@@ -5330,7 +5342,7 @@
         "name":  "Ashton Jeanty",
         "team":  "LV",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  13,
         "adp":  {
                     "overall":  15,
                     "positionRank":  7,
@@ -5858,7 +5870,7 @@
         "name":  "Jeremiyah Love",
         "team":  "ARI",
         "position":  "RB",
-        "byeWeek":  15,
+        "byeWeek":  14,
         "adp":  {
                     "overall":  42,
                     "positionRank":  17,
@@ -6203,7 +6215,7 @@
         "name":  "Javonte Williams",
         "team":  "DAL",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  14,
         "adp":  {
                     "overall":  55,
                     "positionRank":  17,
@@ -6408,22 +6420,28 @@
                            "redZoneCarries":  17
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  16.0,
+                                "adjustedPPG":  15.5,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "injury",
                                                         "detail":  "Missed seven games (Weeks 5-12) in 2025 with shoulder and ankle/foot injuries; he had shoulder surgery in February 2026 and is reportedly full-go for camp.",
                                                         "impact":  "negative",
                                                         "magnitude":  "medium"
+                                                    },
+                                                    {
+                                                        "factor":  "red_zone_role_split",
+                                                        "detail":  "Backup Sean Tucker held Tampa Bay's actual goal-line role in 2025 -- 7 rush TDs on just 21 red-zone carries (33%) versus Irving's 1 TD on 17 (6%) -- capping Irving's rushing-TD upside even in a fully healthy 2026.",
+                                                        "impact":  "negative",
+                                                        "magnitude":  "low"
                                                     }
                                                 ],
                                 "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  15.5,
-                           "projSeasonPts":  248,
-                           "projFloor":  10,
-                           "projCeiling":  21,
+                           "projPPG":  15.0,
+                           "projSeasonPts":  240,
+                           "projFloor":  9.5,
+                           "projCeiling":  20.5,
                            "projGamesPlayed":  16,
                            "methodologyNote":  "Assumes a clean recovery from offseason shoulder surgery with a return to his efficient 2024-level role."
                        },
@@ -7400,17 +7418,22 @@
                            "redZoneCarries":  26
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  12,
+                                "adjustedPPG":  10.0,
                                 "adjustments":  [
-
+                                                    {
+                                                        "factor":  "committee_backfield",
+                                                        "detail":  "TreVeyon Henderson's ascension into the clear lead role is already credited elsewhere in this dataset as a direct driver of his added touches -- that same erosion should show up as a real drag on Stevenson's outlook, not a roughly flat continuation of his 2025 pace.",
+                                                        "impact":  "negative",
+                                                        "magnitude":  "medium"
+                                                    }
                                                 ],
                                 "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  11.5,
-                           "projSeasonPts":  195.5,
-                           "projFloor":  7,
-                           "projCeiling":  17,
+                           "projPPG":  9.5,
+                           "projSeasonPts":  161.5,
+                           "projFloor":  5.5,
+                           "projCeiling":  14.5,
                            "projGamesPlayed":  17,
                            "methodologyNote":  "Assumes a full complement of games at roughly his 2025 per-game pace as New England\u0027s clear No. 2 back behind Henderson."
                        },
@@ -9467,7 +9490,7 @@
         "name":  "Brian Robinson Jr.",
         "team":  "ATL",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  11,
         "adp":  {
                     "overall":  357,
                     "positionRank":  56,
@@ -9555,7 +9578,7 @@
         "name":  "Tyler Allgeier",
         "team":  "ARI",
         "position":  "RB",
-        "byeWeek":  15,
+        "byeWeek":  14,
         "adp":  {
                     "overall":  366,
                     "positionRank":  57,
@@ -9991,7 +10014,7 @@
         "name":  "Mike Washington Jr.",
         "team":  "LV",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  13,
         "adp":  {
                     "overall":  400,
                     "positionRank":  57,
@@ -10160,7 +10183,7 @@
         "name":  "James Conner",
         "team":  "ARI",
         "position":  "RB",
-        "byeWeek":  15,
+        "byeWeek":  14,
         "adp":  {
                     "overall":  429,
                     "positionRank":  64,
@@ -10594,7 +10617,7 @@
         "name":  "Jaydon Blue",
         "team":  "DAL",
         "position":  "RB",
-        "byeWeek":  12,
+        "byeWeek":  14,
         "adp":  {
                     "overall":  474,
                     "positionRank":  69,
@@ -10682,7 +10705,7 @@
         "name":  "Jordan James",
         "team":  "SF",
         "position":  "RB",
-        "byeWeek":  7,
+        "byeWeek":  8,
         "adp":  {
                     "overall":  483,
                     "positionRank":  70,
@@ -11470,9 +11493,8 @@
     {
         "id":  "aj-brown-phi-wr",
         "name":  "A.J. Brown",
-        "team":  "PHI",
-        "position":  "WR",
-        "byeWeek":  10,
+        "team":  "NE",
+        "byeWeek":  11,
         "adp":  {
                     "overall":  18,
                     "positionRank":  9,
@@ -11499,11 +11521,17 @@
                            "aDOT":  11.6
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  14.5,
+                                "adjustedPPG":  15.5,
                                 "adjustments":  [
                                                     {
-                                                        "factor":  "scheme_run_heavy",
-                                                        "detail":  "Philadelphia\u0027s run-heavy identity around Saquon Barkley continues to cap Brown\u0027s target ceiling relative to his talent.",
+                                                        "factor":  "trade",
+                                                        "detail":  "Traded to New England, pairing him with ascending young QB Drake Maye in a full receiving-corps overhaul (also adding Romeo Doubs) -- a clear talent upgrade from Philadelphia's run-heavy target ceiling.",
+                                                        "impact":  "positive",
+                                                        "magnitude":  "medium"
+                                                    },
+                                                    {
+                                                        "factor":  "new_team_chemistry",
+                                                        "detail":  "Early camp reports describe slow-developing on-field chemistry with Maye in a brand-new offense -- real integration risk this early in a new system.",
                                                         "impact":  "negative",
                                                         "magnitude":  "low"
                                                     }
@@ -11511,24 +11539,24 @@
                                 "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  15.5,
-                           "projSeasonPts":  248.0,
+                           "projPPG":  16.5,
+                           "projSeasonPts":  264.0,
                            "projFloor":  10.0,
-                           "projCeiling":  22.0,
+                           "projCeiling":  24.0,
                            "projGamesPlayed":  16,
-                           "methodologyNote":  "Career-norm target share applied with slight positive TD regression."
+                           "methodologyNote":  "Career-norm target share applied in a talent-upgraded offense, tempered by new-team/new-QB chemistry risk this early."
                        },
         "schedule":  {
                          "seasonSosGrade":  "D",
-                         "playoffSosGrade":  "F",
-                         "notes":  "Eagles face one of the league\u0027s toughest playoff-week (15-17) slates."
+                         "playoffSosGrade":  "C",
+                         "notes":  "Patriots\u0027 2026 slate is considered notably tougher than last season\u0027s; no strong playoff-week signal either way."
                      },
         "situation":  {
-                          "depthChartRole":  "WR1, outside X",
+                          "depthChartRole":  "WR1, outside",
                           "targetShareTrend":  "stable-high",
                           "oLineGrade":  "A",
-                          "coachingSchemeChange":  null,
-                          "competitionNotes":  "DeVonta Smith remains a strong complementary option but Brown still commands top target share among Eagles WRs."
+                          "coachingSchemeChange":  "New team, new QB (Drake Maye) after trade from Philadelphia",
+                          "competitionNotes":  "Romeo Doubs joins as a complementary piece, but Brown projects as the clear top target once chemistry with Maye develops."
                       },
         "risk":  {
                      "injuryRisk":  "medium",
@@ -11541,9 +11569,9 @@
                  },
         "tier":  2,
         "blurb":  {
-                      "summary":  "Elite talent capped somewhat by Philadelphia\u0027s run-first approach, Brown remains a high-floor WR1 with big-play upside.",
+                      "summary":  "Traded to New England this offseason, pairing his elite talent with an ascending Drake Maye -- a real receiving-corps upgrade for the Patriots, tempered by early camp chemistry questions in a brand-new system.",
                       "sleeperReason":  null,
-                      "riskReason":  "Eagles\u0027 offense funnels heavily through the run game and their playoff schedule is brutal."
+                      "riskReason":  "Early camp reports show slow-developing chemistry with new QB Drake Maye in a new offense, and recurring hamstring/knee issues remain a durability question."
                   },
         "newsLog":  [
 
@@ -12016,7 +12044,7 @@
                            "aDOT":  12.0
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  12.5,
+                                "adjustedPPG":  15.0,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "td_regression",
@@ -12026,20 +12054,26 @@
                                                     },
                                                     {
                                                         "factor":  "scheme_run_heavy",
-                                                        "detail":  "Philadelphia\u0027s run-first identity continues to suppress the receiving corps\u0027 overall target volume.",
+                                                        "detail":  "Philadelphia's run-first identity continues to suppress the receiving corps' overall target volume.",
                                                         "impact":  "negative",
+                                                        "magnitude":  "medium"
+                                                    },
+                                                    {
+                                                        "factor":  "role_expansion",
+                                                        "detail":  "A.J. Brown's trade to New England leaves Smith as Philadelphia's undisputed WR1, a real target-share and red-zone-role increase from his previous complementary role.",
+                                                        "impact":  "positive",
                                                         "magnitude":  "medium"
                                                     }
                                                 ],
-                                "confidence":  "high"
+                                "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  13.0,
-                           "projSeasonPts":  221.0,
-                           "projFloor":  9.0,
-                           "projCeiling":  18.5,
+                           "projPPG":  15.5,
+                           "projSeasonPts":  263.5,
+                           "projFloor":  10.5,
+                           "projCeiling":  21.0,
                            "projGamesPlayed":  17,
-                           "methodologyNote":  "Consistent floor-oriented target share with modest TD regression upward."
+                           "methodologyNote":  "WR1 target share applied following A.J. Brown's departure, with modest TD regression upward."
                        },
         "schedule":  {
                          "seasonSosGrade":  "D",
@@ -12047,11 +12081,11 @@
                          "notes":  "Eagles face one of the toughest playoff-week slates in the league."
                      },
         "situation":  {
-                          "depthChartRole":  "WR2, slot/outside",
-                          "targetShareTrend":  "stable-low",
+                          "depthChartRole":  "WR1, slot/outside",
+                          "targetShareTrend":  "rising",
                           "oLineGrade":  "A",
                           "coachingSchemeChange":  null,
-                          "competitionNotes":  "Clearly behind A.J. Brown in the pecking order but still a high-floor PPR option."
+                          "competitionNotes":  "Now Philadelphia's clear top target after A.J. Brown's trade to New England; rookie Makai Lemon profiles as the primary complementary slot option."
                       },
         "risk":  {
                      "injuryRisk":  "low",
@@ -12064,9 +12098,9 @@
                  },
         "tier":  2,
         "blurb":  {
-                      "summary":  "A model of consistency, Smith has never finished outside the top-30 at his position, though his ceiling is capped in Philadelphia\u0027s run-heavy attack.",
-                      "sleeperReason":  null,
-                      "riskReason":  "Run-first scheme and a brutal playoff schedule cap his upside."
+                      "summary":  "Now Philadelphia's undisputed WR1 after A.J. Brown's trade to New England, Smith inherits a real target-share and red-zone-role increase on top of his already-elite efficiency.",
+                      "sleeperReason":  "A full WR1 target share for a player who was already efficient as a clear WR2 is real, underpriced upside.",
+                      "riskReason":  "Philadelphia's run-first offense still caps the receiving corps' overall ceiling even with the added target share."
                   },
         "newsLog":  [
 
@@ -12897,7 +12931,7 @@
                            "aDOT":  14.1
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  10.5,
+                                "adjustedPPG":  11.5,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "catch_rate_concern",
@@ -12907,20 +12941,26 @@
                                                     },
                                                     {
                                                         "factor":  "target_competition",
-                                                        "detail":  "Luther Burden III\u0027s emergence and DJ Moore\u0027s continued presence create a crowded target picture in Chicago.",
+                                                        "detail":  "Luther Burden III's emergence creates real target competition in Chicago.",
                                                         "impact":  "negative",
-                                                        "magnitude":  "medium"
+                                                        "magnitude":  "low"
+                                                    },
+                                                    {
+                                                        "factor":  "vacated_targets",
+                                                        "detail":  "DJ Moore's trade to Buffalo removes a target earner from the Chicago WR room, partially offsetting the Burden competition above.",
+                                                        "impact":  "positive",
+                                                        "magnitude":  "low"
                                                     }
                                                 ],
                                 "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  11.5,
-                           "projSeasonPts":  195.5,
-                           "projFloor":  7.0,
-                           "projCeiling":  18.0,
+                           "projPPG":  12.5,
+                           "projSeasonPts":  212.5,
+                           "projFloor":  7.5,
+                           "projCeiling":  19.0,
                            "projGamesPlayed":  17,
-                           "methodologyNote":  "Modest efficiency improvement applied against a crowded target picture in Chicago\u0027s receiving corps."
+                           "methodologyNote":  "Modest efficiency improvement applied against a two-way (not three-way) target picture in Chicago's receiving corps after DJ Moore's trade."
                        },
         "schedule":  {
                          "seasonSosGrade":  "C",
@@ -12928,11 +12968,11 @@
                          "notes":  "NFC North is manageable overall."
                      },
         "situation":  {
-                          "depthChartRole":  "WR2/3, outside",
-                          "targetShareTrend":  "declining",
+                          "depthChartRole":  "WR1/2, outside",
+                          "targetShareTrend":  "stable",
                           "oLineGrade":  "B",
                           "coachingSchemeChange":  null,
-                          "competitionNotes":  "A three-way split with DJ Moore and rookie standout Luther Burden III limits his target ceiling."
+                          "competitionNotes":  "A two-way split with rookie standout Luther Burden III, after DJ Moore's trade to Buffalo removed a third target earner from the room."
                       },
         "risk":  {
                      "injuryRisk":  "low",
@@ -12945,9 +12985,9 @@
                  },
         "tier":  3,
         "blurb":  {
-                      "summary":  "A hot start faded as Odunze\u0027s 48% catch rate caught up with him, and a crowded Chicago receiving corps limits his target ceiling.",
+                      "summary":  "A hot start faded as Odunze's 48% catch rate caught up with him, but DJ Moore's trade to Buffalo leaves a two-way (not three-way) target picture behind Burden III.",
                       "sleeperReason":  null,
-                      "riskReason":  "Now the third or fourth read behind Moore and Burden in a crowded Bears passing game."
+                      "riskReason":  "Now the second or third read behind Burden in a young Bears passing game."
                   },
         "newsLog":  [
 
@@ -12989,24 +13029,30 @@
                            "aDOT":  7.3
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  11.0,
+                                "adjustedPPG":  11.5,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "efficiency_elite",
                                                         "detail":  "Top-five among WRs in catch rate (77%) and yards per target (10.8) despite limited early-season usage; role expansion should follow.",
                                                         "impact":  "positive",
                                                         "magnitude":  "high"
+                                                    },
+                                                    {
+                                                        "factor":  "vacated_targets",
+                                                        "detail":  "DJ Moore's trade to Buffalo removes one established target earner from the Chicago WR room, one fewer veteran ahead of him for a larger 2026 role.",
+                                                        "impact":  "positive",
+                                                        "magnitude":  "low"
                                                     }
                                                 ],
                                 "confidence":  "medium"
                             },
         "projection":  {
-                           "projPPG":  13.0,
-                           "projSeasonPts":  221.0,
-                           "projFloor":  7.5,
-                           "projCeiling":  20.5,
+                           "projPPG":  13.5,
+                           "projSeasonPts":  229.5,
+                           "projFloor":  8.0,
+                           "projCeiling":  21.0,
                            "projGamesPlayed":  17,
-                           "methodologyNote":  "Elite per-target efficiency extrapolated to a larger expected role in year two."
+                           "methodologyNote":  "Elite per-target efficiency extrapolated to a larger expected role in year two, boosted by DJ Moore's departure."
                        },
         "schedule":  {
                          "seasonSosGrade":  "C",
@@ -13018,7 +13064,7 @@
                           "targetShareTrend":  "rising",
                           "oLineGrade":  "B",
                           "coachingSchemeChange":  null,
-                          "competitionNotes":  "Shares the field with DJ Moore and Rome Odunze but flashed the best per-target efficiency of the group as a rookie."
+                          "competitionNotes":  "Shares the field with Rome Odunze but flashed the best per-target efficiency of the group as a rookie; DJ Moore's trade to Buffalo further opens the target picture."
                       },
         "risk":  {
                      "injuryRisk":  "low",
@@ -13031,9 +13077,9 @@
                  },
         "tier":  3,
         "blurb":  {
-                      "summary":  "Burden\u0027s rookie efficiency (77% catch rate, 10.8 YPT) was elite despite a limited early role; a bigger 2026 role could unlock a breakout.",
-                      "sleeperReason":  "Elite per-target efficiency on limited volume as a rookie is one of the clearest breakout signals in this WR class.",
-                      "riskReason":  "Must still win a larger role away from DJ Moore and Rome Odunze."
+                      "summary":  "Burden's rookie efficiency (77% catch rate, 10.8 YPT) was elite despite a limited early role; a bigger 2026 role could unlock a breakout, helped by DJ Moore's departure.",
+                      "sleeperReason":  "Elite per-target efficiency on limited volume as a rookie, plus a vacated target share from DJ Moore's trade, is one of the clearest breakout signals in this WR class.",
+                      "riskReason":  "Must still win a larger role away from Rome Odunze."
                   },
         "newsLog":  [
 
@@ -14917,13 +14963,13 @@
                            "pprPtsPerGame":  null
                        },
         "anomalyAdjusted":  {
-                                "adjustedPPG":  6.0,
+                                "adjustedPPG":  9.0,
                                 "adjustments":  [
                                                     {
                                                         "factor":  "target_competition",
-                                                        "detail":  "Landing behind A.J. Brown and DeVonta Smith in Philadelphia\u0027s run-heavy offense severely caps his rookie-year ceiling.",
+                                                        "detail":  "Landing behind DeVonta Smith, now Philadelphia's clear No. 1, still caps his rookie-year ceiling even with A.J. Brown's departure opening real volume.",
                                                         "impact":  "negative",
-                                                        "magnitude":  "high"
+                                                        "magnitude":  "medium"
                                                     }
                                                 ],
                                 "confidence":  "low"
