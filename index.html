@@ -556,6 +556,56 @@ const RISK_PENALTY = {
   mid:   { low:0, medium:5, high:10 },
   late:  { low:0, medium:2, high:4 },
 };
+
+// Real fantasy-playoff (weeks 15-17) strength-of-schedule data, researched
+// per-team (not per-player — see the earlier audit that found per-player
+// schedule grades in this dataset were internally inconsistent 32/33 teams
+// and unusable as signal). For each team: their real weeks-15-17 opponents,
+// each opponent's 2025 defensive rank (1 = toughest, 32 = easiest) split by
+// run defense (rushing yards allowed/game) and pass defense (passing yards
+// allowed/game), averaged across the three games. RB matchups use the run
+// column; WR/TE/QB use the pass column — a team can be a tough matchup for
+// one and an easy one for the other, which a single team-wide grade can't
+// capture. DST/K aren't covered (out of scope here; grading a defense's own
+// matchups needs the opposing OFFENSE's strength, a different calculation).
+const TEAM_SCHEDULE_DIFFICULTY = {
+  ARI:{avgOppRunRank:21.67,avgOppPassRank:11.67}, ATL:{avgOppRunRank:18.00,avgOppPassRank:19.67},
+  BAL:{avgOppRunRank:20.33,avgOppPassRank:19.33}, BUF:{avgOppRunRank:18.33,avgOppPassRank:15.67},
+  CAR:{avgOppRunRank:16.00,avgOppPassRank:21.67}, CHI:{avgOppRunRank:20.00,avgOppPassRank:10.67},
+  CIN:{avgOppRunRank:12.33,avgOppPassRank:25.33}, CLE:{avgOppRunRank:16.00,avgOppPassRank:25.67},
+  DAL:{avgOppRunRank:14.67,avgOppPassRank:18.67}, DEN:{avgOppRunRank:17.00,avgOppPassRank:8.00},
+  DET:{avgOppRunRank:26.33,avgOppPassRank:13.33}, GB:{avgOppRunRank:19.00,avgOppPassRank:15.33},
+  HOU:{avgOppRunRank:13.67,avgOppPassRank:13.33}, IND:{avgOppRunRank:21.00,avgOppPassRank:17.33},
+  JAX:{avgOppRunRank:19.00,avgOppPassRank:22.00}, KC:{avgOppRunRank:8.33,avgOppPassRank:13.00},
+  LAC:{avgOppRunRank:15.33,avgOppPassRank:18.33}, LAR:{avgOppRunRank:10.33,avgOppPassRank:23.00},
+  LV:{avgOppRunRank:14.00,avgOppPassRank:18.00}, MIA:{avgOppRunRank:18.00,avgOppPassRank:5.67},
+  MIN:{avgOppRunRank:24.33,avgOppPassRank:21.67}, NE:{avgOppRunRank:13.33,avgOppPassRank:12.00},
+  NO:{avgOppRunRank:18.00,avgOppPassRank:21.33}, NYG:{avgOppRunRank:17.67,avgOppPassRank:18.33},
+  NYJ:{avgOppRunRank:17.33,avgOppPassRank:11.67}, PHI:{avgOppRunRank:6.00,avgOppPassRank:13.67},
+  PIT:{avgOppRunRank:15.00,avgOppPassRank:22.67}, SEA:{avgOppRunRank:18.00,avgOppPassRank:14.00},
+  SF:{avgOppRunRank:13.00,avgOppPassRank:8.33}, TB:{avgOppRunRank:18.33,avgOppPassRank:12.00},
+  TEN:{avgOppRunRank:12.33,avgOppPassRank:24.67}, WAS:{avgOppRunRank:15.33,avgOppPassRank:12.00},
+};
+// Kept deliberately modest — this is a real but soft signal (a single
+// preseason-era defensive-rank proxy, not live injury/depth-chart news the
+// way risk/red-zone data is), so its max swing sits below BYE_CONFLICT_PENALTY
+// and well below RISK_PENALTY's ceiling. Symmetric (bonus for an easy
+// slate, penalty for a hard one) rather than penalty-only, since a
+// favorable schedule is a real edge, not just "no downside."
+const SCHEDULE_DIFFICULTY_CLAMP = { early:5, mid:4, late:3 };
+function scheduleDifficultyBonus(player, stage){
+  const sched = TEAM_SCHEDULE_DIFFICULTY[player.team];
+  if(!sched) return 0;
+  const rank = player.position==='RB' ? sched.avgOppRunRank
+             : (player.position==='WR' || player.position==='TE' || player.position==='QB') ? sched.avgOppPassRank
+             : null;
+  if(rank===null) return 0;
+  // rank runs ~1 (hardest slate) to ~32 (easiest); center on the 16.5
+  // midpoint so an average schedule nets to 0, not a penalty.
+  const difficulty = (rank - 16.5) / 15.5; // +1 = easiest possible, -1 = hardest possible
+  const clamp = SCHEDULE_DIFFICULTY_CLAMP[stage] ?? SCHEDULE_DIFFICULTY_CLAMP.late;
+  return Math.max(-clamp, Math.min(clamp, Math.round(difficulty*clamp)));
+}
 // How much weight each position's score gives to the model's own math vs.
 // real market ADP (1.0 = pure model, lower = more ADP-driven) — see the
 // top-level blend at the end of scorePlayer()/computeBigBoardScore().
@@ -1161,10 +1211,12 @@ function scorePlayer(player){
   const needMult = needMultiplierFor(player.position);
   const competitionPenalty = teamCompetitionPenalty(player);
   const rzBonus = redZoneBonus(player);
+  const scheduleBonus = scheduleDifficultyBonus(player, stage);
 
   let base = valueScore*SCORE_WEIGHTS.value + scarcityScore*SCORE_WEIGHTS.scarcity;
   base += adpBonus;
   base += rzBonus;
+  base += scheduleBonus;
   base *= needMult;
   base -= byePenalty;
   base -= riskPenalty;
@@ -1182,7 +1234,7 @@ function scorePlayer(player){
     score = Math.max(1, Math.min(100, Math.round(score*dampener + adpPct*(1-dampener))));
   }
 
-  return { score, valueScore, scarcityScore, adpBonus, rzBonus, needMult, byePenalty, riskPenalty, competitionPenalty, deltaPicks, stage };
+  return { score, valueScore, scarcityScore, adpBonus, rzBonus, scheduleBonus, needMult, byePenalty, riskPenalty, competitionPenalty, deltaPicks, stage };
 }
 
 // The "Rankings" tab's big-board score — deliberately independent of the
@@ -1213,8 +1265,11 @@ function computeBigBoardScore(player){
   const flatRiskPenalty = { low:0, medium:6, high:14 }[risk] || 0;
   const competitionPenalty = teamCompetitionPenalty(player);
   const rzBonus = redZoneBonus(player);
+  // No round-stage concept here (this score is roster/draft-progress
+  // independent) — use the "mid" clamp as a fixed middle-ground weight.
+  const scheduleBonus = scheduleDifficultyBonus(player, 'mid');
 
-  let base = valueScore*0.80 + scarcityScore*0.20 + adpBonus + rzBonus - flatRiskPenalty - competitionPenalty;
+  let base = valueScore*0.80 + scarcityScore*0.20 + adpBonus + rzBonus + scheduleBonus - flatRiskPenalty - competitionPenalty;
   let score = Math.max(1, Math.min(100, Math.round(base)));
 
   // Cross-position ADP sanity check — see scorePlayer()'s comment.
@@ -1223,7 +1278,7 @@ function computeBigBoardScore(player){
     score = Math.max(1, Math.min(100, Math.round(score*dampener + adpPct*(1-dampener))));
   }
 
-  return { score, valueScore, scarcityScore, adpBonus, rzBonus, flatRiskPenalty, competitionPenalty, deltaPicks, modelRank };
+  return { score, valueScore, scarcityScore, adpBonus, rzBonus, scheduleBonus, flatRiskPenalty, competitionPenalty, deltaPicks, modelRank };
 }
 
 const PHRASES = {
@@ -1352,6 +1407,15 @@ function buildReasoning(player, comps){
     const topRivals = tc.rivalDetails.slice(0,2).map(r=>`${r.name} (${r.position}, ${Math.round(r.weight*100)}% share overlap)`);
     clauses.push(`⚠ Real target/touch competition on ${player.team} — ${topRivals.join(' and ')}.`);
   }
+  // Only surface when it's a real, near-max swing — a mild ±1 nudge isn't
+  // worth a whole clause, but a clearly-favorable or clearly-tough playoff
+  // slate is worth flagging the same way bye-conflicts and risk are.
+  if(Math.abs(comps.scheduleBonus||0) >= 3){
+    const matchupType = player.position==='RB' ? 'run defenses' : 'pass defenses';
+    clauses.push(comps.scheduleBonus>0
+      ? `Favorable weeks 15-17 schedule against soft ${matchupType}.`
+      : `Tough weeks 15-17 schedule against strong ${matchupType}.`);
+  }
   if(player.valueMetrics && player.valueMetrics.sleeperFlag && player.blurb && player.blurb.sleeperReason){
     clauses.push('◆ ' + player.blurb.sleeperReason);
   }
@@ -1401,6 +1465,15 @@ function scoreBreakdownRows(player, comps){
   }
   const riskPts = comps.riskPenalty !== undefined ? comps.riskPenalty : comps.flatRiskPenalty;
   rows.push({ label: `Injury risk (${riskLabel})`, value: riskPts>0 ? `−${riskPts} pts` : 'no penalty' });
+  const sched = TEAM_SCHEDULE_DIFFICULTY[player.team];
+  if(sched && comps.scheduleBonus !== undefined){
+    const rank = player.position==='RB' ? sched.avgOppRunRank : sched.avgOppPassRank;
+    const matchupType = player.position==='RB' ? 'run defenses' : 'pass defenses';
+    const sb = comps.scheduleBonus;
+    const value = sb===0 ? `neutral — avg. weeks 15-17 opponent rank ${rank.toFixed(1)}/32 vs ${matchupType}`
+      : `${sb>0?'+':''}${sb} pts — avg. weeks 15-17 opponent rank ${rank.toFixed(1)}/32 vs ${matchupType} (${sb>0?'favorable':'difficult'})`;
+    rows.push({ label: 'Playoff-week schedule difficulty', value });
+  }
   return rows;
 }
 
@@ -1417,6 +1490,7 @@ function buildCompareVerdict(entries){
     { label:'injury risk', delta: runnerUpRisk - winnerRisk },
     { label:'team target/touch competition', delta: runnerUp.comps.competitionPenalty - winner.comps.competitionPenalty },
     { label:'red-zone (touchdown-equity) usage', delta: (winner.comps.rzBonus||0) - (runnerUp.comps.rzBonus||0) },
+    { label:'playoff-week schedule difficulty', delta: (winner.comps.scheduleBonus||0) - (runnerUp.comps.scheduleBonus||0) },
   ];
   if(winner.comps.needMult !== undefined && runnerUp.comps.needMult !== undefined){
     diffs.push({ label:'fit with your current roster needs', delta: (winner.comps.needMult - runnerUp.comps.needMult)*40 });
