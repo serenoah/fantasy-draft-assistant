@@ -54,7 +54,7 @@
                     "byeWeek":  8,
                     "adp":  {
                                 "overall":  129.2,
-                                "positionRank":  4,
+                                "positionRank":  5,
                                 "preseasonAug":  106.8
                             },
                     "tier":  3,
@@ -76,7 +76,7 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  114.4,
+                                "overall":  114.2,
                                 "positionRank":  3,
                                 "preseasonAug":  123.6
                             },
@@ -99,7 +99,7 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  188.5,
+                                "overall":  188.4,
                                 "positionRank":  18,
                                 "preseasonAug":  129.0
                             },
@@ -145,8 +145,8 @@
                     "position":  "DST",
                     "byeWeek":  7,
                     "adp":  {
-                                "overall":  129.6,
-                                "positionRank":  5,
+                                "overall":  129.2,
+                                "positionRank":  4,
                                 "preseasonAug":  136.9
                             },
                     "tier":  1,
@@ -168,7 +168,7 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  141.2,
+                                "overall":  141,
                                 "positionRank":  7,
                                 "preseasonAug":  140.1
                             },
@@ -191,7 +191,7 @@
                     "position":  "DST",
                     "byeWeek":  10,
                     "adp":  {
-                                "overall":  168.7,
+                                "overall":  168.6,
                                 "positionRank":  12,
                                 "preseasonAug":  141.9
                             },
@@ -237,7 +237,7 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  172.7,
+                                "overall":  172.6,
                                 "positionRank":  13,
                                 "preseasonAug":  152.0
                             },
@@ -260,7 +260,7 @@
                     "position":  "DST",
                     "byeWeek":  9,
                     "adp":  {
-                                "overall":  135.9,
+                                "overall":  136.3,
                                 "positionRank":  6,
                                 "preseasonAug":  156.2
                             },
@@ -284,7 +284,7 @@
                     "byeWeek":  11,
                     "adp":  {
                                 "overall":  203.6,
-                                "positionRank":  25,
+                                "positionRank":  26,
                                 "preseasonAug":  157.2
                             },
                     "tier":  6,
@@ -306,7 +306,7 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  161.4,
+                                "overall":  161.5,
                                 "positionRank":  10,
                                 "preseasonAug":  158.1
                             },
@@ -375,8 +375,8 @@
                     "position":  "DST",
                     "byeWeek":  14,
                     "adp":  {
-                                "overall":  203.6,
-                                "positionRank":  27,
+                                "overall":  203.5,
+                                "positionRank":  25,
                                 "preseasonAug":  163.9
                             },
                     "tier":  6,
@@ -398,7 +398,7 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  153.3,
+                                "overall":  153.4,
                                 "positionRank":  9,
                                 "preseasonAug":  164.1
                             },
@@ -467,7 +467,7 @@
                     "position":  "DST",
                     "byeWeek":  5,
                     "adp":  {
-                                "overall":  162.4,
+                                "overall":  162.3,
                                 "positionRank":  11,
                                 "preseasonAug":  175.2
                             },
@@ -490,7 +490,7 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  180.6,
+                                "overall":  180.3,
                                 "positionRank":  15,
                                 "preseasonAug":  176.3
                             },
@@ -536,7 +536,7 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  201.4,
+                                "overall":  201.2,
                                 "positionRank":  24,
                                 "preseasonAug":  179.9
                             },
@@ -675,7 +675,7 @@
                     "byeWeek":  13,
                     "adp":  {
                                 "overall":  203.6,
-                                "positionRank":  26,
+                                "positionRank":  27,
                                 "preseasonAug":  201.5
                             },
                     "tier":  4,
@@ -745,7 +745,7 @@
                   "position":  "K",
                   "byeWeek":  14,
                   "adp":  {
-                              "overall":  82.7,
+                              "overall":  82.8,
                               "positionRank":  1,
                               "preseasonAug":  130.1
                           },
@@ -768,7 +768,7 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  143.8,
+                              "overall":  144.2,
                               "positionRank":  5,
                               "preseasonAug":  141.0
                           },
@@ -791,7 +791,7 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  135.2,
+                              "overall":  135,
                               "positionRank":  3,
                               "preseasonAug":  144.0
                           },
@@ -814,7 +814,7 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  151.2,
+                              "overall":  151.3,
                               "positionRank":  7,
                               "preseasonAug":  146.5
                           },
@@ -837,7 +837,7 @@
                   "position":  "K",
                   "byeWeek":  7,
                   "adp":  {
-                              "overall":  154.8,
+                              "overall":  154.9,
                               "positionRank":  8,
                               "preseasonAug":  148.4
                           },
@@ -860,7 +860,7 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  159.6,
+                              "overall":  159.8,
                               "positionRank":  11,
                               "preseasonAug":  150.1
                           },
@@ -883,8 +883,8 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  178.8,
-                              "positionRank":  15,
+                              "overall":  178.3,
+                              "positionRank":  14,
                               "preseasonAug":  154.2
                           },
                   "tier":  3,
@@ -906,8 +906,8 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  178.3,
-                              "positionRank":  14,
+                              "overall":  178.5,
+                              "positionRank":  15,
                               "preseasonAug":  156.6
                           },
                   "tier":  3,
@@ -929,7 +929,7 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  163.8,
+                              "overall":  163.9,
                               "positionRank":  12,
                               "preseasonAug":  157.8
                           },
@@ -1021,7 +1021,7 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  140.6,
+                              "overall":  140.1,
                               "positionRank":  4,
                               "preseasonAug":  163.2
                           },
@@ -1090,7 +1090,7 @@
                   "position":  "K",
                   "byeWeek":  5,
                   "adp":  {
-                              "overall":  154.9,
+                              "overall":  155.2,
                               "positionRank":  9,
                               "preseasonAug":  166.4
                           },
@@ -1159,7 +1159,7 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  211.4,
+                              "overall":  211.3,
                               "positionRank":  20,
                               "preseasonAug":  176.2
                           },
@@ -1251,7 +1251,7 @@
                   "position":  "K",
                   "byeWeek":  14,
                   "adp":  {
-                              "overall":  212.4,
+                              "overall":  212.6,
                               "positionRank":  22,
                               "preseasonAug":  192.0
                           },
