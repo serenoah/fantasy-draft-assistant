@@ -20,7 +20,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Loaded pass rush and elite secondary make this the ADP darling of 2026 drafts."
                 },
                 {
                     "id":  "sea-dst",
@@ -42,7 +43,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Allowed the fewest points per game in the NFL last season."
                 },
                 {
                     "id":  "hou-dst",
@@ -64,7 +66,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Disruptive front seven with high sack and turnover upside."
                 },
                 {
                     "id":  "min-dst",
@@ -73,7 +76,7 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  114.5,
+                                "overall":  114.4,
                                 "positionRank":  3,
                                 "preseasonAug":  123.6
                             },
@@ -86,7 +89,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Opportunistic ball-hawking defense that finished top-5 in scoring last year."
                 },
                 {
                     "id":  "det-dst",
@@ -108,7 +112,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Physical front four generates consistent pressure without needing exotic blitzes."
                 },
                 {
                     "id":  "lar-dst",
@@ -130,7 +135,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Aggressive pass rush paired with a favorable early-season schedule."
                 },
                 {
                     "id":  "jax-dst",
@@ -139,7 +145,7 @@
                     "position":  "DST",
                     "byeWeek":  7,
                     "adp":  {
-                                "overall":  129.4,
+                                "overall":  129.6,
                                 "positionRank":  5,
                                 "preseasonAug":  136.9
                             },
@@ -152,7 +158,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Retooled front seven with breakout sack upside."
                 },
                 {
                     "id":  "ne-dst",
@@ -161,7 +168,7 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  141,
+                                "overall":  141.2,
                                 "positionRank":  7,
                                 "preseasonAug":  140.1
                             },
@@ -174,7 +181,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Improved secondary and creative scheme boosted takeaway numbers."
                 },
                 {
                     "id":  "phi-dst",
@@ -196,7 +204,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Star-studded front four has finished top-7 in DST scoring in back-to-back years."
                 },
                 {
                     "id":  "lac-dst",
@@ -218,7 +227,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Elite pass rush duo anchors a defense trending upward."
                 },
                 {
                     "id":  "atl-dst",
@@ -227,7 +237,7 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  172.4,
+                                "overall":  172.7,
                                 "positionRank":  13,
                                 "preseasonAug":  152.0
                             },
@@ -240,7 +250,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Defense taking a step forward but still finds itself in shootouts."
                 },
                 {
                     "id":  "pit-dst",
@@ -262,7 +273,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Blitz-heavy scheme keeps sack and turnover totals high."
                 },
                 {
                     "id":  "gb-dst",
@@ -284,7 +296,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Talented front seven took a hit losing key edge rushers this offseason."
                 },
                 {
                     "id":  "sf-dst",
@@ -293,7 +306,7 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  161.6,
+                                "overall":  161.4,
                                 "positionRank":  10,
                                 "preseasonAug":  158.1
                             },
@@ -306,7 +319,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Battle-tested unit but riddled with injury question marks."
                 },
                 {
                     "id":  "ten-dst",
@@ -328,7 +342,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Rebuilding front seven limits big-play upside."
                 },
                 {
                     "id":  "chi-dst",
@@ -350,7 +365,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Young defense with league-average upside facing tough divisional offenses."
                 },
                 {
                     "id":  "dal-dst",
@@ -372,7 +388,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Talented individually but leaky against the pass in crunch time."
                 },
                 {
                     "id":  "bal-dst",
@@ -381,7 +398,7 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  153.6,
+                                "overall":  153.3,
                                 "positionRank":  9,
                                 "preseasonAug":  164.1
                             },
@@ -394,7 +411,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "New DC Jesse Minter has this unit trending back toward elite status."
                 },
                 {
                     "id":  "buf-dst",
@@ -416,7 +434,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Solid but unspectacular, hurt by an above-average opposing offense slate."
                 },
                 {
                     "id":  "no-dst",
@@ -438,7 +457,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Rebuilding roster caps upside for standalone streaming value."
                 },
                 {
                     "id":  "kc-dst",
@@ -447,7 +467,7 @@
                     "position":  "DST",
                     "byeWeek":  5,
                     "adp":  {
-                                "overall":  162.6,
+                                "overall":  162.4,
                                 "positionRank":  11,
                                 "preseasonAug":  175.2
                             },
@@ -460,7 +480,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Aging front seven limits pressure and takeaway production."
                 },
                 {
                     "id":  "cin-dst",
@@ -469,7 +490,7 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  180.3,
+                                "overall":  180.6,
                                 "positionRank":  15,
                                 "preseasonAug":  176.3
                             },
@@ -482,7 +503,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Defense remains the weak link on a pass-heavy roster."
                 },
                 {
                     "id":  "nyg-dst",
@@ -491,7 +513,7 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  197,
+                                "overall":  197.1,
                                 "positionRank":  20,
                                 "preseasonAug":  178.1
                             },
@@ -504,7 +526,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Talented pass rush undercut by a shaky secondary."
                 },
                 {
                     "id":  "cle-dst",
@@ -526,7 +549,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Injury-riddled unit carries bust risk despite name recognition."
                 },
                 {
                     "id":  "mia-dst",
@@ -548,7 +572,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Middling unit facing a difficult slate of high-powered offenses."
                 },
                 {
                     "id":  "ind-dst",
@@ -570,7 +595,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Retooling defense still finding its identity."
                 },
                 {
                     "id":  "tb-dst",
@@ -592,7 +618,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Serviceable but unspectacular, better as a streaming option."
                 },
                 {
                     "id":  "car-dst",
@@ -614,7 +641,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Rebuilding roster keeps this unit firmly in the fringe streamer tier."
                 },
                 {
                     "id":  "wsh-dst",
@@ -636,7 +664,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Improved offense won\u0027t be enough to mask defensive shortcomings."
                 },
                 {
                     "id":  "lv-dst",
@@ -658,7 +687,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Thin roster and difficult schedule limit weekly ceiling."
                 },
                 {
                     "id":  "nyj-dst",
@@ -667,7 +697,7 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  206.1,
+                                "overall":  206,
                                 "positionRank":  28,
                                 "preseasonAug":  205.2
                             },
@@ -680,7 +710,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Talented pieces undercut by inconsistent scheme execution."
                 },
                 {
                     "id":  "ari-dst",
@@ -702,7 +733,8 @@
                              },
                     "newsLog":  [
 
-                                ]
+                                ],
+                    "preseasonNotes":  "Bottom-of-the-barrel unit best left for streaming only."
                 }
             ],
     "K":  [
@@ -713,7 +745,7 @@
                   "position":  "K",
                   "byeWeek":  14,
                   "adp":  {
-                              "overall":  83,
+                              "overall":  82.7,
                               "positionRank":  1,
                               "preseasonAug":  130.1
                           },
@@ -726,7 +758,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "The gold standard at kicker, finishing 1st, 1st, or 3rd in fantasy scoring in each of his first three seasons."
               },
               {
                   "id":  "jason-myers-sea-k",
@@ -748,7 +781,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Consistent accuracy behind a run-heavy, red-zone-efficient offense."
               },
               {
                   "id":  "kaimi-fairbairn-hou-k",
@@ -757,7 +791,7 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  135,
+                              "overall":  135.2,
                               "positionRank":  3,
                               "preseasonAug":  144.0
                           },
@@ -770,7 +804,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Led the league in field goal attempts and makes, topping all kickers in points per game in 2025."
               },
               {
                   "id":  "jake-bates-det-k",
@@ -779,7 +814,7 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  151.3,
+                              "overall":  151.2,
                               "positionRank":  7,
                               "preseasonAug":  146.5
                           },
@@ -792,7 +827,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Big leg paired with a high-powered offense creates a strong scoring floor."
               },
               {
                   "id":  "cameron-dicker-lac-k",
@@ -814,7 +850,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Reliable accuracy on a Chargers offense that frequently stalls into makeable range."
               },
               {
                   "id":  "harrison-mevis-lar-k",
@@ -836,7 +873,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Strong leg attached to a prolific Rams offense."
               },
               {
                   "id":  "cairo-santos-chi-k",
@@ -858,7 +896,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Steady veteran accuracy anchoring an improving Bears offense."
               },
               {
                   "id":  "chase-mclaughlin-tb-k",
@@ -867,7 +906,7 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  178.6,
+                              "overall":  178.3,
                               "positionRank":  14,
                               "preseasonAug":  156.6
                           },
@@ -880,7 +919,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "High-volume role behind a pass-heavy, red-zone-inconsistent offense."
               },
               {
                   "id":  "eddy-pineiro-sf-k",
@@ -889,7 +929,7 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  163.9,
+                              "overall":  163.8,
                               "positionRank":  12,
                               "preseasonAug":  157.8
                           },
@@ -902,7 +942,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Coming off a career-best season, leading all kickers in accuracy at 96.6%."
               },
               {
                   "id":  "chris-boswell-pit-k",
@@ -911,7 +952,7 @@
                   "position":  "K",
                   "byeWeek":  9,
                   "adp":  {
-                              "overall":  177.1,
+                              "overall":  177,
                               "positionRank":  13,
                               "preseasonAug":  159.8
                           },
@@ -924,7 +965,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Long track record of accuracy from distance."
               },
               {
                   "id":  "cam-little-jax-k",
@@ -946,7 +988,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Big leg on a young Jaguars offense that should generate plenty of scoring chances."
               },
               {
                   "id":  "tyler-loop-bal-k",
@@ -968,7 +1011,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Strong-legged rookie stepping into a high-scoring Ravens offense."
               },
               {
                   "id":  "will-reichard-min-k",
@@ -990,7 +1034,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Steady second-year kicker behind an efficient Vikings offense."
               },
               {
                   "id":  "tyler-bass-buf-k",
@@ -1012,7 +1057,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "High-powered Bills offense provides a strong weekly floor."
               },
               {
                   "id":  "andy-borregales-ne-k",
@@ -1021,7 +1067,7 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  200,
+                              "overall":  200.2,
                               "positionRank":  18,
                               "preseasonAug":  166.2
                           },
@@ -1034,7 +1080,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Rookie leg on a Patriots offense trending upward."
               },
               {
                   "id":  "harrison-butker-kc-k",
@@ -1056,7 +1103,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Elite career accuracy though the Chiefs offense has cooled somewhat."
               },
               {
                   "id":  "nick-folk-atl-k",
@@ -1065,7 +1113,7 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  204,
+                              "overall":  204.2,
                               "positionRank":  19,
                               "preseasonAug":  166.7
                           },
@@ -1078,7 +1126,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Veteran accuracy behind a run-first Falcons offense."
               },
               {
                   "id":  "evan-mcpherson-cin-k",
@@ -1087,7 +1136,7 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  150.4,
+                              "overall":  150,
                               "positionRank":  6,
                               "preseasonAug":  169.1
                           },
@@ -1100,7 +1149,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Talented leg but inconsistent volume behind a boom-or-bust offense."
               },
               {
                   "id":  "wil-lutz-den-k",
@@ -1122,7 +1172,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Aging veteran on a Broncos offense that has improved under center."
               },
               {
                   "id":  "jake-elliott-phi-k",
@@ -1144,7 +1195,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Reliable veteran behind an efficient, red-zone-heavy Eagles offense."
               },
               {
                   "id":  "charlie-smyth-no-k",
@@ -1166,7 +1218,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Rookie leg on a rebuilding, lower-scoring Saints offense."
               },
               {
                   "id":  "blake-grupe-ind-k",
@@ -1188,7 +1241,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Serviceable option on a run-heavy, ball-control Colts offense."
               },
               {
                   "id":  "chad-ryland-ari-k",
@@ -1197,7 +1251,7 @@
                   "position":  "K",
                   "byeWeek":  14,
                   "adp":  {
-                              "overall":  212.6,
+                              "overall":  212.4,
                               "positionRank":  22,
                               "preseasonAug":  192.0
                           },
@@ -1210,7 +1264,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Inconsistent accuracy caps his weekly ceiling."
               },
               {
                   "id":  "zane-gonzalez-mia-k",
@@ -1232,7 +1287,8 @@
                            },
                   "newsLog":  [
 
-                              ]
+                              ],
+                  "preseasonNotes":  "Steady veteran but limited by a middling Dolphins offense."
               }
           ]
 }
