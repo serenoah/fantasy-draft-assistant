@@ -44,8 +44,13 @@ $diag = @"
 </script>
 "@
 [IO.File]::WriteAllText("$Work\diag_data.html", $h.Replace('</body>', $diag + '</body>'), (New-Object Text.UTF8Encoding $false))
-$edge = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"
-& $edge --headless=new --disable-gpu --no-sandbox --dump-dom --virtual-time-budget=60000 "file:///$($Work -replace '\\','/')/diag_data.html" 2>$null | Out-File -Encoding utf8 "$Work\dump_data.html"
+Add-Type -AssemblyName System.Web
+$edge = @("${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | ? { Test-Path $_ } | Select -First 1
+if(-not $edge){ throw 'Microsoft Edge not found' }
+# Start-Process with file redirection: the & call operator loses Edge's stdout in some states (e.g. a staged
+# Edge update), and Edge's harmless stderr noise would trip a caller's ErrorActionPreference=Stop.
+$edgeArgs = @('--headless=new','--disable-gpu','--no-sandbox',"--user-data-dir=$Work\edge-profile",'--dump-dom','--virtual-time-budget=60000',"file:///$($Work -replace '\\','/')/diag_data.html")
+Start-Process -FilePath $edge -ArgumentList $edgeArgs -RedirectStandardOutput "$Work\dump_data.html" -RedirectStandardError "$Work\edge_stderr.txt" -Wait -NoNewWindow
 $mt = [regex]::Match([IO.File]::ReadAllText("$Work\dump_data.html"), 'id="diagResults">([^<]*)')
 if(-not $mt.Success){ 'NO RESULTS DIV'; return }
 [System.Web.HttpUtility]::HtmlDecode($mt.Groups[1].Value) | ConvertFrom-Json | ConvertTo-Json -Depth 4

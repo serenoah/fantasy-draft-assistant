@@ -1,11 +1,14 @@
 # In-season refresh of players.json / dstk.json from ESPN + Sleeper public API data (merged.json from merge.ps1).
-param([string]$Repo, [string]$Merged, [string]$TeamsFile, [string]$OutDir, [string]$AsOf = '2026-10-07')
-$CUR_WEEK = 5; $LAST_WEEK = 18   # ESPN season projections run through NFL week 18
+param([string]$Repo, [string]$Merged, [string]$TeamsFile, [string]$OutDir, [string]$AsOf = (Get-Date -Format 'yyyy-MM-dd'), [int]$CurWeek = 5)
+$CUR_WEEK = $CurWeek; $LAST_WEEK = 18   # ESPN season projections run through NFL week 18
 
 $m = Get-Content -Raw $Merged | ConvertFrom-Json
 $byId = @{}; $m.matched | % { $byId[$_.id] = $_ }
 $byes = @{}; ([IO.File]::ReadAllText($TeamsFile) | ConvertFrom-Json).settings.proTeams | % { $a=$_.abbrev.ToUpper(); if($a -eq 'WSH'){$a='WAS'}; $byes[$a] = [int]$_.byeWeek }
 
+# Safe to re-run weekly: preseason values are captured once and never overwritten.
+function Keep($obj, $name, $value){ if(-not $obj.PSObject.Properties[$name]){ $obj | Add-Member -NotePropertyName $name -NotePropertyValue $value } }
+function AfterMarker([string]$text, [string]$marker){ if($text -and $text.Contains($marker)){ $text.Substring($text.IndexOf($marker) + $marker.Length) } else { $text } }
 function RemGames($team){ $n = $LAST_WEEK - $CUR_WEEK + 1; $b = $byes[$team]; if($b -ge $CUR_WEEK -and $b -le $LAST_WEEK){ $n-- }; $n }
 function InjLabel($e, $s){
   $st = if($e){ $e.inj } else { $null }
@@ -83,8 +86,8 @@ foreach($p in $players){
   # Preseason injury concern that is now playing healthy every week: soften to medium.
   if($inj -eq 'ACTIVE' -and $is -and $is.gp -ge 3 -and $p.risk.injuryRisk -eq 'high'){ $p.risk.injuryRisk = 'medium'; $log.Add("RISK $($p.name): high -> medium (active, $($is.gp) games played)") }
 
-  $p.adp | Add-Member -NotePropertyName preseasonAug -NotePropertyValue $p.adp.overall -Force
-  $p.adp | Add-Member -NotePropertyName _pre -NotePropertyValue ([math]::Round((PreseasonAdp $mm $p.adp.overall),1)) -Force
+  Keep $p.adp 'preseasonAug' $p.adp.overall
+  $p.adp | Add-Member -NotePropertyName _pre -NotePropertyValue ([math]::Round((PreseasonAdp $mm $p.adp.preseasonAug),1)) -Force
   $p.adp.source = 'espn+sleeper-ppr-adp blended with rest-of-season position rank'
   $p.adp.asOf = $AsOf
 
@@ -93,11 +96,12 @@ foreach($p in $players){
   $ros = if($is -and $is.rosAvg -gt 0){ "ESPN projects {0:N1} PPG rest of season" -f $is.rosAvg } else { 'ESPN has no rest-of-season projection for him' }
   $injTxt = if($inj -eq 'NOT_ON_ROSTER'){ ' Not currently on an NFL roster.' } elseif($inj -ne 'ACTIVE'){ " Currently $(PrettyInj $inj) (as of $AsOf)." } else { '' }
   $teamTxt = if($newTeam -ne $oldTeam){ " Now with $newTeam (previously $oldTeam)." } else { '' }
-  $p.blurb | Add-Member -NotePropertyName preseasonSummary -NotePropertyValue $p.blurb.summary -Force
-  $p.blurb | Add-Member -NotePropertyName preseasonRiskReason -NotePropertyValue $p.blurb.riskReason -Force
+  Keep $p.blurb 'preseasonSummary' $p.blurb.summary
+  Keep $p.blurb 'preseasonRiskReason' $p.blurb.riskReason
+  Keep $p.situation 'preseasonCompetitionNotes' (AfterMarker $p.situation.competitionNotes ' Preseason note: ')
   $p.blurb.summary = "$($p.name) ($($p.team)): $act; $ros.$injTxt$teamTxt"
   $p.blurb.riskReason = if($inj -ne 'ACTIVE'){ "$($p.name) is $(PrettyInj $inj) as of $AsOf (ESPN/Sleeper injury reports)." } else { $null }
-  $p.situation.competitionNotes = "$($p.blurb.summary) Preseason note: $($p.situation.competitionNotes)"
+  $p.situation.competitionNotes = "$($p.blurb.summary) Preseason note: $($p.situation.preseasonCompetitionNotes)"
   $p | Add-Member -NotePropertyName inSeason2026 -NotePropertyValue ([ordered]@{
     asOf=$AsOf; gamesPlayed=$(if($is){$is.gp}else{0}); pprPPG=$(if($is -and $is.act -ne $null){[math]::Round($is.act,2)}else{$null})
     espnRosPPG=$(if($is){[math]::Round($is.rosAvg,2)}else{$null}); espnRosTotal=$(if($is){[math]::Round($is.rosTotal,1)}else{$null})
@@ -150,10 +154,11 @@ foreach($p in @($dk.DST) + @($dk.K)){
   $is = InSeason $mm $p.team
   $old = [double]$p.projSeasonPts
   if($is){ $p.projSeasonPts = [math]::Round($is.ppg * 17) } elseif(-not ($s -and $s.team)){ $p.projSeasonPts = 8 }
-  $p.adp | Add-Member -NotePropertyName preseasonAug -NotePropertyValue $p.adp.overall -Force
-  $p.adp | Add-Member -NotePropertyName _pre -NotePropertyValue ([math]::Round((PreseasonAdp $mm $p.adp.overall),1)) -Force
+  Keep $p.adp 'preseasonAug' $p.adp.overall
+  $p.adp | Add-Member -NotePropertyName _pre -NotePropertyValue ([math]::Round((PreseasonAdp $mm $p.adp.preseasonAug),1)) -Force
+  Keep $p 'preseasonNotes' (AfterMarker $p.notes ' Preseason: ')
   $act = if($is -and $is.act -ne $null){ "{0:N1} pts/game through {1} games in 2026; " -f $is.act,$is.gp } else { '' }
-  $p.notes = "$($act)ESPN rest-of-season projection {0:N1} pts/game (as of $AsOf). Preseason: $($p.notes)" -f $(if($is){$is.rosAvg}else{0})
+  $p.notes = "$($act)ESPN rest-of-season projection {0:N1} pts/game (as of $AsOf). Preseason: $($p.preseasonNotes)" -f $(if($is){$is.rosAvg}else{0})
   $p.meta.lastUpdated = $AsOf
 }
 Rerank (@($dk.DST) + @($dk.K)) { param($x) $x.projSeasonPts }
