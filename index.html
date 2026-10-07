@@ -522,7 +522,7 @@
 
 /* ================= CONFIG ================= */
 const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/serenoah/fantasy-draft-assistant/main/data/';
-const FETCH_TIMEOUT_MS = 4000;
+const FETCH_TIMEOUT_MS = 15000;
 
 const ROSTER_SLOTS = [
   { key:'QB', label:'QB', eligible:['QB'], count:1 },
@@ -625,16 +625,17 @@ const POSITION_VALUE_DAMPENER = { QB: 0.55, TE: 0.15, RB: 0.88, WR: 0.88, DST: 1
 
 /* ================= FALLBACK DATA (used only if both live + no data files are reachable) ============ */
 const FALLBACK_PLAYERS = [
-  mkFallback('ja-marr-chase-cin-wr','Ja\'Marr Chase','CIN','WR',10,1,1),
-  mkFallback('bijan-robinson-atl-rb','Bijan Robinson','ATL','RB',5,2,1),
-  mkFallback('ceedee-lamb-dal-wr','CeeDee Lamb','DAL','WR',10,3,2),
-  mkFallback('justin-jefferson-min-wr','Justin Jefferson','MIN','WR',6,4,3),
-  mkFallback('breece-hall-nyj-rb','Breece Hall','NYJ','RB',9,5,2),
-  mkFallback('jahmyr-gibbs-det-rb','Jahmyr Gibbs','DET','RB',8,6,3),
-  mkFallback('amon-ra-st-brown-det-wr','Amon-Ra St. Brown','DET','WR',8,7,4),
-  mkFallback('christian-mccaffrey-sf-rb','Christian McCaffrey','SF','RB',14,8,4),
-  mkFallback('tyreek-hill-mia-wr','Tyreek Hill','MIA','WR',6,9,5),
-  mkFallback('patrick-mahomes-kc-qb','Patrick Mahomes','KC','QB',6,25,1),
+  // Snapshot of the top of the board from the Oct 7 2026 in-season refresh.
+  mkFallback('jahmyr-gibbs-det-rb','Jahmyr Gibbs','DET','RB',6,1,1),
+  mkFallback('bijan-robinson-atl-rb','Bijan Robinson','ATL','RB',11,5,1),
+  mkFallback('jaxon-smith-njigba-sea-wr','Jaxon Smith-Njigba','SEA','WR',11,5,1),
+  mkFallback('puka-nacua-lar-wr','Puka Nacua','LAR','WR',11,6,1),
+  mkFallback('jamarr-chase-cin-wr','Ja\'Marr Chase','CIN','WR',6,8,1),
+  mkFallback('ceedee-lamb-dal-wr','CeeDee Lamb','DAL','WR',14,8,1),
+  mkFallback('amon-ra-st-brown-det-wr','Amon-Ra St. Brown','DET','WR',6,8,1),
+  mkFallback('christian-mccaffrey-sf-rb','Christian McCaffrey','SF','RB',8,9,2),
+  mkFallback('kenneth-walker-kc-rb','Kenneth Walker III','KC','RB',5,10,1),
+  mkFallback('josh-allen-buf-qb','Josh Allen','BUF','QB',7,17,1),
 ];
 function mkFallback(id,name,team,pos,bye,adpOverall,tier){
   return {
@@ -713,12 +714,16 @@ function normalizePlayers(list){
 
 async function loadData(){
   const statusEl = document.getElementById('dataStatusLine');
-  // 1) Try live GitHub data (freshest, updated daily by cron).
+  // 1) Try live GitHub data (freshest, updated daily by cron). players.json is
+  // ~900KB, so allow a generous timeout and one retry — on file:// pages the
+  // local-file step below is blocked by the browser, so a failure here drops
+  // straight to the tiny placeholder list.
+  const fetchLive = () => Promise.all([
+    fetchWithTimeout(GITHUB_RAW_BASE + 'players.json', FETCH_TIMEOUT_MS),
+    fetchWithTimeout(GITHUB_RAW_BASE + 'dstk.json', FETCH_TIMEOUT_MS),
+  ]);
   try {
-    const [players, dstk] = await Promise.all([
-      fetchWithTimeout(GITHUB_RAW_BASE + 'players.json', FETCH_TIMEOUT_MS),
-      fetchWithTimeout(GITHUB_RAW_BASE + 'dstk.json', FETCH_TIMEOUT_MS),
-    ]);
+    const [players, dstk] = await fetchLive().catch(fetchLive);
     ALL_PLAYERS = normalizePlayers(players.concat(dstk.DST || [], dstk.K || []));
     DATA_SOURCE = 'live';
   } catch(e){
@@ -746,6 +751,10 @@ async function loadData(){
   computeTeamCompetition();
   const srcLabel = DATA_SOURCE==='live' ? 'Live data from GitHub' : DATA_SOURCE==='local' ? 'Local data file' : 'Fallback placeholder data (limited) — connect to internet and reload for full rankings';
   statusEl.textContent = `${srcLabel} · ${ALL_PLAYERS.length} players loaded${DATA_AS_OF ? ' · as of '+DATA_AS_OF : ''}`;
+  if(DATA_SOURCE === 'fallback'){
+    statusEl.textContent = '⚠ ' + statusEl.textContent + ' — DO NOT DRAFT FROM THESE RANKINGS';
+    statusEl.style.cssText = 'color:#fff;background:#b3261e;padding:8px 12px;border-radius:6px;font-weight:700;';
+  }
   document.getElementById('rosterSlotsDisplay').textContent = ROSTER_SLOTS.map(s=>`${s.count}x ${s.label}`).join(', ');
 }
 

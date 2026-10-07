@@ -7,14 +7,15 @@
                     "position":  "DST",
                     "byeWeek":  10,
                     "adp":  {
-                                "overall":  96.2,
-                                "positionRank":  1
+                                "overall":  146.3,
+                                "positionRank":  8,
+                                "preseasonAug":  96.2
                             },
-                    "tier":  1,
-                    "projSeasonPts":  132,
-                    "notes":  "Loaded pass rush and elite secondary make this the ADP darling of 2026 drafts.",
+                    "tier":  3,
+                    "projSeasonPts":  80,
+                    "notes":  "5.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.5 pts/game (as of 2026-10-07). Preseason: Loaded pass rush and elite secondary make this the ADP darling of 2026 drafts.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -28,14 +29,15 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  98.1,
-                                "positionRank":  2
+                                "overall":  93.2,
+                                "positionRank":  1,
+                                "preseasonAug":  98.1
                             },
                     "tier":  1,
-                    "projSeasonPts":  130,
-                    "notes":  "Allowed the fewest points per game in the NFL last season.",
+                    "projSeasonPts":  114,
+                    "notes":  "10.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.6 pts/game (as of 2026-10-07). Preseason: Allowed the fewest points per game in the NFL last season.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -49,14 +51,15 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  106.8,
-                                "positionRank":  3
+                                "overall":  129.2,
+                                "positionRank":  4,
+                                "preseasonAug":  106.8
                             },
-                    "tier":  1,
-                    "projSeasonPts":  128,
-                    "notes":  "Disruptive front seven with high sack and turnover upside.",
+                    "tier":  3,
+                    "projSeasonPts":  83,
+                    "notes":  "4.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.2 pts/game (as of 2026-10-07). Preseason: Disruptive front seven with high sack and turnover upside.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -70,14 +73,15 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  123.6,
-                                "positionRank":  4
+                                "overall":  114.5,
+                                "positionRank":  3,
+                                "preseasonAug":  123.6
                             },
-                    "tier":  2,
-                    "projSeasonPts":  118,
-                    "notes":  "Opportunistic ball-hawking defense that finished top-5 in scoring last year.",
+                    "tier":  1,
+                    "projSeasonPts":  122,
+                    "notes":  "12.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.4 pts/game (as of 2026-10-07). Preseason: Opportunistic ball-hawking defense that finished top-5 in scoring last year.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -91,14 +95,15 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  129.0,
-                                "positionRank":  5
+                                "overall":  188.5,
+                                "positionRank":  18,
+                                "preseasonAug":  129.0
                             },
-                    "tier":  3,
-                    "projSeasonPts":  108,
-                    "notes":  "Physical front four generates consistent pressure without needing exotic blitzes.",
+                    "tier":  5,
+                    "projSeasonPts":  49,
+                    "notes":  "1.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.3 pts/game (as of 2026-10-07). Preseason: Physical front four generates consistent pressure without needing exotic blitzes.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -112,14 +117,15 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  132.9,
-                                "positionRank":  6
+                                "overall":  106.6,
+                                "positionRank":  2,
+                                "preseasonAug":  132.9
                             },
                     "tier":  1,
-                    "projSeasonPts":  124,
-                    "notes":  "Aggressive pass rush paired with a favorable early-season schedule.",
+                    "projSeasonPts":  97,
+                    "notes":  "6.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.7 pts/game (as of 2026-10-07). Preseason: Aggressive pass rush paired with a favorable early-season schedule.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -133,14 +139,15 @@
                     "position":  "DST",
                     "byeWeek":  7,
                     "adp":  {
-                                "overall":  136.9,
-                                "positionRank":  7
+                                "overall":  129.4,
+                                "positionRank":  5,
+                                "preseasonAug":  136.9
                             },
-                    "tier":  3,
-                    "projSeasonPts":  106,
-                    "notes":  "Retooled front seven with breakout sack upside.",
+                    "tier":  1,
+                    "projSeasonPts":  105,
+                    "notes":  "8.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.7 pts/game (as of 2026-10-07). Preseason: Retooled front seven with breakout sack upside.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -154,14 +161,15 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  140.1,
-                                "positionRank":  8
+                                "overall":  141,
+                                "positionRank":  7,
+                                "preseasonAug":  140.1
                             },
                     "tier":  2,
-                    "projSeasonPts":  114,
-                    "notes":  "Improved secondary and creative scheme boosted takeaway numbers.",
+                    "projSeasonPts":  95,
+                    "notes":  "8.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.8 pts/game (as of 2026-10-07). Preseason: Improved secondary and creative scheme boosted takeaway numbers.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -175,14 +183,15 @@
                     "position":  "DST",
                     "byeWeek":  10,
                     "adp":  {
-                                "overall":  141.9,
-                                "positionRank":  9
+                                "overall":  168.7,
+                                "positionRank":  12,
+                                "preseasonAug":  141.9
                             },
-                    "tier":  2,
-                    "projSeasonPts":  112,
-                    "notes":  "Star-studded front four has finished top-7 in DST scoring in back-to-back years.",
+                    "tier":  4,
+                    "projSeasonPts":  63,
+                    "notes":  "2.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.1 pts/game (as of 2026-10-07). Preseason: Star-studded front four has finished top-7 in DST scoring in back-to-back years.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -196,14 +205,15 @@
                     "position":  "DST",
                     "byeWeek":  7,
                     "adp":  {
-                                "overall":  146.1,
-                                "positionRank":  10
+                                "overall":  186.9,
+                                "positionRank":  17,
+                                "preseasonAug":  146.1
                             },
-                    "tier":  3,
-                    "projSeasonPts":  104,
-                    "notes":  "Elite pass rush duo anchors a defense trending upward.",
+                    "tier":  5,
+                    "projSeasonPts":  63,
+                    "notes":  "5.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.1 pts/game (as of 2026-10-07). Preseason: Elite pass rush duo anchors a defense trending upward.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -217,14 +227,15 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  152.0,
-                                "positionRank":  11
+                                "overall":  172.4,
+                                "positionRank":  13,
+                                "preseasonAug":  152.0
                             },
-                    "tier":  4,
-                    "projSeasonPts":  92,
-                    "notes":  "Defense taking a step forward but still finds itself in shootouts.",
+                    "tier":  3,
+                    "projSeasonPts":  85,
+                    "notes":  "4.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.2 pts/game (as of 2026-10-07). Preseason: Defense taking a step forward but still finds itself in shootouts.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -238,14 +249,15 @@
                     "position":  "DST",
                     "byeWeek":  9,
                     "adp":  {
-                                "overall":  156.2,
-                                "positionRank":  12
+                                "overall":  135.9,
+                                "positionRank":  6,
+                                "preseasonAug":  156.2
                             },
-                    "tier":  3,
-                    "projSeasonPts":  102,
-                    "notes":  "Blitz-heavy scheme keeps sack and turnover totals high.",
+                    "tier":  2,
+                    "projSeasonPts":  92,
+                    "notes":  "9.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.2 pts/game (as of 2026-10-07). Preseason: Blitz-heavy scheme keeps sack and turnover totals high.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -259,14 +271,15 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  157.2,
-                                "positionRank":  13
+                                "overall":  203.6,
+                                "positionRank":  25,
+                                "preseasonAug":  157.2
                             },
-                    "tier":  3,
-                    "projSeasonPts":  100,
-                    "notes":  "Talented front seven took a hit losing key edge rushers this offseason.",
+                    "tier":  6,
+                    "projSeasonPts":  44,
+                    "notes":  "3.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 2.3 pts/game (as of 2026-10-07). Preseason: Talented front seven took a hit losing key edge rushers this offseason.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -280,14 +293,15 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  158.1,
-                                "positionRank":  14
+                                "overall":  161.6,
+                                "positionRank":  10,
+                                "preseasonAug":  158.1
                             },
-                    "tier":  4,
+                    "tier":  2,
                     "projSeasonPts":  90,
-                    "notes":  "Battle-tested unit but riddled with injury question marks.",
+                    "notes":  "5.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.2 pts/game (as of 2026-10-07). Preseason: Battle-tested unit but riddled with injury question marks.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -301,14 +315,15 @@
                     "position":  "DST",
                     "byeWeek":  9,
                     "adp":  {
-                                "overall":  160.4,
-                                "positionRank":  15
+                                "overall":  211.8,
+                                "positionRank":  29,
+                                "preseasonAug":  160.4
                             },
                     "tier":  5,
-                    "projSeasonPts":  76,
-                    "notes":  "Rebuilding front seven limits big-play upside.",
+                    "projSeasonPts":  63,
+                    "notes":  "3.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.7 pts/game (as of 2026-10-07). Preseason: Rebuilding front seven limits big-play upside.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -322,14 +337,15 @@
                     "position":  "DST",
                     "byeWeek":  10,
                     "adp":  {
-                                "overall":  161.4,
-                                "positionRank":  16
+                                "overall":  180,
+                                "positionRank":  14,
+                                "preseasonAug":  161.4
                             },
-                    "tier":  4,
-                    "projSeasonPts":  88,
-                    "notes":  "Young defense with league-average upside facing tough divisional offenses.",
+                    "tier":  3,
+                    "projSeasonPts":  83,
+                    "notes":  "8.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.9 pts/game (as of 2026-10-07). Preseason: Young defense with league-average upside facing tough divisional offenses.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -343,14 +359,15 @@
                     "position":  "DST",
                     "byeWeek":  14,
                     "adp":  {
-                                "overall":  163.9,
-                                "positionRank":  17
+                                "overall":  203.6,
+                                "positionRank":  27,
+                                "preseasonAug":  163.9
                             },
-                    "tier":  5,
-                    "projSeasonPts":  74,
-                    "notes":  "Talented individually but leaky against the pass in crunch time.",
+                    "tier":  6,
+                    "projSeasonPts":  37,
+                    "notes":  "0.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 2.8 pts/game (as of 2026-10-07). Preseason: Talented individually but leaky against the pass in crunch time.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -364,14 +381,15 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  164.1,
-                                "positionRank":  18
+                                "overall":  153.6,
+                                "positionRank":  9,
+                                "preseasonAug":  164.1
                             },
                     "tier":  3,
-                    "projSeasonPts":  97,
-                    "notes":  "New DC Jesse Minter has this unit trending back toward elite status.",
+                    "projSeasonPts":  82,
+                    "notes":  "5.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.7 pts/game (as of 2026-10-07). Preseason: New DC Jesse Minter has this unit trending back toward elite status.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -385,14 +403,15 @@
                     "position":  "DST",
                     "byeWeek":  7,
                     "adp":  {
-                                "overall":  165.0,
-                                "positionRank":  19
+                                "overall":  197.4,
+                                "positionRank":  21,
+                                "preseasonAug":  165.0
                             },
-                    "tier":  4,
-                    "projSeasonPts":  86,
-                    "notes":  "Solid but unspectacular, hurt by an above-average opposing offense slate.",
+                    "tier":  5,
+                    "projSeasonPts":  58,
+                    "notes":  "3.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.5 pts/game (as of 2026-10-07). Preseason: Solid but unspectacular, hurt by an above-average opposing offense slate.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -406,14 +425,15 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  168.4,
-                                "positionRank":  20
+                                "overall":  220.4,
+                                "positionRank":  30,
+                                "preseasonAug":  168.4
                             },
-                    "tier":  4,
-                    "projSeasonPts":  84,
-                    "notes":  "Rebuilding roster caps upside for standalone streaming value.",
+                    "tier":  6,
+                    "projSeasonPts":  36,
+                    "notes":  "1.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 2.4 pts/game (as of 2026-10-07). Preseason: Rebuilding roster caps upside for standalone streaming value.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -427,14 +447,15 @@
                     "position":  "DST",
                     "byeWeek":  5,
                     "adp":  {
-                                "overall":  175.2,
-                                "positionRank":  21
+                                "overall":  162.6,
+                                "positionRank":  11,
+                                "preseasonAug":  175.2
                             },
                     "tier":  3,
-                    "projSeasonPts":  94,
-                    "notes":  "Aging front seven limits pressure and takeaway production.",
+                    "projSeasonPts":  90,
+                    "notes":  "5.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 5.1 pts/game (as of 2026-10-07). Preseason: Aging front seven limits pressure and takeaway production.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -448,14 +469,15 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  176.3,
-                                "positionRank":  22
+                                "overall":  180.3,
+                                "positionRank":  15,
+                                "preseasonAug":  176.3
                             },
-                    "tier":  5,
-                    "projSeasonPts":  72,
-                    "notes":  "Defense remains the weak link on a pass-heavy roster.",
+                    "tier":  3,
+                    "projSeasonPts":  85,
+                    "notes":  "7.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.1 pts/game (as of 2026-10-07). Preseason: Defense remains the weak link on a pass-heavy roster.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -469,14 +491,15 @@
                     "position":  "DST",
                     "byeWeek":  8,
                     "adp":  {
-                                "overall":  178.1,
-                                "positionRank":  23
+                                "overall":  197,
+                                "positionRank":  20,
+                                "preseasonAug":  178.1
                             },
                     "tier":  4,
-                    "projSeasonPts":  82,
-                    "notes":  "Talented pass rush undercut by a shaky secondary.",
+                    "projSeasonPts":  73,
+                    "notes":  "7.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.4 pts/game (as of 2026-10-07). Preseason: Talented pass rush undercut by a shaky secondary.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -490,14 +513,15 @@
                     "position":  "DST",
                     "byeWeek":  11,
                     "adp":  {
-                                "overall":  179.9,
-                                "positionRank":  24
+                                "overall":  201.4,
+                                "positionRank":  24,
+                                "preseasonAug":  179.9
                             },
                     "tier":  4,
-                    "projSeasonPts":  80,
-                    "notes":  "Injury-riddled unit carries bust risk despite name recognition.",
+                    "projSeasonPts":  71,
+                    "notes":  "4.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.2 pts/game (as of 2026-10-07). Preseason: Injury-riddled unit carries bust risk despite name recognition.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -511,14 +535,15 @@
                     "position":  "DST",
                     "byeWeek":  6,
                     "adp":  {
-                                "overall":  181.9,
-                                "positionRank":  25
+                                "overall":  227.4,
+                                "positionRank":  32,
+                                "preseasonAug":  181.9
                             },
                     "tier":  6,
-                    "projSeasonPts":  66,
-                    "notes":  "Middling unit facing a difficult slate of high-powered offenses.",
+                    "projSeasonPts":  39,
+                    "notes":  "2.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 2.3 pts/game (as of 2026-10-07). Preseason: Middling unit facing a difficult slate of high-powered offenses.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -532,14 +557,15 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  184.5,
-                                "positionRank":  26
+                                "overall":  200.6,
+                                "positionRank":  22,
+                                "preseasonAug":  184.5
                             },
-                    "tier":  4,
-                    "projSeasonPts":  78,
-                    "notes":  "Retooling defense still finding its identity.",
+                    "tier":  5,
+                    "projSeasonPts":  53,
+                    "notes":  "0.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.9 pts/game (as of 2026-10-07). Preseason: Retooling defense still finding its identity.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -553,14 +579,15 @@
                     "position":  "DST",
                     "byeWeek":  10,
                     "adp":  {
-                                "overall":  189.0,
-                                "positionRank":  27
+                                "overall":  194.4,
+                                "positionRank":  19,
+                                "preseasonAug":  189.0
                             },
-                    "tier":  5,
-                    "projSeasonPts":  70,
-                    "notes":  "Serviceable but unspectacular, better as a streaming option.",
+                    "tier":  4,
+                    "projSeasonPts":  73,
+                    "notes":  "6.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.5 pts/game (as of 2026-10-07). Preseason: Serviceable but unspectacular, better as a streaming option.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -574,14 +601,15 @@
                     "position":  "DST",
                     "byeWeek":  5,
                     "adp":  {
-                                "overall":  192.4,
-                                "positionRank":  28
+                                "overall":  201.2,
+                                "positionRank":  23,
+                                "preseasonAug":  192.4
                             },
-                    "tier":  5,
-                    "projSeasonPts":  68,
-                    "notes":  "Rebuilding roster keeps this unit firmly in the fringe streamer tier.",
+                    "tier":  4,
+                    "projSeasonPts":  65,
+                    "notes":  "4.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.6 pts/game (as of 2026-10-07). Preseason: Rebuilding roster keeps this unit firmly in the fringe streamer tier.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -595,14 +623,15 @@
                     "position":  "DST",
                     "byeWeek":  7,
                     "adp":  {
-                                "overall":  196.8,
-                                "positionRank":  29
+                                "overall":  181.9,
+                                "positionRank":  16,
+                                "preseasonAug":  196.8
                             },
-                    "tier":  6,
-                    "projSeasonPts":  64,
-                    "notes":  "Improved offense won\u0027t be enough to mask defensive shortcomings.",
+                    "tier":  4,
+                    "projSeasonPts":  65,
+                    "notes":  "4.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.7 pts/game (as of 2026-10-07). Preseason: Improved offense won\u0027t be enough to mask defensive shortcomings.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -616,14 +645,15 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  201.5,
-                                "positionRank":  30
+                                "overall":  203.6,
+                                "positionRank":  26,
+                                "preseasonAug":  201.5
                             },
-                    "tier":  6,
-                    "projSeasonPts":  62,
-                    "notes":  "Thin roster and difficult schedule limit weekly ceiling.",
+                    "tier":  4,
+                    "projSeasonPts":  80,
+                    "notes":  "9.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 3.1 pts/game (as of 2026-10-07). Preseason: Thin roster and difficult schedule limit weekly ceiling.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -637,14 +667,15 @@
                     "position":  "DST",
                     "byeWeek":  13,
                     "adp":  {
-                                "overall":  205.2,
-                                "positionRank":  31
+                                "overall":  206.1,
+                                "positionRank":  28,
+                                "preseasonAug":  205.2
                             },
-                    "tier":  6,
-                    "projSeasonPts":  60,
-                    "notes":  "Talented pieces undercut by inconsistent scheme execution.",
+                    "tier":  4,
+                    "projSeasonPts":  76,
+                    "notes":  "4.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 4.4 pts/game (as of 2026-10-07). Preseason: Talented pieces undercut by inconsistent scheme execution.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -658,14 +689,15 @@
                     "position":  "DST",
                     "byeWeek":  14,
                     "adp":  {
-                                "overall":  209.7,
-                                "positionRank":  32
+                                "overall":  220.5,
+                                "positionRank":  31,
+                                "preseasonAug":  209.7
                             },
                     "tier":  6,
-                    "projSeasonPts":  58,
-                    "notes":  "Bottom-of-the-barrel unit best left for streaming only.",
+                    "projSeasonPts":  46,
+                    "notes":  "4.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 2.1 pts/game (as of 2026-10-07). Preseason: Bottom-of-the-barrel unit best left for streaming only.",
                     "meta":  {
-                                 "lastUpdated":  "2026-08-03",
+                                 "lastUpdated":  "2026-10-07",
                                  "dataConfidence":  "medium"
                              },
                     "newsLog":  [
@@ -681,14 +713,15 @@
                   "position":  "K",
                   "byeWeek":  14,
                   "adp":  {
-                              "overall":  130.1,
-                              "positionRank":  1
+                              "overall":  83,
+                              "positionRank":  1,
+                              "preseasonAug":  130.1
                           },
                   "tier":  1,
-                  "projSeasonPts":  145,
-                  "notes":  "The gold standard at kicker, finishing 1st, 1st, or 3rd in fantasy scoring in each of his first three seasons.",
+                  "projSeasonPts":  178,
+                  "notes":  "9.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 10.8 pts/game (as of 2026-10-07). Preseason: The gold standard at kicker, finishing 1st, 1st, or 3rd in fantasy scoring in each of his first three seasons.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -702,14 +735,15 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  141.0,
-                              "positionRank":  2
+                              "overall":  143.8,
+                              "positionRank":  5,
+                              "preseasonAug":  141.0
                           },
-                  "tier":  2,
-                  "projSeasonPts":  138,
-                  "notes":  "Consistent accuracy behind a run-heavy, red-zone-efficient offense.",
+                  "tier":  3,
+                  "projSeasonPts":  143,
+                  "notes":  "7.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.8 pts/game (as of 2026-10-07). Preseason: Consistent accuracy behind a run-heavy, red-zone-efficient offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -723,14 +757,15 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  144.0,
-                              "positionRank":  3
+                              "overall":  135,
+                              "positionRank":  3,
+                              "preseasonAug":  144.0
                           },
-                  "tier":  1,
-                  "projSeasonPts":  136,
-                  "notes":  "Led the league in field goal attempts and makes, topping all kickers in points per game in 2025.",
+                  "tier":  2,
+                  "projSeasonPts":  155,
+                  "notes":  "9.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 9.2 pts/game (as of 2026-10-07). Preseason: Led the league in field goal attempts and makes, topping all kickers in points per game in 2025.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -744,14 +779,15 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  146.5,
-                              "positionRank":  4
+                              "overall":  151.3,
+                              "positionRank":  7,
+                              "preseasonAug":  146.5
                           },
-                  "tier":  3,
-                  "projSeasonPts":  134,
-                  "notes":  "Big leg paired with a high-powered offense creates a strong scoring floor.",
+                  "tier":  2,
+                  "projSeasonPts":  155,
+                  "notes":  "9.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.8 pts/game (as of 2026-10-07). Preseason: Big leg paired with a high-powered offense creates a strong scoring floor.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -765,14 +801,15 @@
                   "position":  "K",
                   "byeWeek":  7,
                   "adp":  {
-                              "overall":  148.4,
-                              "positionRank":  5
+                              "overall":  154.8,
+                              "positionRank":  8,
+                              "preseasonAug":  148.4
                           },
-                  "tier":  1,
-                  "projSeasonPts":  133,
-                  "notes":  "Reliable accuracy on a Chargers offense that frequently stalls into makeable range.",
+                  "tier":  4,
+                  "projSeasonPts":  136,
+                  "notes":  "6.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.7 pts/game (as of 2026-10-07). Preseason: Reliable accuracy on a Chargers offense that frequently stalls into makeable range.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -786,14 +823,15 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  150.1,
-                              "positionRank":  6
+                              "overall":  159.6,
+                              "positionRank":  11,
+                              "preseasonAug":  150.1
                           },
                   "tier":  3,
-                  "projSeasonPts":  130,
-                  "notes":  "Strong leg attached to a prolific Rams offense.",
+                  "projSeasonPts":  143,
+                  "notes":  "6.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 9.0 pts/game (as of 2026-10-07). Preseason: Strong leg attached to a prolific Rams offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -807,14 +845,15 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  154.2,
-                              "positionRank":  7
+                              "overall":  178.8,
+                              "positionRank":  15,
+                              "preseasonAug":  154.2
                           },
                   "tier":  3,
-                  "projSeasonPts":  127,
-                  "notes":  "Steady veteran accuracy anchoring an improving Bears offense.",
+                  "projSeasonPts":  146,
+                  "notes":  "9.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.4 pts/game (as of 2026-10-07). Preseason: Steady veteran accuracy anchoring an improving Bears offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -828,14 +867,15 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  156.6,
-                              "positionRank":  8
+                              "overall":  178.6,
+                              "positionRank":  14,
+                              "preseasonAug":  156.6
                           },
                   "tier":  3,
-                  "projSeasonPts":  125,
-                  "notes":  "High-volume role behind a pass-heavy, red-zone-inconsistent offense.",
+                  "projSeasonPts":  144,
+                  "notes":  "10.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 7.9 pts/game (as of 2026-10-07). Preseason: High-volume role behind a pass-heavy, red-zone-inconsistent offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -849,14 +889,15 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  157.8,
-                              "positionRank":  9
+                              "overall":  163.9,
+                              "positionRank":  12,
+                              "preseasonAug":  157.8
                           },
-                  "tier":  2,
-                  "projSeasonPts":  124,
-                  "notes":  "Coming off a career-best season, leading all kickers in accuracy at 96.6%.",
+                  "tier":  3,
+                  "projSeasonPts":  146,
+                  "notes":  "7.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 9.2 pts/game (as of 2026-10-07). Preseason: Coming off a career-best season, leading all kickers in accuracy at 96.6%.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -870,14 +911,15 @@
                   "position":  "K",
                   "byeWeek":  9,
                   "adp":  {
-                              "overall":  159.8,
-                              "positionRank":  10
+                              "overall":  177.1,
+                              "positionRank":  13,
+                              "preseasonAug":  159.8
                           },
-                  "tier":  3,
-                  "projSeasonPts":  122,
-                  "notes":  "Long track record of accuracy from distance.",
+                  "tier":  4,
+                  "projSeasonPts":  133,
+                  "notes":  "7.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.1 pts/game (as of 2026-10-07). Preseason: Long track record of accuracy from distance.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -891,14 +933,15 @@
                   "position":  "K",
                   "byeWeek":  7,
                   "adp":  {
-                              "overall":  160.9,
-                              "positionRank":  11
+                              "overall":  127.2,
+                              "positionRank":  2,
+                              "preseasonAug":  160.9
                           },
-                  "tier":  2,
-                  "projSeasonPts":  121,
-                  "notes":  "Big leg on a young Jaguars offense that should generate plenty of scoring chances.",
+                  "tier":  1,
+                  "projSeasonPts":  163,
+                  "notes":  "9.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 9.7 pts/game (as of 2026-10-07). Preseason: Big leg on a young Jaguars offense that should generate plenty of scoring chances.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -912,14 +955,15 @@
                   "position":  "K",
                   "byeWeek":  13,
                   "adp":  {
-                              "overall":  161.3,
-                              "positionRank":  12
+                              "overall":  159.2,
+                              "positionRank":  10,
+                              "preseasonAug":  161.3
                           },
                   "tier":  2,
-                  "projSeasonPts":  120,
-                  "notes":  "Strong-legged rookie stepping into a high-scoring Ravens offense.",
+                  "projSeasonPts":  155,
+                  "notes":  "9.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.8 pts/game (as of 2026-10-07). Preseason: Strong-legged rookie stepping into a high-scoring Ravens offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -933,14 +977,15 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  163.2,
-                              "positionRank":  13
+                              "overall":  140.6,
+                              "positionRank":  4,
+                              "preseasonAug":  163.2
                           },
-                  "tier":  3,
-                  "projSeasonPts":  118,
-                  "notes":  "Steady second-year kicker behind an efficient Vikings offense.",
+                  "tier":  1,
+                  "projSeasonPts":  177,
+                  "notes":  "13.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 9.5 pts/game (as of 2026-10-07). Preseason: Steady second-year kicker behind an efficient Vikings offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -954,14 +999,15 @@
                   "position":  "K",
                   "byeWeek":  7,
                   "adp":  {
-                              "overall":  165.9,
-                              "positionRank":  14
+                              "overall":  212.4,
+                              "positionRank":  21,
+                              "preseasonAug":  165.9
                           },
-                  "tier":  4,
-                  "projSeasonPts":  116,
-                  "notes":  "High-powered Bills offense provides a strong weekly floor.",
+                  "tier":  3,
+                  "projSeasonPts":  141,
+                  "notes":  "8.0 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.4 pts/game (as of 2026-10-07). Preseason: High-powered Bills offense provides a strong weekly floor.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -975,14 +1021,15 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  166.2,
-                              "positionRank":  15
+                              "overall":  200,
+                              "positionRank":  18,
+                              "preseasonAug":  166.2
                           },
-                  "tier":  3,
-                  "projSeasonPts":  114,
-                  "notes":  "Rookie leg on a Patriots offense trending upward.",
+                  "tier":  4,
+                  "projSeasonPts":  117,
+                  "notes":  "5.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 7.3 pts/game (as of 2026-10-07). Preseason: Rookie leg on a Patriots offense trending upward.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -996,14 +1043,15 @@
                   "position":  "K",
                   "byeWeek":  5,
                   "adp":  {
-                              "overall":  166.4,
-                              "positionRank":  16
+                              "overall":  154.9,
+                              "positionRank":  9,
+                              "preseasonAug":  166.4
                           },
                   "tier":  3,
-                  "projSeasonPts":  113,
-                  "notes":  "Elite career accuracy though the Chiefs offense has cooled somewhat.",
+                  "projSeasonPts":  153,
+                  "notes":  "8.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 9.1 pts/game (as of 2026-10-07). Preseason: Elite career accuracy though the Chiefs offense has cooled somewhat.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1017,14 +1065,15 @@
                   "position":  "K",
                   "byeWeek":  11,
                   "adp":  {
-                              "overall":  166.7,
-                              "positionRank":  17
+                              "overall":  204,
+                              "positionRank":  19,
+                              "preseasonAug":  166.7
                           },
-                  "tier":  4,
-                  "projSeasonPts":  111,
-                  "notes":  "Veteran accuracy behind a run-first Falcons offense.",
+                  "tier":  3,
+                  "projSeasonPts":  141,
+                  "notes":  "7.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.6 pts/game (as of 2026-10-07). Preseason: Veteran accuracy behind a run-first Falcons offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1038,14 +1087,15 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  169.1,
-                              "positionRank":  18
+                              "overall":  150.4,
+                              "positionRank":  6,
+                              "preseasonAug":  169.1
                           },
-                  "tier":  3,
-                  "projSeasonPts":  109,
-                  "notes":  "Talented leg but inconsistent volume behind a boom-or-bust offense.",
+                  "tier":  2,
+                  "projSeasonPts":  160,
+                  "notes":  "11.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.6 pts/game (as of 2026-10-07). Preseason: Talented leg but inconsistent volume behind a boom-or-bust offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1059,14 +1109,15 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  176.2,
-                              "positionRank":  19
+                              "overall":  211.4,
+                              "positionRank":  20,
+                              "preseasonAug":  176.2
                           },
                   "tier":  4,
-                  "projSeasonPts":  105,
-                  "notes":  "Aging veteran on a Broncos offense that has improved under center.",
+                  "projSeasonPts":  121,
+                  "notes":  "5.5 pts/game through 4 games in 2026; ESPN rest-of-season projection 7.6 pts/game (as of 2026-10-07). Preseason: Aging veteran on a Broncos offense that has improved under center.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1080,14 +1131,15 @@
                   "position":  "K",
                   "byeWeek":  10,
                   "adp":  {
-                              "overall":  180.5,
-                              "positionRank":  20
+                              "overall":  193.9,
+                              "positionRank":  16,
+                              "preseasonAug":  180.5
                           },
                   "tier":  4,
-                  "projSeasonPts":  103,
-                  "notes":  "Reliable veteran behind an efficient, red-zone-heavy Eagles offense.",
+                  "projSeasonPts":  128,
+                  "notes":  "6.3 pts/game through 4 games in 2026; ESPN rest-of-season projection 7.9 pts/game (as of 2026-10-07). Preseason: Reliable veteran behind an efficient, red-zone-heavy Eagles offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1101,14 +1153,15 @@
                   "position":  "K",
                   "byeWeek":  8,
                   "adp":  {
-                              "overall":  184.2,
-                              "positionRank":  21
+                              "overall":  239.6,
+                              "positionRank":  24,
+                              "preseasonAug":  184.2
                           },
                   "tier":  4,
-                  "projSeasonPts":  101,
-                  "notes":  "Rookie leg on a rebuilding, lower-scoring Saints offense.",
+                  "projSeasonPts":  8,
+                  "notes":  "ESPN rest-of-season projection 0.0 pts/game (as of 2026-10-07). Preseason: Rookie leg on a rebuilding, lower-scoring Saints offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1118,18 +1171,19 @@
               {
                   "id":  "blake-grupe-ind-k",
                   "name":  "Blake Grupe",
-                  "team":  "IND",
+                  "team":  "NYJ",
                   "position":  "K",
                   "byeWeek":  13,
                   "adp":  {
-                              "overall":  188.6,
-                              "positionRank":  22
+                              "overall":  198.6,
+                              "positionRank":  17,
+                              "preseasonAug":  188.6
                           },
                   "tier":  4,
-                  "projSeasonPts":  99,
-                  "notes":  "Serviceable option on a run-heavy, ball-control Colts offense.",
+                  "projSeasonPts":  8,
+                  "notes":  "ESPN rest-of-season projection 0.0 pts/game (as of 2026-10-07). Preseason: Serviceable option on a run-heavy, ball-control Colts offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1143,14 +1197,15 @@
                   "position":  "K",
                   "byeWeek":  14,
                   "adp":  {
-                              "overall":  192.0,
-                              "positionRank":  23
+                              "overall":  212.6,
+                              "positionRank":  22,
+                              "preseasonAug":  192.0
                           },
-                  "tier":  4,
-                  "projSeasonPts":  97,
-                  "notes":  "Inconsistent accuracy caps his weekly ceiling.",
+                  "tier":  3,
+                  "projSeasonPts":  146,
+                  "notes":  "9.8 pts/game through 4 games in 2026; ESPN rest-of-season projection 8.2 pts/game (as of 2026-10-07). Preseason: Inconsistent accuracy caps his weekly ceiling.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
@@ -1164,14 +1219,15 @@
                   "position":  "K",
                   "byeWeek":  6,
                   "adp":  {
-                              "overall":  196.5,
-                              "positionRank":  24
+                              "overall":  215,
+                              "positionRank":  23,
+                              "preseasonAug":  196.5
                           },
                   "tier":  4,
-                  "projSeasonPts":  95,
-                  "notes":  "Steady veteran but limited by a middling Dolphins offense.",
+                  "projSeasonPts":  8,
+                  "notes":  "ESPN rest-of-season projection 0.0 pts/game (as of 2026-10-07). Preseason: Steady veteran but limited by a middling Dolphins offense.",
                   "meta":  {
-                               "lastUpdated":  "2026-08-03",
+                               "lastUpdated":  "2026-10-07",
                                "dataConfidence":  "medium"
                            },
                   "newsLog":  [
